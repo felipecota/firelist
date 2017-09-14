@@ -17,7 +17,9 @@ export class CadastroPessoaFormComponent implements OnInit {
     erro: string;
 
     form_submit(f: NgForm) { 
-        if (f.controls.nome.value != "" && f.controls.sobrenome.value != '') {
+        if (!navigator.onLine)
+            this.erro = "App Offline";
+        else if (f.controls.nome.value != "" && f.controls.sobrenome.value != '') {
             this.angularFire.list("pessoas").push(
             {
                 nome: f.controls.nome.value,
@@ -28,9 +30,8 @@ export class CadastroPessoaFormComponent implements OnInit {
             f.controls.nome.setValue('');
             f.controls.sobrenome.setValue('');
             this.erro = '';
-        } else {
+        } else
             this.erro = 'Dados vazios';
-        }
     }
 
 }
