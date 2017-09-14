@@ -18,8 +18,9 @@ export class CadastroPessoaListaComponent implements OnInit {
     ngOnInit() { }
 
     onSelect(key): void {
-      this.angularFire.list("pessoas").remove(key).then(() => console.log('pessoa apagada: ' + key)),
-        (e: any) => console.log(e.message);      
+      if (navigator.onLine)
+        this.angularFire.list("pessoas").remove(key).then(() => console.log('pessoa apagada: ' + key)),
+          (e: any) => console.log(e.message);             
     }
 
 }
