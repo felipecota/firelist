@@ -1,8 +1,9 @@
-<h1>
+<h2>
   Lista de pessoas
-</h1>
-    <ul>
-    <li *ngFor="let p of pessoas | async">
-    {{ p.nome + ' ' + p.sobrenome}}
-    </li>
-    </ul>
+</h2>
+<ul>
+<li *ngFor="let p of pessoas | async"
+  (click)="onSelect(p.$key)">
+  {{p.nome + ' ' + p.sobrenome}}
+</li>
+</ul>
