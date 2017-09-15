@@ -1,0 +1,47 @@
+.selected {
+    background-color: #CFD8DC !important;
+    color: white;
+  }
+  .people {
+    margin: 0 0 2em 0;
+    list-style-type: none;
+    padding: 0px;
+    width: 15em;
+  }
+  .people li {
+    cursor: pointer;
+    position: relative;
+    left: 0;
+    background-color: #EEE;
+    margin: .5em;
+    padding: 10px 0px 5px 10px;
+    height: 1.6em;
+    border-radius: 4px;
+  }
+  .people li.selected:hover {
+    background-color: #BBD8DC !important;
+    color: white;
+  }
+  .people li:hover {
+    color: #607D8B;
+    background-color: #DDD;
+    left: .1em;
+  }
+  .people .text {
+    position: relative;
+    top: -3px;
+  }
+  .people .badge {
+    font-size: small;
+    color: white;
+    padding: 14px 15px 3px 15px;
+    background-color: #607D8B;
+    line-height: 1em;
+    position: relative;
+    left: -1px;
+    top: -10px;
+    height: 1.8em;
+    margin-left: .8em;
+    border-radius: 0 4px 4px 0;
+    float: right;
+  }

@@ -1,0 +1,12 @@
+<h2> 
+  People Registration
+</h2>
+<form #f="ngForm" (submit)="form_submit(f)">
+  <input type="text" ngModel name="firstname" placeholder="First Name">
+  <br />
+  <input type="text" ngModel name="lastname" placeholder="Last Name">
+  <br />
+  <button type="submit">Save</button>       
+  <br>
+  <span class="erro">{{erro}}</span>
+</form>

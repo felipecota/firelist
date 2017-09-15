@@ -8,7 +8,9 @@ import { AppComponent } from './app.component';
 import { FirebaseConfig } from './../environments/firebase.config';
 import { AngularFireModule } from 'angularfire2/index';
 
-import { CadastroPessoaModule } from './cadastro-pessoa/cadastro-pessoa.module';
+import { PeopleModule } from './people/people.module';
+
+import { AppService } from './app.service'
 
 @NgModule({
   declarations: [
@@ -18,10 +20,10 @@ import { CadastroPessoaModule } from './cadastro-pessoa/cadastro-pessoa.module';
     BrowserModule,
     FormsModule,
     HttpModule,
-    CadastroPessoaModule,
+    PeopleModule,
     AngularFireModule.initializeApp(FirebaseConfig)
   ],
-  providers: [],
+  providers: [AppService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,8 @@
+<h2>
+  Registered List
+</h2>
+<ul class="people">
+<li *ngFor="let p of people | async">
+  {{p.firstname + ' ' + p.lastname}} <span class="badge" (click)="onSelect(p.$key)">X</span>
+</li>
+</ul>
