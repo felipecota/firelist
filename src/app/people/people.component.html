@@ -1,5 +1,8 @@
-<app-form></app-form>
-<app-list></app-list>
+<nav>
+    <a routerLink="/list" routerLinkActive="active">List</a>    
+    <a routerLink="/form" routerLinkActive="active">New Person</a>
+</nav>
+<router-outlet></router-outlet>
 <span class="offline" *ngIf="!(isConnected | async)">
     APP OFFLINE
 </span>
