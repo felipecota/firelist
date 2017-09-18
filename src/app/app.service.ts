@@ -11,10 +11,10 @@ export class AppService {
     isConnected: Observable<boolean>;
     
     constructor() {
-    this.isConnected = Observable.merge(
-        Observable.of(navigator.onLine),
-        Observable.fromEvent(window, 'online').map(() => true),
-        Observable.fromEvent(window, 'offline').map(() => false));
+        this.isConnected = Observable.merge(
+            Observable.of(navigator.onLine),
+            Observable.fromEvent(window, 'online').map(() => true),
+            Observable.fromEvent(window, 'offline').map(() => false));
     }  
 
 }
