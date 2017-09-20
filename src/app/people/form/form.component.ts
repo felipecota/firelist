@@ -10,21 +10,21 @@ import { AngularFireDatabase } from 'angularfire2/database';
 
 export class FormComponent implements OnInit {
 
-    constructor(private angularFire: AngularFireDatabase) { }      
-
-    ngOnInit() { }
-
     erro: string;   
     tamanho: number; 
+
+    constructor(
+        private angularFire: AngularFireDatabase
+    ) { }      
+
+    ngOnInit() { }
 
     form_submit(f: NgForm) { 
         this.angularFire.list("people")
             .map(list=>list.length)
             .subscribe(length=>this.tamanho = length);
 
-        if (!navigator.onLine)
-            this.erro = "App Offline";
-        else if (f.controls.firstname.value == "" && f.controls.lastname.value == '') 
+        if (f.controls.firstname.value == "" && f.controls.lastname.value == '') 
             this.erro = 'First and Last name are required';
         else if (this.tamanho >= 5)
             this.erro = "Max of 5 person";

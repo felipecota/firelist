@@ -1,22 +1,10 @@
 import { FormsModule, NgForm } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
-import { AppService } from '../app.service'
-import { Observable } from 'rxjs/Observable';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-people',
   templateUrl: './people.component.html',
-  styleUrls: ['./people.component.css'],
-  providers: [AppService]
+  styleUrls: ['./people.component.css']
 })
 
-export class PeopleComponent implements OnInit {
-
-  isConnected: Observable<boolean>;
-
-  constructor(private appService: AppService) { }
-
-  ngOnInit() { 
-      this.isConnected = this.appService.isConnected;
-  }
-}
+export class PeopleComponent { }

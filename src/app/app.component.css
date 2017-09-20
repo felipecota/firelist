@@ -1,0 +1,14 @@
+.offline {
+    position: absolute;
+    z-index: 200;
+    color: red;
+    width: 95%;
+    height: 95%;
+    top: 0px;
+    left: 0px;
+    background-color: black;
+    padding: 20px;
+    opacity: .8;
+    text-align: center;
+    font-weight: bold;
+}
