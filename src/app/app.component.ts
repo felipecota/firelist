@@ -9,7 +9,7 @@ import { Observable } from 'rxjs/Observable';
 })
 export class AppComponent {  
 
-  title = 'realtimeapp v1.4';
+  title = 'realtimeapp v1.6';
   isConnected: Observable<boolean>;
   
   constructor(private appService: AppService) { 

@@ -1,5 +1,19 @@
-<h1>{{title}}</h1>
+<div class="jumbotron text-center">
+    <h1>{{title}}</h1>
+</div>
 <app-people></app-people>
-<div class="offline" *ngIf="!(isConnected | async)">
-    APP OFFLINE<br><br>Try again later...
+<div *ngIf="!(isConnected | async)">
+    <div class="modal fade in" id="myModal" role="dialog">
+        <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h4 class="modal-title text-center">APP OFFLINE</h4>
+            </div>
+            <div class="modal-body text-center">
+            <p>No internet connection detected</p>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="modal-backdrop in"></div>
 </div>

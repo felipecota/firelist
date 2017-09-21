@@ -20,6 +20,14 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 To create service-worker.js file run `npm run sw`
 
+## Ng Bootstrap
+
+npm install --save @ng-bootstrap/ng-bootstrap
+
+npm install bootstrap@4.0.0-alpha.6
+
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
 ## Running unit tests
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).

@@ -1,12 +1,14 @@
-<h2> 
+<h3> 
   People Registration
-</h2>
+</h3><br>
 <form #f="ngForm" (submit)="form_submit(f)">
-  <input type="text" ngModel name="firstname" placeholder="First Name">
+  <input type="text" class="form-control" ngModel name="firstname" placeholder="First Name">
   <br />
-  <input type="text" ngModel name="lastname" placeholder="Last Name">
+  <input type="text" class="form-control" ngModel name="lastname" placeholder="Last Name">
   <br />
-  <button type="submit">Save</button>       
+  <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-floppy-disk"></span> Save</button>       
   <br><br>
-  <span class="erro">{{erro}}</span>
+  <div *ngIf="erro" class="alert alert-danger">
+    {{erro}}
+  </div>  
 </form>
