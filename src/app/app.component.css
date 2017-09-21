@@ -6,3 +6,8 @@
     background-color: #CA2727;
     color: white;
 }
+
+.modal-sm {
+    width: 270px;
+    margin: 50px auto;    
+}
