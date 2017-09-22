@@ -1,0 +1,18 @@
+<br>
+<form #f="ngForm" (submit)="form_submit(f)">
+    <div class="form-group">
+        <label for="pwd">{{t1}}:</label>  
+        <input type="text" class="form-control" ngModel name="itemname">
+    </div>
+    <div class="form-group">
+        <label for="pwd">{{t2}}:</label>    
+        <input type="text" class="form-control" ngModel name="amount">
+    </div>
+    <button class="btn btn-primary" type="submit">
+        <span class="glyphicon glyphicon-floppy-disk"></span> {{t3}}
+    </button>       
+    <br><br>
+    <div *ngIf="erro" class="alert alert-danger">
+        {{erro}}
+    </div>   
+</form>

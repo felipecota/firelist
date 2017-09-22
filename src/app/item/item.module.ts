@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule }   from '@angular/router';
 
-import { PeopleComponent } from './people.component';
+import { ItemComponent } from './item.component';
 import { FormComponent } from './form/form.component';
 import { ListComponent } from './list/list.component';
 import { AngularFireDatabase } from 'angularfire2/database';
@@ -29,7 +29,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
     ])      
   ],
   providers:[AngularFireDatabase],
-  exports: [FormComponent, ListComponent, PeopleComponent],
-  declarations: [FormComponent, ListComponent, PeopleComponent]
+  exports: [FormComponent, ListComponent, ItemComponent],
+  declarations: [FormComponent, ListComponent, ItemComponent]
 })
-export class PeopleModule { }
+export class ItemModule { }
