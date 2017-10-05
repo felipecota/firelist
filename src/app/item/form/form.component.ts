@@ -1,5 +1,6 @@
 import { NgForm } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+
 import { AppService } from '../../app.service';
 import { language, config } from '../../../environments/language';
 import { Router }   from '@angular/router';
@@ -18,7 +19,10 @@ export class FormComponent implements OnInit {
     t2: string;
     t3: string;
 
-    constructor(private appService: AppService, private router: Router) { 
+    constructor(
+        private appService: AppService, 
+        private router: Router
+    ) { 
         this.t1 = language.t1;
         this.t2 = language.t2;
         this.t3 = language.t3;
@@ -29,7 +33,7 @@ export class FormComponent implements OnInit {
     form_submit(f: NgForm) { 
         this.appService.items.subscribe(data => this.length = data.length);
 
-        if (f.controls.itemname.value == "" && f.controls.amount.value == '')  {
+        if (f.controls.itemname.value == '' || f.controls.amount.value == '')  {
             this.erro = language.e1;
             navigator.vibrate([500]);
         } else if (this.length >= config.max)

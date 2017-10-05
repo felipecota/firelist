@@ -1,0 +1,16 @@
+<form #f="ngForm" (submit)="form_login(f)">
+  <div class="form-group">
+    <label for="email">Email:</label>
+    <input type="text" class="form-control" required ngModel name="email" placeholder="Email">
+  </div>    
+  <div class="form-group">
+    <label for="password">{{t6}}:</label>
+    <input type="password" class="form-control" required ngModel name="password" placeholder="{{t6}}">
+  </div>    
+  <button class="btn btn-primary" type="submit">{{isLoggingIn ? t7 : t8}}</button>
+  <button class="btn btn-primary" (click)="toggleDisplay()" type="button">{{isLoggingIn ? t8 : t9}}</button>
+  <br><br>
+  <div *ngIf="erro" class="alert alert-danger">
+      {{erro}}
+  </div>    
+</form>

@@ -8,8 +8,12 @@ import { AngularFireModule } from 'angularfire2/index';
 import { AngularFireOfflineModule } from 'angularfire2-offline';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 
-import { ItemModule } from './item/item.module';
 import { AppService } from './app.service'
+
+import { ItemModule } from './item/item.module';
+import { LoginModule } from './login/login.module';
+import { AppRoutingModule } from './app.routing.module';
+
 import { AppComponent } from './app.component';
 
 @NgModule({
@@ -21,6 +25,8 @@ import { AppComponent } from './app.component';
     FormsModule,
     HttpModule,
     ItemModule,
+    LoginModule,
+    AppRoutingModule,
     AngularFireDatabaseModule,
     AngularFireModule.initializeApp(FirebaseConfig),
     AngularFireOfflineModule

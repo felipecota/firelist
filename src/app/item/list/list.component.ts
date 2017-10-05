@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+
+import { Router }   from '@angular/router';
 import { AppService } from '../../app.service'
 import { FirebaseListObservable } from 'angularfire2/database';
 import {
     AfoListObservable,
     AfoObjectObservable,
     AngularFireOfflineDatabase } from 'angularfire2-offline/database';
-import { language } from '../../../environments/language';    
 
 @Component({
   selector: 'app-list',
@@ -17,11 +18,14 @@ export class ListComponent implements OnInit {
 
     items: AfoListObservable<any[]>;
 
-    constructor(private appService: AppService) { 
+    constructor(
+        private appService: AppService,
+        private router: Router
+    ) { }
+
+    ngOnInit() { 
         this.items = this.appService.items;
     }
-
-    ngOnInit() { }
 
     onSelect(key): void {
         this.appService.items.remove(key).then(() => console.log('item removed: ' + key)),
