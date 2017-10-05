@@ -19,7 +19,7 @@ export class AppComponent {
   t5: string;  
   
   constructor(
-    private appService: AppService,
+    public appService: AppService,
     private afAuth: AngularFireAuth,     
     private router: Router) { 
       this.isConnected = this.appService.isConnected;
