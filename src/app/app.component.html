@@ -1,8 +1,8 @@
+<div style="position: absolute; top: 5px; right: 25px; cursor: pointer;" *ngIf="(this.appService.isSignin | async)">
+    <span class="glyphicon glyphicon-off" [ngStyle]="{'color': (this.appService.isConnected | async) ? 'green' : 'red' }" (click)="logout()"></span>
+</div>
 <div class="jumbotron text-center">
-    <h1>{{title}}</h1>
-    <div *ngIf="(this.appService.isSignin | async)">
-        <span class="glyphicon glyphicon-off" style="float: right; cursor: pointer;" (click)="logout()"></span>
-    </div>
+    <h1>{{title}}</h1>    
 </div>
 <div *ngIf="(this.appService.isSignin | async)">
     <ul class="nav nav-tabs">

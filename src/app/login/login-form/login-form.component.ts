@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 
 import { language } from '../../../environments/language';
@@ -22,7 +21,6 @@ export class LoginFormComponent implements OnInit {
 
   constructor(
     private afAuth: AngularFireAuth, 
-    private router: Router,
     private appService: AppService) { 
 
     this.t6 = language.t6;
@@ -32,8 +30,7 @@ export class LoginFormComponent implements OnInit {
 
   }
 
-  ngOnInit() {
-    this.afAuth.auth.signOut();
+  ngOnInit() {     
   }
 
   toggleDisplay() {
@@ -50,12 +47,12 @@ export class LoginFormComponent implements OnInit {
     else if (this.isLoggingIn)
       this.afAuth.auth.signInWithEmailAndPassword(
         f.controls.email.value, f.controls.password.value)
-        .then(ok => {this.router.navigate(['/list'])})
+        .then(ok => {})
         .catch(error => {this.erro = language.e4});    
     else
       this.afAuth.auth.createUserWithEmailAndPassword(
         f.controls.email.value, f.controls.password.value)
-        .then(ok => {this.router.navigate(['/list'])})
+        .then(ok => {})
         .catch(error => {this.erro = language.e4});
 
     f.controls.password.setValue('');

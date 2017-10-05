@@ -21,14 +21,14 @@ export class AuthGuard implements CanActivate {
     if (this.appService.isSignin) {
         return true;
     } else {
-        this.router.navigate(['']);
+        this.router.navigate(['/login']);
         return false;    
     }
   }
 }
 
 const APP_ROUTES: Routes = [
-    { path: '', redirectTo: '/login', pathMatch: 'full' },
+    { path: '', redirectTo: '/list', pathMatch: 'full' },
     { path: 'login', component: LoginFormComponent },
     { path: 'list', component: ListComponent, canActivate:[AuthGuard] },
     { path: 'form', component: FormComponent, canActivate:[AuthGuard] }
