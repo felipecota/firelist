@@ -13,7 +13,7 @@ import { language } from '../environments/language';
 })
 export class AppComponent {  
 
-  title = 'realtimeapp v2.0';
+  title = 'realtimeapp v2.1';
   isConnected: Observable<boolean>;
   t4: string;
   t5: string;  
