@@ -44,3 +44,4 @@ Thumbs.db
 Dockerfile
 .vscode/launch.json
 .gitignore
+producao.sh
