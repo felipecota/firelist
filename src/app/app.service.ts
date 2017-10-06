@@ -32,8 +32,10 @@ export class AppService {
 
         this.afAuth.auth.onAuthStateChanged(user => {
             if (user) { 
+                this.uidUser = user.uid;
                 this.isSignin = Observable.of(true); 
             } else { 
+                this.uidUser = undefined;
                 this.isSignin = Observable.of(false); 
                 this.router.navigate(['/login'])} 
         });
@@ -45,11 +47,8 @@ export class AppService {
   
         this.afAuth.authState.subscribe( (user) => {
           if (user) {
-            this.uidUser = user.uid;
-            console.log('the user id:' + this.uidUser);
             state.next(true);
           } else {
-            console.log("no user");
             state.next(false);
           }
         })

@@ -1,7 +1,9 @@
 import { NgForm } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Router }   from '@angular/router';
+
 import { AfoListObservable } from 'angularfire2-offline/database';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 import { AppService } from '../../app.service';
 import { language, config } from '../../../environments/language';
