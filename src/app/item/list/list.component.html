@@ -1,6 +1,0 @@
-<ul class="items">
-<li *ngFor="let i of items | async">
-    {{i.itemname + ' - ' + i.amount}}
-    <span class="badge" (click)="onSelect(i.$key)">X</span>    
-</li>
-</ul>

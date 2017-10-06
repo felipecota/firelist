@@ -11,6 +11,7 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AppService } from './app.service'
 
 import { ItemModule } from './item/item.module';
+import { ListModule } from './list/list.module';
 import { LoginModule } from './login/login.module';
 import { AppRoutingModule } from './app.routing.module';
 
@@ -25,6 +26,7 @@ import { AppComponent } from './app.component';
     FormsModule,
     HttpModule,
     ItemModule,
+    ListModule,
     LoginModule,
     AppRoutingModule,
     AngularFireDatabaseModule,

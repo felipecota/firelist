@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { NgForm } from '@angular/forms';
 
+import { Router } from '@angular/router';
+
 import { language } from '../../../environments/language';
 import { AppService } from '../../app.service';
 
@@ -21,7 +23,9 @@ export class LoginFormComponent implements OnInit {
 
   constructor(
     private afAuth: AngularFireAuth, 
-    private appService: AppService) { 
+    private appService: AppService,
+    private router: Router
+  ) { 
 
     this.t6 = language.t6;
     this.t7 = language.t7;
@@ -30,7 +34,9 @@ export class LoginFormComponent implements OnInit {
 
   }
 
-  ngOnInit() {     
+  ngOnInit() {
+    if (this.appService.isAuthenticated)     
+      this.router.navigate(['/list-detail']);
   }
 
   toggleDisplay() {

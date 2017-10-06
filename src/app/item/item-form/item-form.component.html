@@ -1,0 +1,33 @@
+<br>
+<form #f="ngForm" (submit)="form_submit(f)">
+    <div class="form-group">    
+        <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">{{t5}}
+            <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+                <li *ngFor="let l of lists | async" (click)="onSelect(l.$key, l.listname)">
+                    {{l.listname}}
+                </li>
+            </ul>
+        </div>    
+    </div>
+    <div class="form-group">
+        <label for="pwd">{{t5}}</label>  
+        <input type="text" [disabled]="true" class="form-control" [(ngModel)]="listname" name="listname">        
+    </div>
+    <div class="form-group">
+        <label for="pwd">{{t1}}</label>  
+        <input type="text" [disabled]="!selected" class="form-control" ngModel name="itemname">
+    </div>
+    <div class="form-group">
+        <label for="pwd">{{t2}}</label>    
+        <input type="text" [disabled]="!selected" class="form-control" ngModel name="amount">
+    </div>
+    <button [disabled]="!selected" class="btn btn-primary" type="submit">
+        <span class="glyphicon glyphicon-floppy-disk"></span> {{t3}}
+    </button>       
+    <br><br>
+    <div *ngIf="erro" class="alert alert-danger">
+        {{erro}}
+    </div>   
+</form>

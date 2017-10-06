@@ -4,6 +4,8 @@ import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from 'angularfire2/auth';
 
+import { AfoListObservable } from 'angularfire2-offline/database';
+
 import { language } from '../environments/language';
 
 @Component({
@@ -13,22 +15,28 @@ import { language } from '../environments/language';
 })
 export class AppComponent {  
 
-  title = 'realtimeapp v2.1';
+  title = 'realtimeapp';
+  version = 'v2.2';
   isConnected: Observable<boolean>;
-  t4: string;
-  t5: string;  
-  
+  t5: string;
+  t11: string;  
+  t12: string;
+  t13: string;
+ 
   constructor(
     public appService: AppService,
     private afAuth: AngularFireAuth,     
     private router: Router) { 
       this.isConnected = this.appService.isConnected;
-      this.t4 = language.t4;
-      this.t5 = language.t5; 
+      this.t5 = language.t5;
+      this.t11 = language.t11;
+      this.t12 = language.t12;       
+      this.t13 = language.t13;       
   }    
 
   logout() {
     this.afAuth.auth.signOut();
+    this.router.navigate(['/login']);
   }
 
 }

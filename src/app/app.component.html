@@ -1,13 +1,16 @@
 <div style="position: absolute; top: 5px; right: 25px; cursor: pointer;" *ngIf="(this.appService.isSignin | async)">
     <span class="glyphicon glyphicon-off" [ngStyle]="{'color': (this.appService.isConnected | async) ? 'green' : 'red' }" (click)="logout()"></span>
 </div>
-<div class="jumbotron text-center">
+<div class="jumbotron text-center">    
     <h1>{{title}}</h1>    
+    <div class="version">{{version}}</div>        
 </div>
 <div *ngIf="(this.appService.isSignin | async)">
     <ul class="nav nav-tabs">
-        <li routerLinkActive="active"><a routerLink="/list">{{t5}}</a></li>
-        <li routerLinkActive="active"><a routerLink="/form">{{t4}}</a></li>
+        <li routerLinkActive="active"><a routerLink="/list-detail">{{t12}}</a></li>
+        <li routerLinkActive="active"><a routerLink="/item-form">{{t11}}</a></li>
+        <li routerLinkActive="active"><a routerLink="/list-form">{{t5}}</a></li>
+        <li routerLinkActive="active"><a routerLink="/list-access">{{t13}}</a></li>
     </ul>
 </div>
 <router-outlet></router-outlet>

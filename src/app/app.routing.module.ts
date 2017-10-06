@@ -7,8 +7,10 @@ import {
 import { Injectable } from '@angular/core';
 
 import { LoginFormComponent } from './login/login-form/login-form.component';
-import { ListComponent } from './item/list/list.component';
-import { FormComponent } from './item/form/form.component';
+import { ListDetailComponent } from './list/list-detail/list-detail.component';
+import { ListFormComponent } from './list/list-form/list-form.component';
+import { ListAccessComponent } from './list/list-access/list-access.component';
+import { ItemFormComponent } from './item/item-form/item-form.component';
 
 import { AppService } from './app.service';
 
@@ -17,21 +19,22 @@ export class AuthGuard implements CanActivate {
   constructor(private appService: AppService, private router: Router) {}    
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    //console.log("url", state.url);
-    if (this.appService.isSignin) {
+    if (this.appService.isAuthenticated) {
         return true;
     } else {
-        this.router.navigate(['/login']);
+        this.router.navigate(['/login', { queryParams: { returnUrl: state.url } }]);        
         return false;    
     }
   }
 }
 
 const APP_ROUTES: Routes = [
-    { path: '', redirectTo: '/list', pathMatch: 'full' },
+    { path: '', redirectTo: '/list-detail', pathMatch: 'full' },
     { path: 'login', component: LoginFormComponent },
-    { path: 'list', component: ListComponent, canActivate:[AuthGuard] },
-    { path: 'form', component: FormComponent, canActivate:[AuthGuard] }
+    { path: 'list-detail', component: ListDetailComponent, canActivate:[AuthGuard] },
+    { path: 'list-form', component: ListFormComponent, canActivate:[AuthGuard] },
+    { path: 'list-access', component: ListAccessComponent, canActivate:[AuthGuard] },
+    { path: 'item-form', component: ItemFormComponent, canActivate:[AuthGuard] }
 ]
 
 @NgModule({

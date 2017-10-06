@@ -1,0 +1,11 @@
+<ul class="lists">
+    <li *ngFor="let l of lists">
+        {{l.listname}}
+      <ul class="items">
+        <li *ngFor="let i of items | filter: l.$key">
+            {{ i.itemname + ' - ' + i.amount }}
+            <span class="badge" (click)="onSelect(i.$key)">X</span>    
+        </li>
+      </ul>
+    </li>
+</ul>

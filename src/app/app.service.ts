@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable, Subject} from 'rxjs/Rx';
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/Rx';
 import { AfoListObservable, AngularFireOfflineDatabase } from 'angularfire2-offline/database';
@@ -12,7 +12,9 @@ export class AppService {
 
     isConnected: Observable<boolean>;
     items: AfoListObservable<any[]>;
+    lists: AfoListObservable<any[]>;    
     isSignin: Observable<boolean>;
+    uidUser: string;
     
     constructor(
         private afoDatabase: AngularFireOfflineDatabase,
@@ -21,6 +23,7 @@ export class AppService {
     ) {
 
         this.items = afoDatabase.list('item'); 
+        this.lists = afoDatabase.list('lists'); 
 
         this.isConnected = Observable.merge(
             Observable.of(navigator.onLine),
@@ -30,11 +33,27 @@ export class AppService {
         this.afAuth.auth.onAuthStateChanged(user => {
             if (user) { 
                 this.isSignin = Observable.of(true); 
-                this.router.navigate(['/list']); 
             } else { 
                 this.isSignin = Observable.of(false); 
                 this.router.navigate(['/login'])} 
-            });
+        });
             
-    }       
+    }
+    
+    isAuthenticated(): Observable<any> {
+        const state = new Subject<any>();
+  
+        this.afAuth.authState.subscribe( (user) => {
+          if (user) {
+            this.uidUser = user.uid;
+            console.log('the user id:' + this.uidUser);
+            state.next(true);
+          } else {
+            console.log("no user");
+            state.next(false);
+          }
+        })
+  
+        return state.asObservable();
+    }     
 }
