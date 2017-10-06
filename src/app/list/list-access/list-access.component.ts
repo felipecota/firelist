@@ -17,6 +17,7 @@ export class ListAccessComponent implements OnInit {
   erro: string;
   listname: string;
   listkey: string;
+  email: string;
 
   constructor(
     private appservice: AppService
