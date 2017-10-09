@@ -9,7 +9,7 @@
     </button>       
     <br><br>
     <ul class="items">
-        <li *ngFor="let l of lists | async">
+        <li *ngFor="let l of lists">
             {{ l.listname }}
             <span class="badge" (click)="onSelect(l.$key)">X</span>    
         </li>

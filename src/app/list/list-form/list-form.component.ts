@@ -2,9 +2,6 @@ import { NgForm } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Router }   from '@angular/router';
 
-import { AfoListObservable } from 'angularfire2-offline/database';
-import { AngularFireAuth } from 'angularfire2/auth';
-
 import { AppService } from '../../app.service';
 import { language, config } from '../../../environments/language';
 
@@ -19,9 +16,9 @@ export class ListFormComponent implements OnInit {
     t3: string;
     t5: string;
     length: number;  
-    lists: AfoListObservable<any[]>;
+    lists: any[];
     items: any[];
-
+    
     constructor(
         private appService: AppService,
         private router: Router
@@ -31,7 +28,7 @@ export class ListFormComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.lists = this.appService.lists;
+        this.appService.lists.subscribe(lists => this.lists = lists);
     }
 
     form_submit(f: NgForm) { 
@@ -42,11 +39,10 @@ export class ListFormComponent implements OnInit {
             navigator.vibrate([500]);
         } else if (this.length >= config.max)
             this.erro = language.e2;
-        else {            
+        else {           
             this.appService.lists.push(
                     {
-                        listname: f.controls.listname.value,
-                        uidUser: this.appService.uidUser
+                        listname: f.controls.listname.value
                     }
                 ).then((t: any) => console.log(t.key)),
                 (e: any) => console.log(e.message);

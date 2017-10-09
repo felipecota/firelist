@@ -35,8 +35,6 @@ export class LoginFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.appService.isAuthenticated)     
-      this.router.navigate(['/list-detail']);
   }
 
   toggleDisplay() {
@@ -54,12 +52,17 @@ export class LoginFormComponent implements OnInit {
       this.afAuth.auth.signInWithEmailAndPassword(
         f.controls.email.value, f.controls.password.value)
         .then(ok => {})
-        .catch(error => {this.erro = language.e4});    
+        .catch(error => {
+          this.erro = language.e4
+        });    
     else
       this.afAuth.auth.createUserWithEmailAndPassword(
         f.controls.email.value, f.controls.password.value)
         .then(ok => {})
-        .catch(error => {this.erro = language.e4});
+        .catch(error => {
+          this.erro = language.e4; 
+          console.log(error)
+        });
 
     f.controls.password.setValue('');
   }

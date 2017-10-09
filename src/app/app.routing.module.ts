@@ -2,7 +2,8 @@ import { NgModule, ModuleWithProviders } from '@angular/core';
 import { 
     Routes, RouterModule, 
     CanActivate, Router,
-    RouterStateSnapshot, ActivatedRouteSnapshot 
+    RouterStateSnapshot, ActivatedRouteSnapshot,
+    ActivatedRoute, Params
 } from '@angular/router';
 import { Injectable } from '@angular/core';
 
@@ -16,13 +17,19 @@ import { AppService } from './app.service';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  constructor(private appService: AppService, private router: Router) {}    
+  
+  constructor(
+      private appService: AppService, 
+      private router: Router,
+      private route: ActivatedRoute
+    ) {}    
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    if (this.appService.isAuthenticated) {
+    if (this.appService.isSignin) {
         return true;
     } else {
-        this.router.navigate(['/login', { queryParams: { returnUrl: state.url } }]);        
+        this.router.navigate(['/login']);        
+        this.appService.returnUrl = state.url;
         return false;    
     }
   }

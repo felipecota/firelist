@@ -1,28 +1,34 @@
 <br>
-<div class="dropdown">
-    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">{{t5}}
-    <span class="caret"></span></button>
-    <ul class="dropdown-menu">
-        <li *ngFor="let l of lists | async" (click)="onSelect(l.$key, l.listname)">
-            {{l.listname}}
+<form #f="ngForm" (submit)="form_submit(f)">
+    <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">{{t5}}
+        <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+            <li *ngFor="let l of lists" (click)="onSelectList(l.$key, l.listname)">
+                {{l.listname}}
+            </li>
+        </ul>
+    </div>    
+    <br><br>   
+    <div class="form-group">
+        <label for="pwd">{{t5}}</label>  
+        <input type="text" [disabled]="true" class="form-control" [(ngModel)]="listname" name="listname">        
+    </div>
+    <div class="form-group">
+        <label for="pwd">E-mail</label>  
+        <input type="text" [disabled]="!selected" class="form-control" ngModel name="email">        
+    </div>
+    <button [disabled]="!selected" class="btn btn-primary" type="submit">
+        <span class="glyphicon glyphicon-floppy-disk"></span> {{t3}}
+    </button>       
+    <br><br>
+    <div *ngIf="erro" class="alert alert-danger">
+        {{erro}}
+    </div> 
+    <ul class="items">
+        <li *ngFor="let l of access">
+            {{ l.email }}
+            <span class="badge" (click)="onRemove(l.$key)">X</span>    
         </li>
-    </ul>
-</div>    
-<div class="dropdown">
-    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">E-mail
-    <span class="caret"></span></button>
-    <ul class="dropdown-menu">
-        <li *ngFor="let l of lists | async" (click)="onSelect(l.$key, l.listname)">
-            {{l.listname}}
-        </li>
-    </ul>
-</div> 
-<br><br>   
-<div class="form-group">
-    <label for="pwd">{{t5}}</label>  
-    <input type="text" [disabled]="true" class="form-control" [(ngModel)]="listname" name="listname">        
-</div>
-<div class="form-group">
-    <label for="pwd">E-mail</label>  
-    <input type="text" [disabled]="true" class="form-control" [(ngModel)]="email" name="email">        
-</div>
+    </ul>        
+</form>    
