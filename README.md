@@ -2,7 +2,9 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.2.6.
 
-https://imasters.com.br/perfil/evelynmendes/?trace=3182418120&source=single
+Start example: https://imasters.com.br/perfil/evelynmendes/?trace=3182418120&source=single
+
+Live at: https://felipecota.github.io
 
 ## Development server
 
