@@ -11,15 +11,12 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 export class AppService {
 
     isConnected: Observable<boolean>;
-    items: AfoListObservable<any[]>;
-    lists: AfoListObservable<any[]>;    
-    access: AfoListObservable<any[]>;    
     isSignin: Observable<boolean>;
     user: any;
     returnUrl: string = '/';
     
     constructor(
-        private afoDatabase: AngularFireOfflineDatabase,
+        public afoDatabase: AngularFireOfflineDatabase,
         private router: Router,
         private route: ActivatedRoute,
         private afAuth: AngularFireAuth
@@ -35,10 +32,6 @@ export class AppService {
                 this.user = user;
                 this.isSignin = Observable.of(true);                
                 this.router.navigate([this.returnUrl]);
-
-                this.items = afoDatabase.list('item');  
-                this.lists = afoDatabase.list('lists'); 
-                this.access = afoDatabase.list('access');                 
             } else { 
                 this.user = undefined;
                 this.isSignin = Observable.of(false); 

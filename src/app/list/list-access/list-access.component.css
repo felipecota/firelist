@@ -19,50 +19,43 @@
     left: .1em;
 }
 
-  .selected {
-    background-color: #CFD8DC !important;
-    color: white;
-  }
-  .items, .lists {
-    list-style-type: none;
-    padding: 0px;
-  }
-  .items li, .lists li {
-    position: relative;
-    left: 0;
-    border-radius: 4px;
-  }
-  .lists li {
-    background-color: #EEE;
-    margin: 10px 0px;    
-    padding: 10px 10px 6px 10px;    
-  }
-  .items li {
-    background-color: #AABADB;
-    margin: 10px;    
-    padding: 8px 0px 8px 10px;    
-  }  
-  .items li.selected:hover {
-    background-color: #BBD8DC !important;
-    color: white;
-  }
-  .items li:hover {
-    color: #607D8B;
-    background-color: #DDD;
-    left: .1em;
-  }
-  .items .text {
-    position: relative;
-    top: -3px;
-  }
-  .items .badge {
-    cursor: pointer;    
-    color: white;
-    background-color: #115288;
-    position: relative;
-    margin-left: .8em;
-    border-radius: 0 4px 4px 0;
-    float: right;
-    padding: 12px 16px;
-    top: -8px;
-  }
+.selected {
+  background-color: #CFD8DC !important;
+  color: white;
+}
+.items {
+  list-style-type: none;
+  padding: 0px;
+}
+.items li {
+  position: relative;
+  left: 0;
+  border-radius: 4px;
+  background-color: #AABADB;
+  margin: 5px 0px;    
+  padding: 8px 0px 8px 10px;    
+}  
+.items li.selected:hover {
+  background-color: #BBD8DC !important;
+  color: white;
+}
+.items li:hover {
+  color: #607D8B;
+  background-color: #DDD;
+  left: .1em;
+}
+.items .text {
+  position: relative;
+  top: -3px;
+}
+.items .badge {
+  cursor: pointer;    
+  color: white;
+  background-color: #115288;
+  position: relative;
+  margin-left: .8em;
+  border-radius: 0 4px 4px 0;
+  float: right;
+  padding: 12px 16px;
+  top: -8px;
+}

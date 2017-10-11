@@ -4,8 +4,8 @@
         <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">{{t5}}
         <span class="caret"></span></button>
         <ul class="dropdown-menu">
-            <li *ngFor="let l of lists" (click)="onSelectList(l.$key, l.listname)">
-                {{l.listname}}
+            <li *ngFor="let a of access" (click)="onSelectList(a.listkey, a.listname)">
+                {{a.listname}}
             </li>
         </ul>
     </div>    
@@ -26,7 +26,7 @@
         {{erro}}
     </div> 
     <ul class="items">
-        <li *ngFor="let l of access">
+        <li *ngFor="let l of members">
             {{ l.email }}
             <span class="badge" (click)="onRemove(l.$key)">X</span>    
         </li>

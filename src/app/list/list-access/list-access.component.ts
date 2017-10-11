@@ -12,8 +12,8 @@ import { language } from '../../../environments/language';
 })
 export class ListAccessComponent implements OnInit {
 
-  lists: any[];
   access: any[];
+  members: any[];
   t3: string;
   t5: string;
   selected: boolean;
@@ -28,8 +28,14 @@ export class ListAccessComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.appService.access.subscribe(access => this.access = access);
-    this.appService.lists.subscribe(lists => this.lists = lists);
+    this.appService.afoDatabase.list('/access', {
+      query: {
+        orderByChild: 'email',
+        equalTo: this.appService.user.email
+      }
+    }).subscribe(lists => {
+       this.access = lists;
+      });  
     this.t3 = language.t3;
     this.t5 = language.t5;
   }
@@ -38,55 +44,67 @@ export class ListAccessComponent implements OnInit {
     this.selected = true;
     this.erro = '';
     this.listname = listname;
-    this.listkey = key;
+    this.listkey = key;  
+    this.appService.afoDatabase.list('/access', {
+      query: {
+        orderByChild: 'listkey',
+        equalTo: this.listkey
+      }
+    }).subscribe(members => this.members = members);
   }    
 
-  search(): boolean {
-    return false;
-  }
- 
-  form_submit(f: NgForm) { 
+  form_submit(f: NgForm) {
     if (f.controls.email.value == '') {
       this.erro = language.e8;
       navigator.vibrate([500]);
-    //} else if (f.controls.email.value == this.appService.user.email) {
-      //this.erro = language.e8;
-    //} else if (this.access.filter(item => { return item.email == f.controls.email.value }).length > 0) {
-      //this.erro = language.e9;
     } else {  
-      this.afAuth.auth.fetchProvidersForEmail(f.controls.email.value)
-        .then(providers => { 
-          if (providers == '') {
-            this.erro = language.e8
-              } else {
-                this.appService.lists.update(this.listkey,
-                  {
-                    members: {
-                      [providers.uid]: true
-                    }
-                  }
-                )
 
-                /*
-            this.appService.access.push(
-              {
-                  list: this.listkey,
-                  email: f.controls.email.value
-              }
-            ).then((t: any) => console.log(t.key)),
-            (e: any) => console.log(e.message);*/
-            this.erro = '';
-            f.controls.email.setValue('');
+      let member_exists = false;
+      let item_exists = false;
+
+      for(let i of this.members) {
+        if (i.email == f.controls.email.value)
+          member_exists = true;
+        if (i.items)
+          item_exists = true;
+      }
+
+      if (member_exists)
+        this.erro = language.e8;
+      else if (item_exists)
+        this.erro = language.e11;
+      else {
+        // Check if e-mail is already in the list
+        this.afAuth.auth.fetchProvidersForEmail(f.controls.email.value)
+        .then(providers => { 
+          if (providers.length == 0) {
+              this.erro = language.e8
+          } else {
+              this.appService.afoDatabase.list('/access').push(
+                {
+                    listname: this.listname,
+                    listkey: this.listkey,
+                    email: f.controls.email.value
+                }
+              );              
+              this.erro = '';
+              f.controls.email.setValue('');
           }}
         ) 
         .catch(error => { 
-          this.erro = language.e8 });
-    } 
+          console.log(error);
+          this.erro = language.e8 
+        });
+      }
+    }
   }
 
   onRemove(key): void {
-    this.appService.access.remove(key).then(() => console.log('access removed: ' + key)),
-        (e: any) => console.log(e.message);
+      if (this.members.length > 1)    
+        this.appService.afoDatabase.list('/access').remove(key).then(() => console.log('members removed: ' + key)),
+          (e: any) => console.log(e.message);
+      else
+        this.erro = language.e10;
   }
 
 }

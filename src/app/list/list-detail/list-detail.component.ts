@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+
 import { AppService } from '../../app.service'
 
 @Component({
@@ -9,21 +10,66 @@ import { AppService } from '../../app.service'
 
 export class ListDetailComponent implements OnInit {
 
+      access: any[];
       items: any[];
-      lists: any[];    
-  
+      lists: any[];
+
       constructor(
           private appService: AppService
       ) { }
   
-      ngOnInit() { 
-          this.appService.items.subscribe(items => this.items = items);
-          this.appService.lists.subscribe(lists => this.lists = lists);
+      ngOnInit() {   
+        this.appService.afoDatabase.list('/access', {
+              query: {
+                  orderByChild: 'email',
+                  equalTo: this.appService.user.email
+              }
+          }).subscribe(access => {
+              this.access = access;
+              let items = [];
+              access.forEach(e => {
+                if (e.items) {
+                    Object.keys(e.items).map(function (key) { 
+                        items.push({
+                            listkey: e.listkey,
+                            itemkey: key,
+                            itemname: e.items[key].itemname,
+                            amount: e.items[key].amount
+                        });                     
+                    });
+                };
+              });
+              this.items = items;
+          });  
       }
 
-      onSelect(key): void {
-          this.appService.items.remove(key).then(() => console.log('item removed: ' + key)),
-            (e: any) => console.log(e.message);             
+      onSelect(lkey, iName): void {
+        let sub = this.appService.afoDatabase.list('/access', {
+            query: {
+                orderByChild: 'listkey',
+                equalTo: lkey
+            }
+            }).subscribe(access => {
+                let items = [];
+                access.forEach(e => {
+                    if (e.items) {
+                        Object.keys(e.items).map(function (key) {
+                            if (e.items[key].itemname == iName)
+                                items.push({
+                                    accesskey: e.$key,
+                                    itemkey: key
+                                });                                                      
+                        });
+                    };                                      
+                });
+                items.map(e => {
+                    this.appService.afoDatabase.list('/access/'+e.accesskey+'/items')
+                        .remove(e.itemkey)
+                        .then(() => console.log('access ' + e.accesskey + ' item removed: ' + e.itemkey)),
+                        (e: any) => console.log(e.message);
+                });                
+                sub.unsubscribe();
+            });                     
       }
 
 }

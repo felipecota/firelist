@@ -1,10 +1,10 @@
 <ul class="lists">
-    <li *ngFor="let l of lists">
-        {{l.listname}}
+    <li *ngFor="let a of access">
+        {{a.listname}}
       <ul class="items">
-        <li *ngFor="let i of items | filter: l.$key">
+        <li *ngFor="let i of items | filter: a.listkey">
             {{ i.itemname + ' - ' + i.amount }}
-            <span class="badge" (click)="onSelect(i.$key)">X</span>    
+            <span class="badge" (click)="onSelect(a.listkey, i.itemname)">X</span>    
         </li>
       </ul>
     </li>

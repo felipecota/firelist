@@ -9,9 +9,9 @@
     </button>       
     <br><br>
     <ul class="items">
-        <li *ngFor="let l of lists">
-            {{ l.listname }}
-            <span class="badge" (click)="onSelect(l.$key)">X</span>    
+        <li *ngFor="let a of access">
+            {{ a.listname }}
+            <span class="badge" (click)="onSelect(a.listkey)">X</span>    
         </li>
     </ul>  
     <br>   

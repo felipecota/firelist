@@ -5,8 +5,8 @@
             <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">{{t5}}
             <span class="caret"></span></button>
             <ul class="dropdown-menu">
-                <li *ngFor="let l of lists | async" (click)="onSelect(l.$key, l.listname)">
-                    {{l.listname}}
+                <li *ngFor="let a of access" (click)="onSelect(a.listkey, a.listname, a.$key)">
+                    {{a.listname}}
                 </li>
             </ul>
         </div>    

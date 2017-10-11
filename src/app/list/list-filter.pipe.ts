@@ -1,17 +1,14 @@
 import { PipeTransform, Pipe } from '@angular/core';
 
-@Pipe({
-    name: 'filter',
-    pure: false
-})
-
+@Pipe({name: 'filter'})
 export class ListFilterPipe implements PipeTransform {
     transform(items: any[], filter: string): any {
         if (!items || !filter) {
             return items;
-        }        
-        return items.filter(item => { 
-            return item.list === filter; 
+        }   
+       
+        return items.filter(items => { 
+            return items.listkey == filter; 
         });
     }
 }

@@ -20,10 +20,12 @@ export class ItemFormComponent implements OnInit {
     t2: string;
     t3: string;
     t5: string;
-    lists: AfoListObservable<any[]>;
+    access: any[];
+    lists: any[];
     selected: boolean;
     listname: string;
     listkey: any;
+    accesskey: any;
 
     constructor(
         private appService: AppService, 
@@ -36,34 +38,47 @@ export class ItemFormComponent implements OnInit {
     }      
 
     ngOnInit() { 
-        this.lists = this.appService.lists;
+        this.appService.afoDatabase.list('/access', {
+            query: {
+                orderByChild: 'email',
+                equalTo: this.appService.user.email
+            }
+        }).subscribe(lists => this.access = lists);
         this.erro = language.m1;
     }
 
-    onSelect(key, listname): void {
+    onSelect(lkey, listname, akey): void {
         this.selected = true;
         this.erro = '';
         this.listname = listname;
-        this.listkey = key;
+        this.listkey = lkey;
+        this.accesskey = akey;
+        this.appService.afoDatabase.list('/access', {
+            query: {
+                orderByChild: 'listkey',
+                equalTo: lkey
+            }
+        }).subscribe(lists => this.lists = lists);        
     }    
 
     form_submit(f: NgForm) { 
-        this.appService.items.subscribe(data => this.length = data.length);
+        this.appService.afoDatabase.list('/access/'+this.accesskey+'/items').subscribe(data => this.length = data.length);
 
         if (f.controls.itemname.value == '' || f.controls.amount.value == '')  {
             this.erro = language.e1;
             navigator.vibrate([500]);
         } else if (this.length >= config.max)
             this.erro = language.e2;
-        else {            
-            this.appService.items.push(
+        else {      
+            this.lists.forEach(e => {
+                this.appService.afoDatabase.list('/access/'+e.$key+'/items').push(
                     {
                         itemname: f.controls.itemname.value,
-                        amount: f.controls.amount.value,
-                        list: this.listkey
+                        amount: f.controls.amount.value
                     }
-                ).then((t: any) => console.log(t.key)),
-                (e: any) => console.log(e.message);
+                ).then((t: any) => console.log('email ' + e.email + ' item push ' + t.key)),
+                    (e: any) => console.log(e.message);                            
+            });
 
             f.controls.itemname.setValue('');
             f.controls.amount.setValue('');
