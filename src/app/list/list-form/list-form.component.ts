@@ -35,6 +35,10 @@ export class ListFormComponent implements OnInit {
     }
 
     form_submit(f: NgForm) { 
+
+        let d = new Date();
+        let listkey = d.getFullYear()+''+d.getMonth()+''+d.getDay()+''+d.getHours()+''+d.getMinutes()+''+d.getSeconds()+''+(Math.floor(Math.random() * (99999 - 10000 + 1)) + 10000);
+
         if (f.controls.listname.value == '')  {
             this.erro = language.e6;
             navigator.vibrate([500]);
@@ -42,18 +46,14 @@ export class ListFormComponent implements OnInit {
             this.erro = language.e2;
         else {      
             let listname = f.controls.listname.value;     
-            this.appService.afoDatabase.list('/lists').push(
+            this.appService.afoDatabase.list('/access').push(
                     {
-                        listname: listname
+                        listkey: listkey,
+                        listname: listname,
+                        email: this.appService.user.email
                     }
                 ).then((t: any) => { 
-                    this.appService.afoDatabase.list('/access').push(
-                        {
-                            listname: listname,
-                            listkey: t.key,
-                            email: this.appService.user.email
-                        });                 
-                    console.log('list push ' + t.key) 
+                    console.log('list push ' + listname);
                 }),
                 (e: any) => console.log(e.message);
 
@@ -73,9 +73,6 @@ export class ListFormComponent implements OnInit {
         .subscribe(access => {
             access.forEach(e => {
                 if (!e.items) {
-                    this.appService.afoDatabase.list('/lists').remove(lkey)
-                    .then(() => console.log('list removed: ' + lkey)),
-                    (e: any) => console.log(e.message);
                     this.appService.afoDatabase.list('/access').remove(e.$key)
                     .then(() => console.log('access removed: ' + e.$key)),
                     (e: any) => console.log(e.message);

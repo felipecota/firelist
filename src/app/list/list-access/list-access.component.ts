@@ -20,6 +20,7 @@ export class ListAccessComponent implements OnInit {
   erro: string;
   listname: string;
   listkey: string;
+  items: string;
   email: string;  
 
   constructor(
@@ -40,21 +41,24 @@ export class ListAccessComponent implements OnInit {
     this.t5 = language.t5;
   }
 
-  onSelectList(key, listname): void {
+  onSelectList(key, listname, items): void {
     this.selected = true;
     this.erro = '';
     this.listname = listname;
-    this.listkey = key;  
+    this.listkey = key; 
+    this.items = items; 
     this.appService.afoDatabase.list('/access', {
       query: {
         orderByChild: 'listkey',
         equalTo: this.listkey
       }
-    }).subscribe(members => this.members = members);
+    }).subscribe(members => this.members = members);    
   }    
 
   form_submit(f: NgForm) {
-    if (f.controls.email.value == '') {
+    if (!navigator.onLine)
+      this.erro = language.e12;
+    else if (f.controls.email.value == '') {
       this.erro = language.e8;
       navigator.vibrate([500]);
     } else {  
@@ -71,8 +75,6 @@ export class ListAccessComponent implements OnInit {
 
       if (member_exists)
         this.erro = language.e8;
-      else if (item_exists)
-        this.erro = language.e11;
       else {
         // Check if e-mail is already in the list
         this.afAuth.auth.fetchProvidersForEmail(f.controls.email.value)
@@ -84,7 +86,8 @@ export class ListAccessComponent implements OnInit {
                 {
                     listname: this.listname,
                     listkey: this.listkey,
-                    email: f.controls.email.value
+                    email: f.controls.email.value,
+                    items: this.items
                 }
               );              
               this.erro = '';

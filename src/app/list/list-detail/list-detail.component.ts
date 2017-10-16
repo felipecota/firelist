@@ -12,7 +12,6 @@ export class ListDetailComponent implements OnInit {
 
       access: any[];
       items: any[];
-      lists: any[];
 
       constructor(
           private appService: AppService
@@ -43,7 +42,7 @@ export class ListDetailComponent implements OnInit {
           });  
       }
 
-      onSelect(lkey, iName): void {
+      onSelect(lkey, iName, iAmount): void {
         let sub = this.appService.afoDatabase.list('/access', {
             query: {
                 orderByChild: 'listkey',
@@ -54,21 +53,22 @@ export class ListDetailComponent implements OnInit {
                 access.forEach(e => {
                     if (e.items) {
                         Object.keys(e.items).map(function (key) {
-                            if (e.items[key].itemname == iName)
+                            if (e.items[key].itemname == iName && e.items[key].amount == iAmount)
                                 items.push({
                                     accesskey: e.$key,
                                     itemkey: key
                                 });                                                      
                         });
-                    };                                      
-                });
+                    };                                                         
+                });        
                 items.map(e => {
                     this.appService.afoDatabase.list('/access/'+e.accesskey+'/items')
                         .remove(e.itemkey)
                         .then(() => console.log('access ' + e.accesskey + ' item removed: ' + e.itemkey)),
                         (e: any) => console.log(e.message);
-                });                
-                sub.unsubscribe();
+                });
+                // First time subscribe returns only the first one
+                setTimeout(() => {sub.unsubscribe();},1000);
             });                     
       }
 

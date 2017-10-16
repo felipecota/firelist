@@ -43,28 +43,24 @@ export class LoginFormComponent implements OnInit {
   }  
 
   form_login(f: NgForm) {
-    if (f.controls.email.value == '' || f.controls.password.value == '')  {
+    if (f.controls.email.value == '')  {
       this.erro = language.e3;
       navigator.vibrate([500]);    
-    } else if (f.controls.password.value.length < 6)
-      this.erro = language.e5;
-    else if (this.isLoggingIn)
+    } else if (this.isLoggingIn)
       this.afAuth.auth.signInWithEmailAndPassword(
-        f.controls.email.value, f.controls.password.value)
+        f.controls.email.value, '123456')
         .then(ok => {})
         .catch(error => {
           this.erro = language.e4
         });    
     else
       this.afAuth.auth.createUserWithEmailAndPassword(
-        f.controls.email.value, f.controls.password.value)
+        f.controls.email.value, '123456')
         .then(ok => {})
         .catch(error => {
           this.erro = language.e4; 
           console.log(error)
         });
-
-    f.controls.password.setValue('');
   }
 
 }
