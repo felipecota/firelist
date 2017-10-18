@@ -87,7 +87,7 @@ export class ListAccessComponent implements OnInit {
                     listname: this.listname,
                     listkey: this.listkey,
                     email: f.controls.email.value,
-                    items: this.items
+                    items: item_exists ? this.items : []
                 }
               );              
               this.erro = '';
