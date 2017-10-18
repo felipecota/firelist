@@ -20,8 +20,7 @@ export class ListAccessComponent implements OnInit {
   erro: string;
   listname: string;
   listkey: string;
-  items: string;
-  email: string;  
+  ilength: number;
 
   constructor(
     private appService: AppService,
@@ -46,17 +45,24 @@ export class ListAccessComponent implements OnInit {
     this.erro = '';
     this.listname = listname;
     this.listkey = key; 
-    this.items = items; 
     this.appService.afoDatabase.list('/access', {
       query: {
         orderByChild: 'listkey',
         equalTo: this.listkey
       }
     }).subscribe(members => this.members = members);    
+    this.appService.afoDatabase.list('/items', {            
+        query: {
+            orderByChild: 'listkey',
+            equalTo: key
+        }
+    }).subscribe(data => this.ilength = data.length);   
   }    
 
   form_submit(f: NgForm) {
-    if (!navigator.onLine)
+    if (this.ilength > 0)
+      this.erro = language.e11;
+    else if (!navigator.onLine)
       this.erro = language.e12;
     else if (f.controls.email.value == '') {
       this.erro = language.e8;
@@ -69,8 +75,6 @@ export class ListAccessComponent implements OnInit {
       for(let i of this.members) {
         if (i.email == f.controls.email.value)
           member_exists = true;
-        if (i.items)
-          item_exists = true;
       }
 
       if (member_exists)
@@ -86,8 +90,7 @@ export class ListAccessComponent implements OnInit {
                 {
                     listname: this.listname,
                     listkey: this.listkey,
-                    email: f.controls.email.value,
-                    items: item_exists ? this.items : []
+                    email: f.controls.email.value
                 }
               );              
               this.erro = '';

@@ -4,7 +4,7 @@
       <ul class="items">
         <li *ngFor="let i of items | filter: a.listkey">
             {{ i.itemname + ' - ' + i.amount }}
-            <span class="badge" (click)="onSelect(a.listkey, i.itemname, i.amount)">X</span>    
+            <span class="badge" (click)="onSelect(i.itemkey)">X</span>    
         </li>
       </ul>
     </li>

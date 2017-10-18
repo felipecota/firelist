@@ -16,7 +16,7 @@ import { language } from '../environments/language';
 export class AppComponent {  
 
   title = 'realtimeapp';
-  version = 'v3.2';
+  version = 'v3.3';
   isConnected: Observable<boolean>;
   t5: string;
   t11: string;  

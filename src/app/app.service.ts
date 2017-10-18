@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject} from 'rxjs/Rx';
 import { Subscription } from 'rxjs/Subscription';
-import 'rxjs/Rx';
 import { AfoListObservable, AngularFireOfflineDatabase } from 'angularfire2-offline/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Router, ActivatedRoute, Params } from '@angular/router';

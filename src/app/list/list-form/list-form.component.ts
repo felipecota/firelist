@@ -64,23 +64,29 @@ export class ListFormComponent implements OnInit {
     }  
 
     onSelect(lkey): void {
-        let sub = this.appService.afoDatabase.list('/access', {
+        this.appService.afoDatabase.list('/items', {            
             query: {
                 orderByChild: 'listkey',
                 equalTo: lkey
             }
-        })
-        .subscribe(access => {
-            access.forEach(e => {
-                if (!e.items) {
-                    this.appService.afoDatabase.list('/access').remove(e.$key)
-                    .then(() => console.log('access removed: ' + e.$key)),
-                    (e: any) => console.log(e.message);
-                } else
-                    this.erro = language.e7;
-            });
-            sub.unsubscribe();
-        } );        
+        }).take(1).forEach(data => {
+            if (data.length > 0)
+                this.erro = language.e7;
+            else {
+                this.appService.afoDatabase.list('/access', {
+                    query: {
+                        orderByChild: 'listkey',
+                        equalTo: lkey
+                    }
+                }).take(1).forEach(access => {
+                    access.forEach(e => {
+                        this.appService.afoDatabase.list('/access').remove(e.$key)
+                        .then(() => console.log('access removed: ' + e.$key)),
+                        (e: any) => console.log(e.message);
+                    });
+                } ); 
+            }           
+        });        
     }   
 
 }
