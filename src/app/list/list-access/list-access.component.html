@@ -28,7 +28,7 @@
     <ul class="items">
         <li *ngFor="let l of members">
             {{ l.email }}
-            <span class="badge" (click)="onRemove(l.$key)">X</span>    
+            <span class="badge" (click)="onRemove(l.$key, l.email)">X</span>    
         </li>
     </ul>        
 </form>    

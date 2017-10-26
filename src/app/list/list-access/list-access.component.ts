@@ -20,8 +20,7 @@ export class ListAccessComponent implements OnInit {
   erro: string;
   listname: string;
   listkey: string;
-  ilength: number;
-
+  
   constructor(
     private appService: AppService,
     private afAuth: AngularFireAuth
@@ -51,18 +50,10 @@ export class ListAccessComponent implements OnInit {
         equalTo: this.listkey
       }
     }).subscribe(members => this.members = members);    
-    this.appService.afoDatabase.list('/items', {            
-        query: {
-            orderByChild: 'listkey',
-            equalTo: key
-        }
-    }).subscribe(data => this.ilength = data.length);   
   }    
 
   form_submit(f: NgForm) {
-    if (this.ilength > 0)
-      this.erro = language.e11;
-    else if (!navigator.onLine)
+    if (!navigator.onLine)
       this.erro = language.e12;
     else if (f.controls.email.value == '') {
       this.erro = language.e8;
@@ -86,13 +77,31 @@ export class ListAccessComponent implements OnInit {
           if (providers.length == 0) {
               this.erro = language.e8
           } else {
+              let email = f.controls.email.value;
               this.appService.afoDatabase.list('/access').push(
                 {
                     listname: this.listname,
                     listkey: this.listkey,
-                    email: f.controls.email.value
+                    email: email
                 }
-              );              
+              );    
+              this.appService.afoDatabase.list('/items', {
+                query: {
+                    orderByChild: 'email',
+                    equalTo: this.appService.user.email
+                }
+              }).take(1).forEach(items => {
+                  items.forEach(e => {
+                    if (e.listkey == this.listkey)
+                      this.appService.afoDatabase.list('/items').push({
+                        amount: e.amount,
+                        email: email,
+                        itemkey: e.itemkey,
+                        itemname: e.itemname,
+                        listkey: e.listkey
+                      });
+                  });
+              });                 
               this.erro = '';
               f.controls.email.setValue('');
           }}
@@ -105,11 +114,26 @@ export class ListAccessComponent implements OnInit {
     }
   }
 
-  onRemove(key): void {
-      if (this.members.length > 1)    
+  onRemove(key, email): void {
+      if (this.members.length > 1) {  
+        // Remove access
         this.appService.afoDatabase.list('/access').remove(key).then(() => console.log('members removed: ' + key)),
           (e: any) => console.log(e.message);
-      else
+
+        // Remove items
+        this.appService.afoDatabase.list('/items', {
+          query: {
+              orderByChild: 'email',
+              equalTo: email
+          }
+        }).take(1).forEach(items => {
+            items.forEach(e => {
+              if (e.listkey == this.listkey) {
+                this.appService.afoDatabase.list('/items').remove(e.$key);
+              }
+            });
+        });            
+      } else
         this.erro = language.e10;
   }
 
