@@ -1,7 +1,7 @@
 <br>
 <form #f="ngForm" (submit)="form_submit(f)">
     <div class="dropdown">
-        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">{{t5}}
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">{{'t5' | translate}}
         <span class="caret"></span></button>
         <ul class="dropdown-menu">
             <li *ngFor="let a of access" (click)="onSelectList(a.listkey, a.listname)">
@@ -11,15 +11,15 @@
     </div>    
     <br><br>   
     <div class="form-group">
-        <label for="pwd">{{t5}}</label>  
+        <label for="pwd">{{'t5' | translate}}</label>  
         <input type="text" [disabled]="true" class="form-control" [(ngModel)]="listname" name="listname">        
     </div>
     <div class="form-group">
         <label for="pwd">E-mail</label>  
-        <input type="text" [disabled]="!selected" class="form-control" ngModel name="email">        
+        <input type="text" [disabled]="!selected" class="form-control email" ngModel name="email">        
     </div>
     <button [disabled]="!selected" class="btn btn-primary" type="submit">
-        <span class="glyphicon glyphicon-floppy-disk"></span> {{t3}}
+        <span class="glyphicon glyphicon-floppy-disk"></span> {{'t3' | translate}}
     </button>       
     <br><br>
     <div *ngIf="erro" class="alert alert-danger">

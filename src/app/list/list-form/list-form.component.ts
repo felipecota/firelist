@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router }   from '@angular/router';
 
 import { AppService } from '../../app.service';
-import { language, config } from '../../../environments/language';
+import { config } from '../../../environments/language';
 
 @Component({
   selector: 'app-list-form',
@@ -13,17 +13,12 @@ import { language, config } from '../../../environments/language';
 export class ListFormComponent implements OnInit {
 
     erro: string;
-    t3: string;
-    t5: string; 
     access: any[];
    
     constructor(
         private appService: AppService,
         private router: Router
-    ) { 
-        this.t3 = language.t3;
-        this.t5 = language.t5;
-    }
+    ) { }
 
     ngOnInit() {
         this.appService.afoDatabase.list('/access', {
@@ -40,10 +35,10 @@ export class ListFormComponent implements OnInit {
         let listkey = d.getFullYear()+''+d.getMonth()+''+d.getDay()+''+d.getHours()+''+d.getMinutes()+''+d.getSeconds()+''+(Math.floor(Math.random() * (99999 - 10000 + 1)) + 10000);
 
         if (f.controls.listname.value == '')  {
-            this.erro = language.e6;
+            this.erro = this.appService.language.e6;
             navigator.vibrate([500]);
         } else if (this.access.length >= config.max)
-            this.erro = language.e2;
+            this.erro = this.appService.language.e2;
         else {      
             let listname = f.controls.listname.value;     
             this.appService.afoDatabase.list('/access').push(
@@ -71,7 +66,7 @@ export class ListFormComponent implements OnInit {
             }
         }).take(1).forEach(data => {
             if (data.length > 0)
-                this.erro = language.e7;
+                this.erro = this.appService.language.e7;
             else {
                 this.appService.afoDatabase.list('/access', {
                     query: {

@@ -1,12 +1,16 @@
-<form #f="ngForm" (submit)="form_login(f)">
-  <div class="form-group">
-    <label for="email">Email:</label>
-    <input type="text" class="form-control" required ngModel name="email" placeholder="Email">
-  </div>    
-  <button class="btn btn-primary" type="submit">{{isLoggingIn ? t7 : t8}}</button>
-  <button class="btn btn-primary" (click)="toggleDisplay()" type="button">{{isLoggingIn ? t8 : t9}}</button>
-  <br><br>
-  <div *ngIf="erro" class="alert alert-danger">
-      {{erro}}
-  </div>    
-</form>
+<div class="form-group">
+  <label for="email">Email:</label>
+  <input type="text" class="form-control email" required [(ngModel)]="email" name="email" placeholder="Email">
+</div>
+<div class="form-group">
+  <label for="password">{{'t6'|translate}}:</label>
+  <input type="password" class="form-control email" required [(ngModel)]="password" name="password" placeholder="{{'t6'|translate}}">
+</div>  
+<button class="btn btn-primary" (click)="login()" type="button">{{isLoggingIn ? ('t7'|translate) : ('t8'|translate)}}</button>
+<button class="btn btn-primary" (click)="toggleDisplay()" type="button">{{isLoggingIn ? ('t8'|translate) : ('t9'|translate)}}</button>
+<br><br>
+<a href="javascript:void(0);" (click)="forgot()">{{'m2' | translate}}</a>
+<br><br>
+<div *ngIf="erro" class="alert alert-danger">
+    {{erro}}
+</div>

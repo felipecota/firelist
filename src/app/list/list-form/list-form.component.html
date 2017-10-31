@@ -1,11 +1,11 @@
 <br>
 <form #f="ngForm" (submit)="form_submit(f)">
     <div class="form-group">
-        <label for="pwd">{{t5}}</label>  
+        <label for="pwd">{{'t5' | translate}}</label>  
         <input type="text" class="form-control" ngModel name="listname">
     </div>
     <button class="btn btn-primary" type="submit">
-        <span class="glyphicon glyphicon-floppy-disk"></span> {{t3}}
+        <span class="glyphicon glyphicon-floppy-disk"></span> {{'t3' | translate}}
     </button>       
     <br><br>
     <ul class="items">

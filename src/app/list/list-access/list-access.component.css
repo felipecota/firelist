@@ -23,10 +23,12 @@
   background-color: #CFD8DC !important;
   color: white;
 }
+
 .items {
   list-style-type: none;
   padding: 0px;
 }
+
 .items li {
   position: relative;
   left: 0;
@@ -35,6 +37,7 @@
   margin: 5px 0px;    
   padding: 8px 0px 8px 10px;    
 }  
+
 .items li.selected:hover {
   background-color: #BBD8DC !important;
   color: white;
@@ -44,10 +47,12 @@
   background-color: #DDD;
   left: .1em;
 }
+
 .items .text {
   position: relative;
   top: -3px;
 }
+
 .items .badge {
   cursor: pointer;    
   color: white;
@@ -58,4 +63,8 @@
   float: right;
   padding: 12px 16px;
   top: -8px;
+}
+
+.email {
+  text-transform: lowercase;
 }

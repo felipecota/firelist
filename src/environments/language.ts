@@ -2,7 +2,7 @@ export const config = {
     max: 50
 }
 
-export const language = {
+export const language_ptbr = {
     e1: 'Item e quantidade são obrigatórios',
     e2: 'Máximo de ' + config.max + ' itens',
     e3: 'E-mail e senham devem ser informados',
@@ -15,6 +15,7 @@ export const language = {
     e10: 'Lista deve ter pelo menos 1 dono',
     e11: 'Lista deve estar vazia',
     e12: 'Você está offline, tente novamente mais tarde',
+    e13: 'E-mail é inválido',
     t1: 'Nome',
     t2: 'Quantidade',
     t3: 'Incluir',
@@ -28,8 +29,9 @@ export const language = {
     t11: 'Item',
     t12: 'Início',
     t13: 'Acesso',
-    m1: 'Selecione uma lista'
-
+    m1: 'Selecione uma lista',
+    m2: 'Esqueci minha senha',
+    m3: 'E-mail para resetar senha enviado'
 }
 
 export const language_en = {
@@ -45,6 +47,7 @@ export const language_en = {
     e10: 'List must have at least one owner',
     e11: 'List must be empty',
     e12: 'You are offline, try again later',
+    e13: 'E-mail is invalid',
     t1: 'Name',
     t2: 'Amount',
     t3: 'Include',
@@ -58,5 +61,7 @@ export const language_en = {
     t11: 'Item',
     t12: 'Home',
     t13: 'Access',
-    m1: 'Select a list to continue'
+    m1: 'Select a list to continue',
+    m2: 'Forgot my password',
+    m3: 'Reset password mail sent'
 }

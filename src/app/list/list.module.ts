@@ -6,6 +6,8 @@ import { ListDetailComponent } from './list-detail/list-detail.component';
 import { ListFormComponent } from './list-form/list-form.component';
 
 import { ListFilterPipe } from './list-filter.pipe';
+import { TranslatePipeModule } from '../translate.module'
+
 import { ListAccessComponent } from './list-access/list-access.component';
 
 @NgModule({
@@ -17,7 +19,8 @@ import { ListAccessComponent } from './list-access/list-access.component';
   ],
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    TranslatePipeModule
   ],
   exports: [
     ListDetailComponent, 

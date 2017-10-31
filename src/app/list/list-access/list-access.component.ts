@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 
 import { AppService } from '../../app.service';
-import { language } from '../../../environments/language';
 
 @Component({
   selector: 'app-list-access',
@@ -14,8 +13,6 @@ export class ListAccessComponent implements OnInit {
 
   access: any[];
   members: any[];
-  t3: string;
-  t5: string;
   selected: boolean;
   erro: string;
   listname: string;
@@ -35,8 +32,6 @@ export class ListAccessComponent implements OnInit {
     }).subscribe(lists => {
        this.access = lists;
       });  
-    this.t3 = language.t3;
-    this.t5 = language.t5;
   }
 
   onSelectList(key, listname, items): void {
@@ -54,9 +49,9 @@ export class ListAccessComponent implements OnInit {
 
   form_submit(f: NgForm) {
     if (!navigator.onLine)
-      this.erro = language.e12;
+      this.erro = this.appService.language.e12;
     else if (f.controls.email.value == '') {
-      this.erro = language.e8;
+      this.erro = this.appService.language.e8;
       navigator.vibrate([500]);
     } else {  
 
@@ -69,13 +64,13 @@ export class ListAccessComponent implements OnInit {
       }
 
       if (member_exists)
-        this.erro = language.e8;
+        this.erro = this.appService.language.e8;
       else {
         // Check if e-mail is already in the list
         this.afAuth.auth.fetchProvidersForEmail(f.controls.email.value)
         .then(providers => { 
           if (providers.length == 0) {
-              this.erro = language.e8
+              this.erro = this.appService.language.e8
           } else {
               let email = f.controls.email.value;
               this.appService.afoDatabase.list('/access').push(
@@ -108,7 +103,7 @@ export class ListAccessComponent implements OnInit {
         ) 
         .catch(error => { 
           console.log(error);
-          this.erro = language.e8 
+          this.erro = this.appService.language.e8 
         });
       }
     }
@@ -134,7 +129,7 @@ export class ListAccessComponent implements OnInit {
             });
         });            
       } else
-        this.erro = language.e10;
+        this.erro = this.appService.language.e10;
   }
 
 }

@@ -1,3 +1,14 @@
 .version {
     float: right;    
 }
+
+.icone {
+    margin: 10px;
+    float: right;
+    cursor: pointer;
+}
+
+.flag {
+    float: left;
+    margin: 10px 0px 0px 10px;
+}

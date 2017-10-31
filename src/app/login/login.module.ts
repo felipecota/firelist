@@ -6,10 +6,13 @@ import { AngularFireAuth } from 'angularfire2/auth';
 
 import { LoginFormComponent } from './login-form/login-form.component';
 
+import { TranslatePipeModule } from '../translate.module'
+
 @NgModule({
   imports: [
     CommonModule, 
-    FormsModule
+    FormsModule,
+    TranslatePipeModule
   ],
   declarations: [LoginFormComponent],
   providers: [AngularFireAuth]

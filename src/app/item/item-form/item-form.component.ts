@@ -4,7 +4,7 @@ import { Router }   from '@angular/router';
 import { AfoListObservable } from 'angularfire2-offline/database';
 
 import { AppService } from '../../app.service';
-import { language, config } from '../../../environments/language';
+import { config } from '../../../environments/language';
 
 @Component({
     selector: 'app-form',
@@ -31,10 +31,10 @@ export class ItemFormComponent implements OnInit {
         private appService: AppService, 
         private router: Router
     ) { 
-        this.t1 = language.t1;
-        this.t2 = language.t2;
-        this.t3 = language.t3;
-        this.t5 = language.t5;
+        this.t1 = this.appService.language.t1;
+        this.t2 = this.appService.language.t2;
+        this.t3 = this.appService.language.t3;
+        this.t5 = this.appService.language.t5;
     }      
 
     ngOnInit() { 
@@ -44,7 +44,7 @@ export class ItemFormComponent implements OnInit {
                 equalTo: this.appService.user.email
             }
         }).subscribe(lists => this.access = lists);
-        this.erro = language.m1;
+        this.erro = this.appService.language.m1;
     }
 
     onSelect(lkey, listname, akey): void {
@@ -70,10 +70,10 @@ export class ItemFormComponent implements OnInit {
         }).subscribe(data => this.length = data.length);
 
         if (f.controls.itemname.value == '' || f.controls.amount.value == '')  {
-            this.erro = language.e1;
+            this.erro = this.appService.language.e1;
             navigator.vibrate([500]);
         } else if (this.length >= config.max)
-            this.erro = language.e2;
+            this.erro = this.appService.language.e2;
         else {      
             let d = new Date();
             let itemkey = d.getFullYear()+''+d.getMonth()+''+d.getDay()+''+d.getHours()+''+d.getMinutes()+''+d.getSeconds()+''+(Math.floor(Math.random() * (99999 - 10000 + 1)) + 10000);

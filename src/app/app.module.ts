@@ -15,13 +15,16 @@ import { ListModule } from './list/list.module';
 import { LoginModule } from './login/login.module';
 import { AppRoutingModule } from './app.routing.module';
 
+import { TranslatePipeModule } from './translate.module'
+
 import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent       
   ],
-  imports: [
+  imports: [   
+    TranslatePipeModule,
     BrowserModule,
     FormsModule,
     HttpModule,

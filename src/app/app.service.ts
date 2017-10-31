@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { AfoListObservable, AngularFireOfflineDatabase } from 'angularfire2-offline/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { language_en, language_ptbr } from '../environments/language';
 
 // The @Injectable() decorator tells TypeScript to emit metadata about the service. The metadata specifies that Angular may need to inject other dependencies into this service.
 @Injectable() 
@@ -13,6 +14,7 @@ export class AppService {
     isSignin: Observable<boolean>;
     user: any;
     returnUrl: string = '/';
+    language: any;
     
     constructor(
         public afoDatabase: AngularFireOfflineDatabase,
@@ -20,6 +22,16 @@ export class AppService {
         private route: ActivatedRoute,
         private afAuth: AngularFireAuth
     ) {
+
+        if (localStorage.getItem('lang')) {
+            if (localStorage.getItem('lang') == 'ptbr')
+                this.language = language_ptbr;
+            else
+                this.language = language_en;
+        } else {
+            localStorage.setItem('lang', 'ptbr');        
+            this.language = language_ptbr;
+        }
 
         this.isConnected = Observable.merge(
             Observable.of(navigator.onLine),
@@ -37,6 +49,16 @@ export class AppService {
             } 
         });
             
+    }
+
+    language_set(i) {
+        if (i==1) {
+            localStorage.setItem('lang', 'ptbr');        
+            this.language = language_ptbr;
+        } else {
+            localStorage.setItem('lang', 'en');        
+            this.language = language_en;
+        }
     }
     
 }
