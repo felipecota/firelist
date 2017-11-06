@@ -24,14 +24,14 @@ export class ListAccessComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.appService.afoDatabase.list('/access', {
+    this.appService.db.list('/access', {
       query: {
         orderByChild: 'email',
         equalTo: this.appService.user.email
       }
-    }).subscribe(lists => {
-       this.access = lists;
-      });  
+    }).subscribe(access => {
+      this.access = access.sort((a,b) => a.listname.localeCompare(b.listname));
+    });  
   }
 
   onSelectList(key, listname, items): void {
@@ -39,12 +39,15 @@ export class ListAccessComponent implements OnInit {
     this.erro = '';
     this.listname = listname;
     this.listkey = key; 
-    this.appService.afoDatabase.list('/access', {
+    this.appService.db.list('/access', {
       query: {
         orderByChild: 'listkey',
         equalTo: this.listkey
       }
-    }).subscribe(members => this.members = members);    
+    }).subscribe(members => {
+      this.members = members.sort((a,b) => a.listname.localeCompare(b.listname));
+}); 
+       
   }    
 
   form_submit(f: NgForm) {
@@ -73,14 +76,14 @@ export class ListAccessComponent implements OnInit {
               this.erro = this.appService.language.e8
           } else {
               let email = f.controls.email.value;
-              this.appService.afoDatabase.list('/access').push(
+              this.appService.db.list('/access').push(
                 {
                     listname: this.listname,
                     listkey: this.listkey,
                     email: email
                 }
               );    
-              this.appService.afoDatabase.list('/items', {
+              this.appService.db.list('/items', {
                 query: {
                     orderByChild: 'email',
                     equalTo: this.appService.user.email
@@ -88,7 +91,7 @@ export class ListAccessComponent implements OnInit {
               }).take(1).forEach(items => {
                   items.forEach(e => {
                     if (e.listkey == this.listkey)
-                      this.appService.afoDatabase.list('/items').push({
+                      this.appService.db.list('/items').push({
                         amount: e.amount,
                         email: email,
                         itemkey: e.itemkey,
@@ -112,11 +115,11 @@ export class ListAccessComponent implements OnInit {
   onRemove(key, email): void {
       if (this.members.length > 1) {  
         // Remove access
-        this.appService.afoDatabase.list('/access').remove(key).then(() => console.log('members removed: ' + key)),
+        this.appService.db.list('/access').remove(key).then(() => console.log('members removed: ' + key)),
           (e: any) => console.log(e.message);
 
         // Remove items
-        this.appService.afoDatabase.list('/items', {
+        this.appService.db.list('/items', {
           query: {
               orderByChild: 'email',
               equalTo: email
@@ -124,7 +127,7 @@ export class ListAccessComponent implements OnInit {
         }).take(1).forEach(items => {
             items.forEach(e => {
               if (e.listkey == this.listkey) {
-                this.appService.afoDatabase.list('/items').remove(e.$key);
+                this.appService.db.list('/items').remove(e.$key);
               }
             });
         });            

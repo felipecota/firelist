@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject} from 'rxjs/Rx';
 import { Subscription } from 'rxjs/Subscription';
-import { AfoListObservable, AngularFireOfflineDatabase } from 'angularfire2-offline/database';
+import { AngularFireOfflineDatabase } from 'angularfire2-offline/database';
+//import { AngularFireDatabase } from "angularfire2/database";
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { language_en, language_ptbr } from '../environments/language';
@@ -17,7 +18,8 @@ export class AppService {
     language: any;
     
     constructor(
-        public afoDatabase: AngularFireOfflineDatabase,
+        public db: AngularFireOfflineDatabase,
+        //public db: AngularFireDatabase,
         private router: Router,
         private route: ActivatedRoute,
         private afAuth: AngularFireAuth

@@ -38,12 +38,14 @@ export class ItemFormComponent implements OnInit {
     }      
 
     ngOnInit() { 
-        this.appService.afoDatabase.list('/access', {
+        this.appService.db.list('/access', {
             query: {
                 orderByChild: 'email',
                 equalTo: this.appService.user.email
             }
-        }).subscribe(lists => this.access = lists);
+        }).subscribe(access => {
+            this.access = access.sort((a,b) => a.listname.localeCompare(b.listname));
+        });
         this.erro = this.appService.language.m1;
     }
 
@@ -53,7 +55,7 @@ export class ItemFormComponent implements OnInit {
         this.listname = listname;
         this.listkey = lkey;
         this.accesskey = akey;
-        this.appService.afoDatabase.list('/access', {
+        this.appService.db.list('/access', {
             query: {
                 orderByChild: 'listkey',
                 equalTo: lkey
@@ -62,7 +64,7 @@ export class ItemFormComponent implements OnInit {
     }    
 
     form_submit(f: NgForm) { 
-        this.appService.afoDatabase.list('/items', {            
+        this.appService.db.list('/items', {            
             query: {
                 orderByChild: 'email',
                 equalTo: this.appService.user.email
@@ -78,7 +80,7 @@ export class ItemFormComponent implements OnInit {
             let d = new Date();
             let itemkey = d.getFullYear()+''+d.getMonth()+''+d.getDay()+''+d.getHours()+''+d.getMinutes()+''+d.getSeconds()+''+(Math.floor(Math.random() * (99999 - 10000 + 1)) + 10000);
             this.lists.forEach(e => {
-                this.appService.afoDatabase.list('/items').push({
+                this.appService.db.list('/items').push({
                     email: e.email,                    
                     itemkey: itemkey,
                     listkey: e.listkey,                    

@@ -21,12 +21,14 @@ export class ListFormComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        this.appService.afoDatabase.list('/access', {
+        this.appService.db.list('/access', {
             query: {
                 orderByChild: 'email',
                 equalTo: this.appService.user.email
             }
-        }).subscribe(lists => this.access = lists);
+        }).subscribe(access => {
+            this.access = access.sort((a,b) => a.listname.localeCompare(b.listname));
+        });
     }
 
     form_submit(f: NgForm) { 
@@ -41,7 +43,7 @@ export class ListFormComponent implements OnInit {
             this.erro = this.appService.language.e2;
         else {      
             let listname = f.controls.listname.value;     
-            this.appService.afoDatabase.list('/access').push(
+            this.appService.db.list('/access').push(
                     {
                         listkey: listkey,
                         listname: listname,
@@ -59,7 +61,7 @@ export class ListFormComponent implements OnInit {
     }  
 
     onSelect(lkey): void {
-        this.appService.afoDatabase.list('/items', {            
+        this.appService.db.list('/items', {            
             query: {
                 orderByChild: 'listkey',
                 equalTo: lkey
@@ -68,14 +70,14 @@ export class ListFormComponent implements OnInit {
             if (data.length > 0)
                 this.erro = this.appService.language.e7;
             else {
-                this.appService.afoDatabase.list('/access', {
+                this.appService.db.list('/access', {
                     query: {
                         orderByChild: 'listkey',
                         equalTo: lkey
                     }
                 }).take(1).forEach(access => {
                     access.forEach(e => {
-                        this.appService.afoDatabase.list('/access').remove(e.$key)
+                        this.appService.db.list('/access').remove(e.$key)
                         .then(() => console.log('access removed: ' + e.$key)),
                         (e: any) => console.log(e.message);
                     });
