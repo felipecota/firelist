@@ -31,7 +31,8 @@ export const language_ptbr = {
     t13: 'Acesso',
     m1: 'Selecione uma lista',
     m2: 'Esqueci minha senha',
-    m3: 'E-mail para resetar senha enviado'
+    m3: 'E-mail para resetar senha enviado',
+    m4: 'Nenhuma lista disponível'
 }
 
 export const language_en = {
@@ -63,5 +64,6 @@ export const language_en = {
     t13: 'Access',
     m1: 'Select a list to continue',
     m2: 'Forgot my password',
-    m3: 'Reset password mail sent'
+    m3: 'Reset password mail sent',
+    m4: 'There is no list to display'
 }

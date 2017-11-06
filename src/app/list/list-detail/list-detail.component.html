@@ -9,3 +9,6 @@
       </ul>
     </li>
 </ul>
+<div *ngIf="access && access.length == 0" class="alert alert-danger">
+    {{'m4' | translate}}
+</div>
