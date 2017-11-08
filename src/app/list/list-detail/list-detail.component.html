@@ -1,14 +1,14 @@
 <ul class="lists">
-    <li *ngFor="let a of access">
-        {{a.listname}}
+    <li *ngFor="let l of lists | async">
+        {{l.listname}}
       <ul class="items">
-        <li *ngFor="let i of items | filter: a.listkey">
+        <li *ngFor="let i of l.items">
             {{ i.itemname + ' - ' + i.amount }}
-            <span class="badge" (click)="onSelect(i.itemkey)">X</span>    
+            <span class="badge" (click)="onSelect(l,i.itemkey)">X</span>    
         </li>
       </ul>
     </li>
 </ul>
-<div *ngIf="access && access.length == 0" class="alert alert-danger">
+<div *ngIf="len == 0" class="alert alert-danger">
     {{'m4' | translate}}
 </div>

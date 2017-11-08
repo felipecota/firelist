@@ -5,8 +5,8 @@ import { HttpModule }   from '@angular/http';
 import { FirebaseConfig } from './../environments/firebase.config';
 
 import { AngularFireModule } from 'angularfire2/index';
-import { AngularFireOfflineModule } from 'angularfire2-offline';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
 
 import { AppService } from './app.service'
 
@@ -34,7 +34,7 @@ import { AppComponent } from './app.component';
     AppRoutingModule,
     AngularFireDatabaseModule,
     AngularFireModule.initializeApp(FirebaseConfig),
-    AngularFireOfflineModule
+    AngularFirestoreModule.enablePersistence()
   ],
   providers: [AppService],
   bootstrap: [AppComponent]

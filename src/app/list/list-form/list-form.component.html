@@ -1,21 +1,19 @@
 <br>
-<form #f="ngForm" (submit)="form_submit(f)">
-    <div class="form-group">
-        <label for="pwd">{{'t5' | translate}}</label>  
-        <input type="text" class="form-control" ngModel name="listname">
-    </div>
-    <button class="btn btn-primary" type="submit">
-        <span class="glyphicon glyphicon-floppy-disk"></span> {{'t3' | translate}}
-    </button>       
-    <br><br>
-    <ul class="items">
-        <li *ngFor="let a of access">
-            {{ a.listname }}
-            <span class="badge" (click)="onSelect(a.listkey)">X</span>    
-        </li>
-    </ul>  
-    <br>   
-    <div *ngIf="erro" class="alert alert-danger">
-            {{erro}}
-    </div>      
-</form>
+<div class="form-group">
+    <label for="pwd">{{'t5' | translate}}</label>  
+    <input type="text" class="form-control" [(ngModel)]="listname" name="listname">
+</div>
+<button class="btn btn-primary" type="button" (click)="Include()">
+    <span class="glyphicon glyphicon-floppy-disk"></span> {{'t3' | translate}}
+</button>       
+<br><br>
+<ul class="items">
+    <li *ngFor="let l of lists | async">
+        {{ l.listname }}
+        <span class="badge" (click)="onSelect(l.id, l.items)">X</span>    
+    </li>
+</ul>  
+<br>   
+<div *ngIf="erro" class="alert alert-danger">
+        {{erro}}
+</div>      

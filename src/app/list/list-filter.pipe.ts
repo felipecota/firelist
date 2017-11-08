@@ -1,3 +1,8 @@
+
+// This PIPE is not used anymore with Firestore
+
+/*
+
 import { PipeTransform, Pipe } from '@angular/core';
 
 @Pipe({
@@ -17,3 +22,5 @@ export class ListFilterPipe implements PipeTransform {
 
     }
 }
+
+*/

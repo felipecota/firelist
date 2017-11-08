@@ -1,6 +1,7 @@
-import { NgForm } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { Observable } from 'rxjs/Observable'
+import * as fs from 'firebase';
 
 import { AppService } from '../../app.service';
 
@@ -11,12 +12,14 @@ import { AppService } from '../../app.service';
 })
 export class ListAccessComponent implements OnInit {
 
-  access: any[];
+  lists: Observable<any[]>;
   members: any[];
+  
   selected: boolean;
   erro: string;
   listname: string;
   listkey: string;
+  email: string;
   
   constructor(
     private appService: AppService,
@@ -24,115 +27,82 @@ export class ListAccessComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.appService.db.list('/access', {
-      query: {
-        orderByChild: 'email',
-        equalTo: this.appService.user.email
-      }
-    }).subscribe(access => {
-      this.access = access.sort((a,b) => a.listname.localeCompare(b.listname));
-    });  
+
+    this.lists = this.appService.afs.collection('lists', ref => ref.where('access.'+this.appService.user.email.replace('.','`'),'==',true))
+    .snapshotChanges()
+    .map(lists => {
+        return lists
+        .sort(
+            (a,b) => a.payload.doc.data().listname.localeCompare(b.payload.doc.data().listname))
+        .map(list => {
+            const data = list.payload.doc.data();
+            const id = list.payload.doc.id;                
+            return { id, ...data };                
+        })
+    }); 
+
   }
 
-  onSelectList(key, listname, items): void {
+  onSelectList(l): void {
     this.selected = true;
     this.erro = '';
-    this.listname = listname;
-    this.listkey = key; 
-    this.appService.db.list('/access', {
-      query: {
-        orderByChild: 'listkey',
-        equalTo: this.listkey
+    this.listname = l.listname;
+    this.listkey = l.id;
+    
+    this.appService.afs.collection('lists').doc(this.listkey)
+    .snapshotChanges()
+    .forEach(list => {
+      let temp = [];
+      for (let key in list.payload.data().access) {
+          temp.push({
+              email: key.replace('`','.')
+          });
       }
-    }).subscribe(members => {
-      this.members = members.sort((a,b) => a.listname.localeCompare(b.listname));
-}); 
-       
+      this.members = temp;
+    });     
   }    
 
-  form_submit(f: NgForm) {
+  Include() {
+
+    let email = this.email;
+
+    // I neeed connection to check email
     if (!navigator.onLine)
-      this.erro = this.appService.language.e12;
-    else if (f.controls.email.value == '') {
+      this.erro = this.appService.language.e12;    
+    else if (email == '') {
       this.erro = this.appService.language.e8;
       navigator.vibrate([500]);
     } else {  
 
-      let member_exists = false;
-      let item_exists = false;
-
-      for(let i of this.members) {
-        if (i.email == f.controls.email.value)
-          member_exists = true;
-      }
-
-      if (member_exists)
-        this.erro = this.appService.language.e8;
-      else {
         // Check if e-mail is already in the list
-        this.afAuth.auth.fetchProvidersForEmail(f.controls.email.value)
+        this.afAuth.auth.fetchProvidersForEmail(email)
         .then(providers => { 
           if (providers.length == 0) {
               this.erro = this.appService.language.e8
           } else {
-              let email = f.controls.email.value;
-              this.appService.db.list('/access').push(
-                {
-                    listname: this.listname,
-                    listkey: this.listkey,
-                    email: email
-                }
-              );    
-              this.appService.db.list('/items', {
-                query: {
-                    orderByChild: 'email',
-                    equalTo: this.appService.user.email
-                }
-              }).take(1).forEach(items => {
-                  items.forEach(e => {
-                    if (e.listkey == this.listkey)
-                      this.appService.db.list('/items').push({
-                        amount: e.amount,
-                        email: email,
-                        itemkey: e.itemkey,
-                        itemname: e.itemname,
-                        listkey: e.listkey
-                      });
-                  });
-              });                 
+              this.appService.afs.collection('lists').doc(this.listkey).update({
+                  ['access.'+email.replace('.','`')]: true
+              });            
+                 
               this.erro = '';
-              f.controls.email.setValue('');
+              this.email = '';
           }}
-        ) 
-        .catch(error => { 
-          console.log(error);
-          this.erro = this.appService.language.e8 
-        });
-      }
+        );
     }
   }
 
-  onRemove(key, email): void {
-      if (this.members.length > 1) {  
-        // Remove access
-        this.appService.db.list('/access').remove(key).then(() => console.log('members removed: ' + key)),
-          (e: any) => console.log(e.message);
+  onRemove(member): void {
 
-        // Remove items
-        this.appService.db.list('/items', {
-          query: {
-              orderByChild: 'email',
-              equalTo: email
-          }
-        }).take(1).forEach(items => {
-            items.forEach(e => {
-              if (e.listkey == this.listkey) {
-                this.appService.db.list('/items').remove(e.$key);
-              }
-            });
-        });            
-      } else
-        this.erro = this.appService.language.e10;
+    if (!navigator.onLine)
+      this.erro = this.appService.language.e12;
+    else if (this.members.length > 1)
+      this.appService.afs.collection('lists').doc(this.listkey).update({
+        ['access.'+member.email.replace('.','`')]: fs.firestore.FieldValue.delete()
+      });
+    else {
+      this.erro = this.appService.language.e10;      
+    }
+
   }
 
 }

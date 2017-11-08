@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
+import * as fs from 'firebase';
 
 import { AppService } from '../../app.service'
 
@@ -11,44 +12,47 @@ import { AppService } from '../../app.service'
 
 export class ListDetailComponent implements OnInit {
 
-      access: any[];
+      lists: Observable<any[]>;
       items: any[];
+      len: number;
 
       constructor(
           private appService: AppService
       ) { }
   
       ngOnInit() { 
-        this.appService.db.list('/access', {
-              query: {
-                  orderByChild: 'email',
-                  equalTo: this.appService.user.email
-              }
-        }).subscribe(access => {
-              this.access = access.sort((a,b) => a.listname.localeCompare(b.listname));
-        });  
 
-        this.appService.db.list('/items', {
-            query: {
-                orderByChild: 'email',
-                equalTo: this.appService.user.email
-            }
-        }).subscribe(items => {
-            this.items = items.sort((a,b) => a.itemname.localeCompare(b.itemname));
-        });            
+        this.lists = this.appService.afs.collection('lists', ref => ref.where('access.'+this.appService.user.email.replace('.','`'),'==',true))
+        .snapshotChanges()
+        .map(lists => {
+            this.len = lists.length;
+            return lists
+            .sort(
+                (a,b) => a.payload.doc.data().listname.localeCompare(b.payload.doc.data().listname))
+            .map(list => {                
+                let temp = [];
+                const data = list.payload.doc.data();                
+                for (let key in data.items) {
+                    temp.push({
+                        itemkey: key,
+                        itemname: data.items[key].itemname,
+                        amount: data.items[key].amount
+                    });
+                }
+                data.items = temp;
+                const id = list.payload.doc.id;                
+                return { id, ...data };                
+            })
+        });    
+             
       }
 
-      onSelect(itemkey): void {
-        this.appService.db.list('/items', {
-            query: {
-                orderByChild: 'itemkey',
-                equalTo: itemkey
-            }
-            }).take(1).forEach(e => {
-                e.forEach(e => {
-                    this.appService.db.list('/items').remove(e.$key);
-                })
-            });
-      }
+      onSelect(list, itemkey): void {
+
+        this.appService.afs.collection('lists').doc(list.id).update({
+            ['items.'+itemkey]: fs.firestore.FieldValue.delete()
+        })        
+          
+    }
 
 }

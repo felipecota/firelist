@@ -3,7 +3,6 @@ import { AppService } from './app.service'
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { AfoListObservable } from 'angularfire2-offline/database';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +12,7 @@ import { AfoListObservable } from 'angularfire2-offline/database';
 export class AppComponent {  
 
   title = 'realtimeapp';
-  version = 'v3.4';
+  version = 'v4.0';
   isConnected: Observable<boolean>;
  
   constructor(

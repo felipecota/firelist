@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject} from 'rxjs/Rx';
 import { Subscription } from 'rxjs/Subscription';
-import { AngularFireOfflineDatabase } from 'angularfire2-offline/database';
-//import { AngularFireDatabase } from "angularfire2/database";
+import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { language_en, language_ptbr } from '../environments/language';
@@ -18,11 +17,10 @@ export class AppService {
     language: any;
     
     constructor(
-        public db: AngularFireOfflineDatabase,
-        //public db: AngularFireDatabase,
+        public afs: AngularFirestore,
         private router: Router,
         private route: ActivatedRoute,
-        private afAuth: AngularFireAuth
+        private afAuth: AngularFireAuth,
     ) {
 
         if (localStorage.getItem('lang')) {
