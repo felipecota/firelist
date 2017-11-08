@@ -1,34 +1,33 @@
 <br>
-<form #f="ngForm" (submit)="form_submit(f)">
-    <div class="dropdown">
-        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">{{'t5' | translate}}
-        <span class="caret"></span></button>
-        <ul class="dropdown-menu">
-            <li *ngFor="let l of lists | async" (click)="onSelectList(l)">
-                {{l.listname}}
-            </li>
-        </ul>
-    </div>    
-    <br><br>   
-    <div class="form-group">
-        <label for="pwd">{{'t5' | translate}}</label>  
-        <input type="text" [disabled]="true" class="form-control" [(ngModel)]="listname" name="listname">        
-    </div>
-    <div class="form-group">
-        <label for="pwd">E-mail</label>  
-        <input type="text" [disabled]="!selected" class="form-control email" [(ngModel)]="email" name="email">        
-    </div>
-    <button [disabled]="!selected" class="btn btn-primary" type="button" (click)="Include()">
-        <span class="glyphicon glyphicon-floppy-disk"></span> {{'t3' | translate}}
-    </button>       
-    <br><br>
-    <div *ngIf="erro" class="alert alert-danger">
-        {{erro}}
-    </div> 
-    <ul class="items">
-        <li *ngFor="let m of members">
-            {{ m.email }}
-            <span class="badge" (click)="onRemove(m)">X</span>    
+<div class="dropdown">
+    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">{{'t5' | translate}}
+    <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+        <li *ngFor="let l of lists | async" (click)="onSelectList(l)">
+            {{l.listname}}
         </li>
-    </ul>        
-</form>    
+    </ul>
+</div>    
+<br><br>   
+<div class="form-group">
+    <label for="pwd">{{'t5' | translate}}</label>  
+    <input type="text" [disabled]="true" class="form-control" [(ngModel)]="listname" name="listname">        
+</div>
+<div class="form-group">
+    <label for="pwd">E-mail</label>  
+    <input type="text" [disabled]="!selected" class="form-control email" [(ngModel)]="email" name="email">        
+</div>
+<button [disabled]="!selected" class="btn btn-primary" type="button" (click)="Include()">
+    <span class="glyphicon glyphicon-floppy-disk"></span> {{'t3' | translate}}
+</button>       
+<br><br>
+<div *ngIf="erro" class="alert alert-danger">
+    {{erro}}
+</div> 
+<ul class="items">
+    <li *ngFor="let m of members">
+        {{ m.email }}
+        <span class="badge" (click)="onRemove(m)">X</span>    
+    </li>
+</ul>        
+ 

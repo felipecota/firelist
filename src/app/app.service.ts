@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject} from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable'
 import { Subscription } from 'rxjs/Subscription';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { language_en, language_ptbr } from '../environments/language';
+import 'rxjs/add/observable/fromEvent';
 
 // The @Injectable() decorator tells TypeScript to emit metadata about the service. The metadata specifies that Angular may need to inject other dependencies into this service.
 @Injectable() 
