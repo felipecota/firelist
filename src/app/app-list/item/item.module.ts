@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 
 import { ItemFormComponent } from './item-form/item-form.component';
 
-import { TranslatePipeModule } from '../translate.module'
+import { TranslatePipeModule } from '../../translate.module'
 
 @NgModule({
   imports: [

@@ -6,8 +6,9 @@
 <div class="jumbotron text-center">    
     <h1>{{title}}</h1>    
     <div class="version">{{version}}</div>        
+    <img *ngIf="this.router.url != '/menu'" class="home" src="/assets/images/home.png" (click)="menu()">    
 </div>
-<div *ngIf="(this.appService.isSignin | async)">
+<div *ngIf="(this.appService.lists.indexOf(this.router.url) >= 0 && this.appService.isSignin | async)">
     <ul class="nav nav-tabs">
         <li routerLinkActive="active"><a routerLink="/list-detail">{{'t12' | translate}}</a></li>
         <li routerLinkActive="active"><a routerLink="/item-form">{{'t11' | translate}}</a></li>
@@ -15,4 +16,11 @@
         <li routerLinkActive="active"><a routerLink="/list-access">{{'t13' | translate}}</a></li>
     </ul>
 </div>
+<div *ngIf="(this.appService.bills.indexOf(this.router.url) >= 0 && this.appService.isSignin | async)">
+        <ul class="nav nav-tabs">
+            <li routerLinkActive="active"><a routerLink="/bill-detail">{{'t14' | translate}}</a></li>
+            <li routerLinkActive="active"><a routerLink="/bill-form">{{'t15' | translate}}</a></li>
+            <li routerLinkActive="active"><a routerLink="/bill-access">{{'t13' | translate}}</a></li>
+        </ul>
+    </div>
 <router-outlet></router-outlet>

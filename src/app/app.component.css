@@ -12,3 +12,9 @@
     float: left;
     margin: 10px 0px 0px 10px;
 }
+
+.home {
+    float: left;
+    width: 20px;
+    height: 20px;
+}

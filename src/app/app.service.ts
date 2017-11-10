@@ -14,8 +14,12 @@ export class AppService {
     isConnected: Observable<boolean>;
     isSignin: Observable<boolean>;
     user: any;
-    returnUrl: string = '/';
+    returnUrl: string = '/menu';
     language: any;
+
+    // list
+    lists: any[] = ['/list-detail','/list-form','/list-access','/item-form'];
+    bills: any[] = ['/bill-form','/bill-access','/bill-detail'];
     
     constructor(
         public afs: AngularFirestore,
@@ -42,7 +46,7 @@ export class AppService {
         this.afAuth.auth.onAuthStateChanged(user => {
             if (user) { 
                 this.user = user;
-                this.isSignin = Observable.of(true);                
+                this.isSignin = Observable.of(true);  
                 this.router.navigate([this.returnUrl]);
             } else { 
                 this.user = undefined;

@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router }   from '@angular/router';
 import { Observable } from 'rxjs/Observable'
 
-import { AppService } from '../../app.service';
-import { config } from '../../../environments/language';
+import { AppService } from '../../../app.service';
+import { config } from '../../../../environments/language';
 
 @Component({
     selector: 'app-form',

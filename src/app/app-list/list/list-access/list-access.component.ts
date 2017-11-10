@@ -3,7 +3,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { Observable } from 'rxjs/Observable'
 import * as fs from 'firebase';
 
-import { AppService } from '../../app.service';
+import { AppService } from '../../../app.service';
 
 @Component({
   selector: 'app-list-access',

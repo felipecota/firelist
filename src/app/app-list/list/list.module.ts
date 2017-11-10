@@ -4,10 +4,9 @@ import { CommonModule } from '@angular/common';
 
 import { ListDetailComponent } from './list-detail/list-detail.component';
 import { ListFormComponent } from './list-form/list-form.component';
-
-import { TranslatePipeModule } from '../translate.module'
-
 import { ListAccessComponent } from './list-access/list-access.component';
+
+import { TranslatePipeModule } from '../../translate.module'
 
 @NgModule({
   declarations: [
@@ -19,10 +18,6 @@ import { ListAccessComponent } from './list-access/list-access.component';
     CommonModule,
     FormsModule,
     TranslatePipeModule
-  ],
-  exports: [
-    ListDetailComponent, 
-    ListFormComponent
   ]
 })
 export class ListModule { }

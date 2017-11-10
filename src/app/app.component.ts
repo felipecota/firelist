@@ -12,14 +12,14 @@ import { AngularFireAuth } from 'angularfire2/auth';
 export class AppComponent {  
 
   title = 'realtimeapp';
-  version = 'v4.0';
+  version = 'v5.0';
   isConnected: Observable<boolean>;
  
   constructor(
     public appService: AppService,
     private afAuth: AngularFireAuth,     
-    private router: Router) { 
-      this.isConnected = this.appService.isConnected;
+    private router: Router) {
+        this.isConnected = this.appService.isConnected;
   }    
 
   logout() {
@@ -29,6 +29,10 @@ export class AppComponent {
 
   language(i) {
     this.appService.language_set(i);
+  }
+
+  menu() {
+    this.router.navigate(['/menu']);
   }
 
 }
