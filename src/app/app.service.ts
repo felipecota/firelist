@@ -19,7 +19,7 @@ export class AppService {
 
     // list
     lists: any[] = ['/list-detail','/list-form','/list-access','/item-form'];
-    bills: any[] = ['/bill-form','/bill-access','/bill-detail'];
+    bills: any[] = ['/bill-form','/bill-access','/bill-item'];
     
     constructor(
         public afs: AngularFirestore,

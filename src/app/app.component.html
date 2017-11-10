@@ -18,7 +18,7 @@
 </div>
 <div *ngIf="(this.appService.bills.indexOf(this.router.url) >= 0 && this.appService.isSignin | async)">
         <ul class="nav nav-tabs">
-            <li routerLinkActive="active"><a routerLink="/bill-detail">{{'t14' | translate}}</a></li>
+            <li routerLinkActive="active"><a routerLink="/bill-item">{{'t11' | translate}}</a></li>
             <li routerLinkActive="active"><a routerLink="/bill-form">{{'t15' | translate}}</a></li>
             <li routerLinkActive="active"><a routerLink="/bill-access">{{'t13' | translate}}</a></li>
         </ul>

@@ -20,7 +20,7 @@ export class ItemFormComponent implements OnInit {
 
     selected: boolean;
     listname: string;
-    id: any;
+    listkey: string;
 
     itemname: string;
     amount: string;
@@ -53,7 +53,7 @@ export class ItemFormComponent implements OnInit {
         this.selected = true;
         this.erro = '';
         this.listname = l.listname;
-        this.id = l.id;
+        this.listkey = l.id;
     }    
 
     Include() { 
@@ -74,7 +74,7 @@ export class ItemFormComponent implements OnInit {
             let d = new Date();
             let itemkey = d.getFullYear()+''+d.getMonth()+''+d.getDay()+''+d.getHours()+''+d.getMinutes()+''+d.getSeconds()+''+(Math.floor(Math.random() * (99999 - 10000 + 1)) + 10000);                        
            
-            this.appService.afs.collection('lists').doc(this.id).update({
+            this.appService.afs.collection('lists').doc(this.listkey).update({
                 ['items.'+itemkey]: {
                     itemname: itemname,
                     amount: amount

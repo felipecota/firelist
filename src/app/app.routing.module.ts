@@ -17,7 +17,7 @@ import { MenuComponent } from './menu.component';
 
 import { BillFormComponent } from './app-bill/bill/bill-form/bill-form.component';
 import { BillAccessComponent } from './app-bill/bill/bill-access/bill-access.component';
-import { BillDetailComponent } from './app-bill/bill/bill-detail/bill-detail.component';
+import { BillItemComponent } from './app-bill/bill/bill-item/bill-item.component';
 
 import { AppService } from './app.service';
 import { Observable } from 'rxjs/Observable';
@@ -52,7 +52,7 @@ const APP_ROUTES: Routes = [
     { path: 'item-form', component: ItemFormComponent, canActivate:[AuthGuard] },
     { path: 'bill-form', component: BillFormComponent, canActivate:[AuthGuard] },    
     { path: 'bill-access', component: BillAccessComponent, canActivate:[AuthGuard] },
-    { path: 'bill-detail', component: BillDetailComponent, canActivate:[AuthGuard] }
+    { path: 'bill-item', component: BillItemComponent, canActivate:[AuthGuard] }
 ]
 
 @NgModule({

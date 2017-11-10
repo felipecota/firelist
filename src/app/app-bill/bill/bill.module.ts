@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 
 import { BillFormComponent } from './bill-form/bill-form.component';
 import { BillAccessComponent } from './bill-access/bill-access.component';
-import { BillDetailComponent } from './bill-detail/bill-detail.component';
+import { BillItemComponent } from './bill-item/bill-item.component';
 
 import { TranslatePipeModule } from '../../translate.module'
 
@@ -12,7 +12,7 @@ import { TranslatePipeModule } from '../../translate.module'
   declarations: [
     BillFormComponent,
     BillAccessComponent,
-    BillDetailComponent
+    BillItemComponent
   ],
   imports: [
     CommonModule,
