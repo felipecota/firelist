@@ -10,9 +10,7 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 
 import { AppService } from './app.service'
 
-import { ItemModule } from './app-list/item/item.module';
 import { ListModule } from './app-list/list/list.module';
-
 import { BillModule } from './app-bill/bill/bill.module';
 
 import { LoginModule } from './login/login.module';
@@ -33,7 +31,6 @@ import { MenuComponent } from './menu.component';
     BrowserModule,
     FormsModule,
     HttpModule,
-    ItemModule,
     ListModule,
     BillModule,
     LoginModule,

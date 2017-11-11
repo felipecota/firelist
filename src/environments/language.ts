@@ -16,6 +16,7 @@ export const language_ptbr = {
     e11: 'Lista deve estar vazia',
     e12: 'Você está offline, tente novamente mais tarde',
     e13: 'E-mail é inválido',
+    e14: 'Data, item, valor e beneficiado são obrigatórios',
     t1: 'Nome',
     t2: 'Quantidade',
     t3: 'Incluir',
@@ -31,10 +32,17 @@ export const language_ptbr = {
     t13: 'Acesso',
     t14: 'Conta',
     t15: 'Nova Conta',
+    t16: 'Pagador',
+    t17: 'Data',
+    t18: 'Valor',
+    t19: 'Beneficiados',
+    t20: 'Gerenciador de Listas',
+    t21: 'Gerenciador de Contas',
     m1: 'Selecione uma lista',
     m2: 'Esqueci minha senha',
     m3: 'E-mail para resetar senha enviado',
-    m4: 'Nenhuma lista disponível'
+    m4: 'Nenhuma lista disponível',
+    m5: 'Nenhum item foi adicionado'
 }
 
 export const language_en = {
@@ -51,6 +59,7 @@ export const language_en = {
     e11: 'List must be empty',
     e12: 'You are offline, try again later',
     e13: 'E-mail is invalid',
+    e14: 'Date, item, value and benefited are required',
     t1: 'Name',
     t2: 'Amount',
     t3: 'Include',
@@ -66,8 +75,15 @@ export const language_en = {
     t13: 'Access',
     t14: 'Bill',
     t15: 'New Bill',
+    t16: 'Payer',
+    t17: 'Date',
+    t18: 'Value',
+    t19: 'Benefited',
+    t20: 'List Mananger',
+    t21: 'Bill Mananger',    
     m1: 'Select a list to continue',
     m2: 'Forgot my password',
     m3: 'Reset password mail sent',
-    m4: 'There is no list to display'
+    m4: 'There is no list to display',
+    m5: 'There is no item to display'    
 }

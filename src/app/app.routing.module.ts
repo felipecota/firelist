@@ -11,13 +11,14 @@ import { LoginFormComponent } from './login/login-form/login-form.component';
 import { ListDetailComponent } from './app-list/list/list-detail/list-detail.component';
 import { ListFormComponent } from './app-list/list/list-form/list-form.component';
 import { ListAccessComponent } from './app-list/list/list-access/list-access.component';
-import { ItemFormComponent } from './app-list/item/item-form/item-form.component';
+import { ListItemComponent } from './app-list/list/list-item/list-item.component';
 
 import { MenuComponent } from './menu.component';
 
 import { BillFormComponent } from './app-bill/bill/bill-form/bill-form.component';
 import { BillAccessComponent } from './app-bill/bill/bill-access/bill-access.component';
 import { BillItemComponent } from './app-bill/bill/bill-item/bill-item.component';
+import { BillDetailComponent } from './app-bill/bill/bill-detail/bill-detail.component';
 
 import { AppService } from './app.service';
 import { Observable } from 'rxjs/Observable';
@@ -49,10 +50,11 @@ const APP_ROUTES: Routes = [
     { path: 'list-detail', component: ListDetailComponent, canActivate:[AuthGuard] },
     { path: 'list-form', component: ListFormComponent, canActivate:[AuthGuard] },
     { path: 'list-access', component: ListAccessComponent, canActivate:[AuthGuard] },
-    { path: 'item-form', component: ItemFormComponent, canActivate:[AuthGuard] },
+    { path: 'list-item', component: ListItemComponent, canActivate:[AuthGuard] },
     { path: 'bill-form', component: BillFormComponent, canActivate:[AuthGuard] },    
     { path: 'bill-access', component: BillAccessComponent, canActivate:[AuthGuard] },
-    { path: 'bill-item', component: BillItemComponent, canActivate:[AuthGuard] }
+    { path: 'bill-item', component: BillItemComponent, canActivate:[AuthGuard] },
+    { path: 'bill-detail', component: BillDetailComponent, canActivate:[AuthGuard] }
 ]
 
 @NgModule({

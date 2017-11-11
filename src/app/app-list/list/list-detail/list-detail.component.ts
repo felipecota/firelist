@@ -39,7 +39,7 @@ export class ListDetailComponent implements OnInit {
                         amount: data.items[key].amount
                     });
                 }
-                data.items = temp;
+                data.items = temp.sort((a,b) => a.itemname.localeCompare(b.itemname));
                 const id = list.payload.doc.id;                
                 return { id, ...data };                
             })

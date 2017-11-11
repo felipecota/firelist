@@ -6,12 +6,12 @@ import { AppService } from '../../../app.service';
 import { config } from '../../../../environments/language';
 
 @Component({
-    selector: 'app-form',
-    templateUrl: './item-form.component.html',
-    styleUrls: ['./item-form.component.css']
+    selector: 'app-list-item',
+    templateUrl: './list-item.component.html',
+    styleUrls: ['./list-item.component.css']
 })
 
-export class ItemFormComponent implements OnInit {
+export class ListItemComponent implements OnInit {
 
     erro: string;   
     length: number;
