@@ -8,7 +8,7 @@
     <div class="version">{{version}}</div>        
     <img *ngIf="(this.router.url != '/menu' && this.appService.isSignin | async)" class="home" src="/assets/images/home.png" (click)="menu()">    
 </div>
-<div *ngIf="(this.appService.lists.indexOf(this.router.url) >= 0 && this.appService.isSignin | async)">
+<div *ngIf="(this.appService.lists.indexOf(this.router.url.split('/')[1]) >= 0 && this.appService.isSignin | async)">
     <ul class="nav nav-tabs">
         <li routerLinkActive="active"><a routerLink="/list-detail">{{'t12' | translate}}</a></li>
         <li routerLinkActive="active"><a routerLink="/list-item">{{'t11' | translate}}</a></li>
