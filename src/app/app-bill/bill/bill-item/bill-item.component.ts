@@ -113,7 +113,7 @@ export class BillItemComponent implements OnInit {
             })
 
             this.erro = '';
-            this.router.navigate(['/bill-detail']);                            
+            this.router.navigate(['/bill-detail/'+this.billkey+'/'+this.billname]);                            
 
         }   
     }  

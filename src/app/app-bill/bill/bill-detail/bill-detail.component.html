@@ -12,21 +12,20 @@
     <label for="pwd">{{'t14' | translate}}</label>  
     <input type="text" [disabled]="true" class="form-control" [(ngModel)]="billname" name="billname">        
 </div>
-<br><br>
 <div *ngIf="erro" class="alert alert-danger">
     {{erro}}
 </div>
 <ul class="items">
-    <li *ngFor="let i of items">
-        {{i.description }}<br>
-        {{'t16' | translate}}: {{i.payer}}<br>
-        {{'t17' | translate}}: {{i.date | date:'dd/MM/yyyy'}}<br>
-        {{'t18' | translate}}: {{i.value | currency:'BRL' }}<br>
-        {{'t19' | translate}}:<br>
-        <span *ngFor="let b of i.benefited">
-            {{b}}<br>
-        </span>
-
+    <li *ngFor="let i of items | async" data-toggle="collapse" attr.data-target="#{{i.itemkey}}">
+        {{(i.date | date:'dd/MM/yyyy') + ' - ' + i.description}}
         <span class="badge" (click)="onRemove(i)">X</span>    
-    </li>
+        <div id="{{i.itemkey}}" class="collapse">
+            {{'t16' | translate}}: {{i.payer}}<br>
+            {{'t18' | translate}}: {{i.value | currency:'BRL' }}<br>
+            {{'t19' | translate}}:<br>
+            <span *ngFor="let b of i.benefited">
+                {{b}}<br>
+            </span>        
+        </div>        
+    </li>    
 </ul>    
