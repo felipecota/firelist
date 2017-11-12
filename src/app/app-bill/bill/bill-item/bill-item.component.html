@@ -27,7 +27,7 @@
 </div>
 <div class="form-group">
     <label for="date">{{'t17' | translate}}</label>  
-    <input type="date" [disabled]="!selected_member" class="form-control" [ngModel]="date | date:'yyyy-MM-dd'" (ngModelChange)="date = $event" name="date">
+    <input type="date" [disabled]="!selected_member" class="form-control" [(ngModel)]="date" name="date">
 </div>
 <div class="form-group">
     <label for="description">{{'t11' | translate}}</label>  

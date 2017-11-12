@@ -16,6 +16,7 @@ export class BillDetailComponent implements OnInit {
 
     bills: Observable<any[]>; 
     items: Observable<any[]>;
+    members: Observable<any[]>;
     erro: string;
     billname: string;
     billkey: string;
@@ -56,24 +57,72 @@ export class BillDetailComponent implements OnInit {
         
         this.appService.afs.collection('bills').doc(b.id)
         .snapshotChanges()
-        .forEach(list => {
+        .forEach(bill => {
+
             let items = [];
-            if (Object.keys(list.payload.data().items).length == 0) {
+            let members = [];
+
+            if (Object.keys(bill.payload.data().items).length == 0) {
+                
                 this.erro = this.appService.language.m5;
-            } else {
-                let data = list.payload.data();
+            
+            } else {  
+
+                for (let key in bill.payload.data().access) {
+                    if (key.replace('`','.') != this.appService.user.email)
+                        members.push({
+                            email: key.replace('`','.'),
+                            value: 0
+                        });
+                }  
+                     
+                let data = bill.payload.data();
                 for (let key in data.items) {
-                    items.push({
-                        benefited: data.items[key].benefited,
-                        date: new Date(data.items[key].date),
-                        description: data.items[key].description,
-                        value: data.items[key].value,
-                        payer: data.items[key].payer,
-                        itemkey: key
+                    
+                    // Only show bills that's from my interest
+                    let show = false;
+
+                    data.items[key].benefited.forEach(b => {
+                        let sn = data.items[key].payer == this.appService.user.email && b != this.appService.user.email;
+                        let sp = data.items[key].payer != this.appService.user.email && b == this.appService.user.email;
+                        if (sn || sp) {
+                            show = true;
+                            members.forEach(member => {
+                                if (member.email == (sn?b:data.items[key].payer)){
+                                    let valuepp = data.items[key].value/data.items[key].benefited.length;
+                                    if (sn)
+                                        member.value-=valuepp;
+                                    else
+                                        member.value+=valuepp;
+                                };
+                            });
+                        };
                     });
+
+                    if (show) 
+                        items.push({
+                            benefited: data.items[key].benefited,
+                            date: new Date(data.items[key].date),
+                            description: data.items[key].description,
+                            value: data.items[key].value,
+                            payer: data.items[key].payer,
+                            itemkey: key
+                        });
                 };
             };
-            this.items = Observable.of(items);
+            
+            this.members = Observable.of(members);
+            
+            this.items = Observable.of(items.sort((a,b) => { 
+                if (a.date < b.date) {
+                    return 1;
+                } else if (a.date > b.date) {
+                    return -1;
+                } else {
+                    return 0;
+                }
+            }));
+        
         }); 
     
     }  

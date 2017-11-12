@@ -15,13 +15,27 @@
 <div *ngIf="erro" class="alert alert-danger">
     {{erro}}
 </div>
+<table class="table">
+    <thead>
+        <tr>
+        <th>{{'t22' | translate}}</th>
+        <th class="right">{{'t23' | translate}}</th>
+        </tr>
+    </thead>
+    <tbody>     
+        <tr *ngFor="let m of members | async" class="{{m.value >= 0 ? 'success' : 'danger'}}">
+            <td>{{m.email}}</td>
+            <td class="right">R$ {{m.value | number:'1.2-2'}}</td>
+        </tr>
+    </tbody>
+</table>
 <ul class="items">
     <li *ngFor="let i of items | async" data-toggle="collapse" attr.data-target="#{{i.itemkey}}">
         {{(i.date | date:'dd/MM/yyyy') + ' - ' + i.description}}
         <span class="badge" (click)="onRemove(i)">X</span>    
         <div id="{{i.itemkey}}" class="collapse">
             {{'t16' | translate}}: {{i.payer}}<br>
-            {{'t18' | translate}}: {{i.value | currency:'BRL' }}<br>
+            {{'t18' | translate}}: R$ {{i.value | number:'1.2-2' }}<br>
             {{'t19' | translate}}:<br>
             <span *ngFor="let b of i.benefited">
                 {{b}}<br>
