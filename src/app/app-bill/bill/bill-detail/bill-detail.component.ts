@@ -133,5 +133,17 @@ export class BillDetailComponent implements OnInit {
             ['items.'+i.itemkey]: fs.firestore.FieldValue.delete()
         })        
             
-    }    
+    }   
+    
+    backup() {
+        this.items.subscribe(items => {
+            let data = new Blob([JSON.stringify(items)], {type: 'text/plain'});  
+            let link = document.createElement('a');
+            link.href = window.URL.createObjectURL(data);
+            link.setAttribute('download', 'backup_realtimeapp.txt');
+            document.body.appendChild(link);    
+            link.click();
+            document.body.removeChild(link);              
+        });
+    }
 }
