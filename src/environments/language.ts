@@ -40,11 +40,13 @@ export const language_ptbr = {
     t21: 'Gerenciador de Contas',
     t22: 'Membros',    
     t23: 'Saldo',
+    t24: 'Atenção',
     m1: 'Selecione uma lista',
     m2: 'Esqueci minha senha',
     m3: 'E-mail para resetar senha enviado',
     m4: 'Nenhuma lista disponível',
-    m5: 'Nenhum item foi adicionado'
+    m5: 'Nenhum item foi adicionado',
+    m6: 'Saldo negativo? Você deve dinheiro.'
 }
 
 export const language_en = {
@@ -85,9 +87,11 @@ export const language_en = {
     t21: 'Bill Mananger',  
     t22: 'Members', 
     t23: 'Balance', 
+    t24: 'Attention',
     m1: 'Select a list to continue',
     m2: 'Forgot my password',
     m3: 'Reset password mail sent',
     m4: 'There is no list to display',
-    m5: 'There is no item to display'    
+    m5: 'There is no item to display',
+    m6: 'Negative balance? You owe money.'    
 }

@@ -81,8 +81,6 @@ export class BillItemComponent implements OnInit {
   
   Include() { 
 
-    console.log(this.date,this.description,this.value,Number(this.value),this.benefited,this.benefited.length);
-
         if (!this.date || !this.description || this.description.trim() == '' || !this.value || Number(this.value) == NaN || Number(this.value) <= 0 || !this.benefited || this.benefited.length == 0)  {
 
             this.erro = this.appService.language.e14;
@@ -104,19 +102,19 @@ export class BillItemComponent implements OnInit {
             this.benefited = '';
 
             let itemkey = d.getFullYear()+''+d.getMonth()+''+d.getDate()+''+d.getHours()+''+d.getMinutes()+''+d.getSeconds()+''+(Math.floor(Math.random() * (99999 - 10000 + 1)) + 10000);
-            
+
             this.appService.afs.collection('bills').doc(this.billkey).update({
                 ['items.'+itemkey]: {
                     payer: payer,
                     benefited: benefited,
-                    date: new Date(Number(date.substring(0,4)), Number(date.substring(8,10))-1, Number(date.substring(5,7))),
+                    date: new Date(Number(date.substring(0,4)), Number(date.substring(5,7))-1, Number(date.substring(8,10))),
                     description: description,
                     value: Number(value)
                 }
             })
 
             this.erro = '';
-            this.router.navigate(['/bill-detail/'+this.billkey+'/'+this.billname]);                            
+            this.router.navigate(['/bill-detail/'+this.billkey+'/'+this.billname]);
 
         }   
     }  
