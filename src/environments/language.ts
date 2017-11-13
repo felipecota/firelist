@@ -3,6 +3,7 @@ export const config = {
 }
 
 export const language_ptbr = {
+    name: 'pt_br',
     e1: 'Item e quantidade são obrigatórios',
     e2: 'Máximo de ' + config.max + ' itens',
     e3: 'E-mail e senham devem ser informados',
@@ -62,6 +63,7 @@ export const language_ptbr = {
 }
 
 export const language_en = {
+    name: 'en_us',
     e1: 'Item name and amount are required',
     e2: 'Max of ' + config.max + ' items',
     e3: 'E-mail and password must be provided',
