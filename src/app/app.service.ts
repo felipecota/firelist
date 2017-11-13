@@ -51,6 +51,7 @@ export class AppService {
             } else { 
                 this.user = undefined;
                 this.isSignin = Observable.of(false); 
+                this.router.navigate(["/login"]);
             } 
         });
             
