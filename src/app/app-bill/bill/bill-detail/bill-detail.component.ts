@@ -69,11 +69,16 @@ export class BillDetailComponent implements OnInit {
             } else {  
 
                 for (let key in bill.payload.data().access) {
-                    if (key.replace(/´/g,'.') != this.appService.user.email)
+                    if (key.replace(/´/g,'.') != this.appService.user.email) {
+                        let format = key.replace(/´/g,'.').split("@");
+                        if (format[0].length > 20)
+                            format[0] = format[0].substr(0,7)+"..."+format[0].substr(format[0].length-7,7);
                         members.push({
                             email: key.replace(/´/g,'.'),
+                            emailf: format[0]+"@"+format[1],
                             value: 0
                         });
+                    }
                 }  
                      
                 let data = bill.payload.data();
