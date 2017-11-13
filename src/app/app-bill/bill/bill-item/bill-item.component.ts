@@ -39,6 +39,7 @@ export class BillItemComponent implements OnInit {
 
     let d = new Date();
     this.date = d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();
+    this.type = "";
 
     this.bills = this.appService.afs.collection('bills', ref => ref.where('access.'+this.appService.user.email.replace(/\./g,'´'),'==',true))
     .snapshotChanges()

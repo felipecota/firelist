@@ -26,7 +26,7 @@
         </tr>
     </thead>
     <tbody>     
-        <tr *ngFor="let m of members | async" class="{{m.value >= 0 ? 'success' : 'danger'}}">
+        <tr *ngFor="let m of members | async" class="{{m.value > 0 ? 'warning' : m.value < 0 ? 'danger' : 'success'}}">
             <td>{{m.emailf}}</td>
             <td class="right">R$ {{m.value | number:'1.2-2'}}</td>
         </tr>
