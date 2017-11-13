@@ -77,7 +77,7 @@ export class BillDetailComponent implements OnInit {
                 }  
                      
                 let data = bill.payload.data();
-                for (let key in data.items) {
+                for (let key in data.items) {                  
                     
                     // Only show bills that's from my interest
                     let show = false;
@@ -85,17 +85,21 @@ export class BillDetailComponent implements OnInit {
                     data.items[key].benefited.forEach(b => {
                         let sn = data.items[key].payer == this.appService.user.email && b != this.appService.user.email;
                         let sp = data.items[key].payer != this.appService.user.email && b == this.appService.user.email;
-                        if (sn || sp) {
+                        let ow = data.items[key].owner == this.appService.user.email;
+                        let my = data.items[key].payer == this.appService.user.email && b == this.appService.user.email;
+                        if (sn || sp || ow || my) {
                             show = true;
-                            members.forEach(member => {
-                                if (member.email == (sn?b:data.items[key].payer)){
-                                    let valuepp = data.items[key].value/data.items[key].benefited.length;
-                                    if (sn)
-                                        member.value+=valuepp;
-                                    else
-                                        member.value-=valuepp;
-                                };
-                            });
+                            if (sn || sp) {
+                                members.forEach(member => {
+                                    if (member.email == (sn?b:data.items[key].payer)){
+                                        let valuepp = data.items[key].value/data.items[key].benefited.length;
+                                        if (sn)
+                                            member.value+=valuepp;
+                                        else
+                                            member.value-=valuepp;
+                                    };
+                                });
+                            }
                         };
                     });
 
@@ -108,6 +112,7 @@ export class BillDetailComponent implements OnInit {
                             payer: data.items[key].payer,
                             place: data.items[key].place,
                             type: data.items[key].type,
+                            owner: data.items[key].owner,
                             itemkey: key
                         });
                 };
@@ -130,10 +135,12 @@ export class BillDetailComponent implements OnInit {
     }  
     
     onRemove(i): void {
-        
-        this.appService.afs.collection('bills').doc(this.billkey).update({
-            ['items.'+i.itemkey]: fs.firestore.FieldValue.delete()
-        })        
+        if (i.owner != this.appService.user.email)        
+            alert(this.appService.language.m8);
+        else if (confirm(this.appService.language.m7))
+            this.appService.afs.collection('bills').doc(this.billkey).update({
+                ['items.'+i.itemkey]: fs.firestore.FieldValue.delete()
+            })        
             
     }   
     

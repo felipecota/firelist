@@ -50,12 +50,15 @@ export const language_ptbr = {
     t31: 'Alimentação',
     t32: 'Diversos',
     t33: 'Selecione',
+    t34: 'Responsável',
     m1: 'Selecione uma lista',
     m2: 'Esqueci minha senha',
     m3: 'E-mail para resetar senha enviado',
     m4: 'Nenhuma lista disponível',
     m5: 'Nenhum item foi adicionado',
-    m6: 'Saldo negativo? Você deve dinheiro.'
+    m6: 'Saldo negativo? Você deve dinheiro.',
+    m7: 'Confirma exclusão?',
+    m8: 'Somente quem incluiu pode excluir.'
 }
 
 export const language_en = {
@@ -106,10 +109,13 @@ export const language_en = {
     t31: 'Food',
     t32: 'Others',   
     t33: 'Select', 
+    t34: 'Owner',
     m1: 'Select a list to continue',
     m2: 'Forgot my password',
     m3: 'Reset password mail sent',
     m4: 'There is no list to display',
     m5: 'There is no item to display',
-    m6: 'Negative balance? You owe money.'    
+    m6: 'Negative balance? You owe money.',
+    m7: 'Are you sure to delete?',
+    m8: 'Only the owner is alowed to remove.'
 }

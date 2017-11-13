@@ -117,12 +117,13 @@ export class BillItemComponent implements OnInit {
                     description: description,
                     value: Number(value),
                     place: place,
-                    type: type
+                    type: type,
+                    owner: this.appService.user.email
                 }
             })
 
             this.erro = '';
-            this.router.navigate(['/bill-detail/'+this.billkey+'/'+this.billname]);
+            //this.router.navigate(['/bill-detail/'+this.billkey+'/'+this.billname]);
 
         }   
     }  
