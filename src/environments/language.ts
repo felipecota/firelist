@@ -58,7 +58,7 @@ export const language_ptbr = {
     m5: 'Nenhum item foi adicionado',
     m6: 'Saldo negativo? Você deve dinheiro.',
     m7: 'Confirma exclusão?',
-    m8: 'Somente quem incluiu pode excluir.'
+    m8: 'Somente o responsável pode excluir.'
 }
 
 export const language_en = {
