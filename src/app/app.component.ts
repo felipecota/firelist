@@ -17,8 +17,8 @@ export class AppComponent {
  
   constructor(
     public appService: AppService,
-    private afAuth: AngularFireAuth,     
-    private router: Router) {
+    public afAuth: AngularFireAuth,     
+    public router: Router) {
         this.isConnected = this.appService.isConnected;
   }    
 
