@@ -139,10 +139,11 @@ export class BillDetailComponent implements OnInit {
     
     backup() {
         this.items.subscribe(items => {
+            let now = new Date();
             let data = new Blob([JSON.stringify(items)], {type: 'text/plain'});  
             let link = document.createElement('a');
             link.href = window.URL.createObjectURL(data);
-            link.setAttribute('download', 'backup_realtimeapp.txt');
+            link.setAttribute('download', 'backup_realtimeapp_'+now.getFullYear()+now.getMonth()+now.getDate()+'.txt');
             document.body.appendChild(link);    
             link.click();
             document.body.removeChild(link);              
