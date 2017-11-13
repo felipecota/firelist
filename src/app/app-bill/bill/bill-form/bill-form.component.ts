@@ -24,7 +24,7 @@ export class BillFormComponent implements OnInit {
 
     ngOnInit() {
 
-        this.bills = this.appService.afs.collection('bills', ref => ref.where('access.'+this.appService.user.email.replace('.','`'),'==',true))
+        this.bills = this.appService.afs.collection('bills', ref => ref.where('access.'+this.appService.user.email.replace(/\./g,'´'),'==',true))
         .snapshotChanges()
         .map(bills => {
             return bills
@@ -54,7 +54,7 @@ export class BillFormComponent implements OnInit {
             this.appService.afs.collection('bills').doc(billkey).set({
                 billname: billname,
                 access: {
-                    [this.appService.user.email.replace('.','`')]: true
+                    [this.appService.user.email.replace(/\./g,'´')]: true
                 }
             });
         }

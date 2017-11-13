@@ -28,7 +28,7 @@ export class BillAccessComponent implements OnInit {
 
   ngOnInit() {
 
-    this.bills = this.appService.afs.collection('bills', ref => ref.where('access.'+this.appService.user.email.replace('.','`'),'==',true))
+    this.bills = this.appService.afs.collection('bills', ref => ref.where('access.'+this.appService.user.email.replace(/\./g,'´'),'==',true))
     .snapshotChanges()
     .map(bills => {
         return bills
@@ -55,7 +55,7 @@ export class BillAccessComponent implements OnInit {
       let temp = [];
       for (let key in list.payload.data().access) {
           temp.push({
-              email: key.replace('`','.')
+              email: key.replace(/´/g,'.')
           });
       }
       this.members = temp;
@@ -80,12 +80,13 @@ export class BillAccessComponent implements OnInit {
           if (providers.length == 0) {
               this.erro = this.appService.language.e8
           } else {
-              this.appService.afs.collection('bills').doc(this.billkey).update({
-                  ['access.'+email.replace('.','`')]: true
-              });            
-                 
-              this.erro = '';
-              this.email = '';
+
+            this.appService.afs.collection('bills').doc(this.billkey).update({
+                ['access.'+email.replace(/\./g,'´')]: true
+            });            
+                
+            this.erro = '';
+            this.email = '';
           }}
         );
     }
@@ -97,7 +98,7 @@ export class BillAccessComponent implements OnInit {
       this.erro = this.appService.language.e12;
     else if (this.members.length > 1)
       this.appService.afs.collection('bills').doc(this.billkey).update({
-        ['access.'+member.email.replace('.','`')]: fs.firestore.FieldValue.delete()
+        ['access.'+member.email.replace(/\./g,'´')]: fs.firestore.FieldValue.delete()
       });
     else {
       this.erro = this.appService.language.e10;      

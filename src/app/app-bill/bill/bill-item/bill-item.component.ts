@@ -40,7 +40,7 @@ export class BillItemComponent implements OnInit {
     let d = new Date();
     this.date = d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();
 
-    this.bills = this.appService.afs.collection('bills', ref => ref.where('access.'+this.appService.user.email.replace('.','`'),'==',true))
+    this.bills = this.appService.afs.collection('bills', ref => ref.where('access.'+this.appService.user.email.replace(/\./g,'´'),'==',true))
     .snapshotChanges()
     .map(bills => {
         return bills
@@ -73,7 +73,7 @@ export class BillItemComponent implements OnInit {
       let temp = [];
       for (let key in bill.payload.data().access) {
           temp.push({
-              email: key.replace('`','.')
+              email: key.replace(/´/g,'.')
           });
       }
       this.members = temp;
@@ -123,7 +123,7 @@ export class BillItemComponent implements OnInit {
             })
 
             this.erro = '';
-            //this.router.navigate(['/bill-detail/'+this.billkey+'/'+this.billname]);
+            this.router.navigate(['/bill-detail/'+this.billkey+'/'+this.billname]);
 
         }   
     }  

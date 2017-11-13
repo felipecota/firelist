@@ -35,7 +35,7 @@ export class BillDetailComponent implements OnInit {
         if (b.id && b.billname)
             this.onSelectBill(b);
 
-        this.bills = this.appService.afs.collection('bills', ref => ref.where('access.'+this.appService.user.email.replace('.','`'),'==',true))
+        this.bills = this.appService.afs.collection('bills', ref => ref.where('access.'+this.appService.user.email.replace(/\./g,'´'),'==',true))
         .snapshotChanges()
         .map(bills => {
             return bills
@@ -69,9 +69,9 @@ export class BillDetailComponent implements OnInit {
             } else {  
 
                 for (let key in bill.payload.data().access) {
-                    if (key.replace('`','.') != this.appService.user.email)
+                    if (key.replace(/´/g,'.') != this.appService.user.email)
                         members.push({
-                            email: key.replace('`','.'),
+                            email: key.replace(/´/g,'.'),
                             value: 0
                         });
                 }  
