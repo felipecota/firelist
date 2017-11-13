@@ -22,6 +22,8 @@ export class BillItemComponent implements OnInit {
   billname: string;
   billkey: string; 
   payer: string;
+  place: string;
+  type: string;
 
   date: string;
   description: string;
@@ -81,7 +83,7 @@ export class BillItemComponent implements OnInit {
   
   Include() { 
 
-        if (!this.date || !this.description || this.description.trim() == '' || !this.value || Number(this.value) == NaN || Number(this.value) <= 0 || !this.benefited || this.benefited.length == 0)  {
+        if (!this.date || !this.description || this.description.trim() == '' || !this.value || Number(this.value) == NaN || Number(this.value) <= 0 || !this.benefited || this.benefited.length == 0 || !this.place || !this.type || this.type == "")  {
 
             this.erro = this.appService.language.e14;
             navigator.vibrate([500]);
@@ -92,7 +94,9 @@ export class BillItemComponent implements OnInit {
             let description = this.description;
             let value = this.value.replace(',','.');
             let payer = this.payer;
-            let benefited = this.benefited;            
+            let benefited = this.benefited; 
+            let place = this.place;
+            let type = this.type;           
             
             let d = new Date();
             this.date = d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();
@@ -100,6 +104,8 @@ export class BillItemComponent implements OnInit {
             this.value = '';
             this.payer = '';
             this.benefited = '';
+            this.place = '';
+            this.type = '';
 
             let itemkey = d.getFullYear()+''+d.getMonth()+''+d.getDate()+''+d.getHours()+''+d.getMinutes()+''+d.getSeconds()+''+(Math.floor(Math.random() * (99999 - 10000 + 1)) + 10000);
 
@@ -109,7 +115,9 @@ export class BillItemComponent implements OnInit {
                     benefited: benefited,
                     date: new Date(Number(date.substring(0,4)), Number(date.substring(5,7))-1, Number(date.substring(8,10))),
                     description: description,
-                    value: Number(value)
+                    value: Number(value),
+                    place: place,
+                    type: type
                 }
             })
 

@@ -41,6 +41,8 @@
         <span class="badge" (click)="onRemove(i)">X</span>    
         <div id="{{i.itemkey}}" class="collapse">
             {{'t16' | translate}}: {{i.payer}}<br>
+            {{'t25' | translate}}: {{i.place}}<br>
+            {{'t26' | translate}}: {{i.type}}<br>
             {{'t18' | translate}}: R$ {{i.value | number:'1.2-2' }}<br>
             {{'t19' | translate}}:<br>
             <span *ngFor="let b of i.benefited">

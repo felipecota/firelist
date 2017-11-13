@@ -106,6 +106,8 @@ export class BillDetailComponent implements OnInit {
                             description: data.items[key].description,
                             value: data.items[key].value,
                             payer: data.items[key].payer,
+                            place: data.items[key].place,
+                            type: data.items[key].type,
                             itemkey: key
                         });
                 };
