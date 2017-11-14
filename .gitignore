@@ -45,4 +45,4 @@ Dockerfile
 .vscode/launch.json
 .gitignore
 producao.sh
-src/environments/firebase.config.ts
+/src/environments/firebase.config.ts
