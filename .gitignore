@@ -33,7 +33,6 @@
 npm-debug.log
 testem.log
 /typings
-/src/app/environments/firebase.config.ts
 
 # e2e
 /e2e/*.js
@@ -46,3 +45,4 @@ Dockerfile
 .vscode/launch.json
 .gitignore
 producao.sh
+src/environments/firebase.config.ts
