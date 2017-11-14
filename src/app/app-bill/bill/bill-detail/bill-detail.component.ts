@@ -116,7 +116,22 @@ export class BillDetailComponent implements OnInit {
                             value: data.items[key].value,
                             payer: data.items[key].payer,
                             place: data.items[key].place,
-                            type: (this.appService.language.name == "en_us" ? data.items[key].type : data.items[key].type.replace('Others','Diversos').replace('Transportation','Transporte').replace('Hosting','Hospedagem').replace('Recreation','Passeios').replace('Food','Alimentação') ),
+                            type: (
+                                this.appService.language.name == "en_us" ? 
+                                data.items[key].type
+                                .replace('Diversos','Others')
+                                .replace('Transporte','Transportation')
+                                .replace('Hospedagem','Hosting')
+                                .replace('Passeios','Recreation')
+                                .replace('Taxas','Taxes')
+                                .replace('Alimentação','Food') : 
+                                data.items[key].type
+                                .replace('Others','Diversos')
+                                .replace('Transportation','Transporte')
+                                .replace('Hosting','Hospedagem')
+                                .replace('Recreation','Passeios')
+                                .replace('Taxes','Taxas')
+                                .replace('Food','Alimentação') ),
                             owner: data.items[key].owner,
                             itemkey: key
                         });
