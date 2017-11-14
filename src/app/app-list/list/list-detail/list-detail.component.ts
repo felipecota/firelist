@@ -49,10 +49,9 @@ export class ListDetailComponent implements OnInit {
 
       onSelect(list, itemkey): void {
 
-        if (confirm(this.appService.language.m7))
-            this.appService.afs.collection('lists').doc(list.id).update({
-                ['items.'+itemkey]: fs.firestore.FieldValue.delete()
-            })        
+        this.appService.afs.collection('lists').doc(list.id).update({
+            ['items.'+itemkey]: fs.firestore.FieldValue.delete()
+        })        
           
     }
 
