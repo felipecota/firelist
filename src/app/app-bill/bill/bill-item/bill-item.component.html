@@ -52,8 +52,22 @@
 <div class="form-group">
     <label for="value">{{'t18' | translate}}</label>
     <div class="input-group">
-        <span class="input-group-addon">R$</span>
-        <input type="text" [disabled]="!selected_member" class="form-control" [(ngModel)]="value" name="value" placeholder="0,00">
+        <span class="input-group-addon">$</span>
+        <input type="text" [disabled]="!selected_member" class="form-control" [(ngModel)]="value" (ngModelChange)="calculated=multiplier*value" name="value" placeholder="0,00">
+    </div>    
+</div>
+<div class="form-group">
+    <label for="value">{{'t35' | translate}}</label>
+    <div class="input-group">
+        <span class="input-group-addon">$</span>
+        <input type="text" [disabled]="!selected_member" class="form-control" [(ngModel)]="multiplier" (ngModelChange)="calculated=multiplier*value" name="multiplier" placeholder="0,00">
+    </div>    
+</div>
+<div class="form-group">
+    <label for="value">{{'t36' | translate}}</label>
+    <div class="input-group">
+        <span class="input-group-addon">$</span>
+        <input type="text" disabled="disabled" class="form-control" [(ngModel)]="calculated" name="calculated" placeholder="0,00">
     </div>    
 </div>
 <div class="form-group">

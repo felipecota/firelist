@@ -28,6 +28,8 @@ export class BillItemComponent implements OnInit {
   date: string;
   description: string;
   value: string;
+  multiplier: string = "1";
+  calculated: string;
   benefited: any;
  
   constructor(
@@ -94,6 +96,7 @@ export class BillItemComponent implements OnInit {
             let date = this.date;
             let description = this.description;
             let value = this.value.replace(',','.');
+            let multiplier = this.multiplier.replace(',','.');
             let payer = this.payer;
             let benefited = this.benefited; 
             let place = this.place;
@@ -103,6 +106,7 @@ export class BillItemComponent implements OnInit {
             this.date = d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();
             this.description = '';
             this.value = '';
+            this.multiplier = '';
             this.payer = '';
             this.benefited = '';
             this.place = '';
@@ -117,6 +121,7 @@ export class BillItemComponent implements OnInit {
                     date: new Date(Number(date.substring(0,4)), Number(date.substring(5,7))-1, Number(date.substring(8,10))),
                     description: description,
                     value: Number(value),
+                    multiplier: Number(multiplier),
                     place: place,
                     type: type,
                     owner: this.appService.user.email
