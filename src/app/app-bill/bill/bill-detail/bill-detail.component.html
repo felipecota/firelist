@@ -37,9 +37,11 @@
 </div>
 <ul class="items">
     <li *ngFor="let i of items | async" data-toggle="collapse" attr.data-target="#{{i.itemkey}}">
-        {{(i.date | date:'dd/MM/yyyy') + ' - ' + i.description}}
+        {{(i.date | date:'dd/MM') + ' - ' + (i.description.length > 25 ? i.description.substring(0,22)+'...' : i.description)}}
         <span class="badge" (click)="onRemove(i)">X</span>    
         <div id="{{i.itemkey}}" class="collapse">
+            {{'t17' | translate}}: {{i.date | date:'dd/MM/yyyy'}}<br>
+            {{'t11' | translate}}: {{i.description}}<br>
             {{'t34' | translate}}: {{i.owner}}<br>
             {{'t16' | translate}}: {{i.payer}}<br>
             {{'t25' | translate}}: {{i.place}}<br>
