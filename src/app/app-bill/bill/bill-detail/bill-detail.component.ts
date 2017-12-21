@@ -114,6 +114,8 @@ export class BillDetailComponent implements OnInit {
                             date: new Date(data.items[key].date),
                             description: data.items[key].description,
                             value: data.items[key].value,
+                            multiplier: (data.items[key].multiplier != undefined?data.items[key].multiplier:1),
+                            calculated: data.items[key].value*(data.items[key].multiplier != undefined?data.items[key].multiplier:1),
                             payer: data.items[key].payer,
                             place: data.items[key].place,
                             type: (
