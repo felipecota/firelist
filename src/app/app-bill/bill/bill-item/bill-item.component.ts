@@ -29,7 +29,7 @@ export class BillItemComponent implements OnInit {
   description: string;
   value: string;
   multiplier: string = "1";
-  calculated: string;
+  calculated: number;
   benefited: any;
  
   constructor(
@@ -82,6 +82,10 @@ export class BillItemComponent implements OnInit {
       this.members = temp;
     }); 
 
+  }
+
+  onChange() {
+      this.calculated = Number(this.value) * Number(this.multiplier);
   }
   
   Include() { 
