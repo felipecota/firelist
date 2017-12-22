@@ -85,7 +85,7 @@ export class BillItemComponent implements OnInit {
   }
 
   onChange() {
-      this.calculated = Number(this.value) * Number(this.multiplier);
+      this.calculated = Number(this.value.replace(',','.')) * Number(this.multiplier.replace(',','.'));
   }
   
   Include() { 
