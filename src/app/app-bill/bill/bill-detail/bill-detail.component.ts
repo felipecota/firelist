@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Observable } from 'rxjs/Observable'
 import * as fs from 'firebase';
-import { ActivatedRoute }   from '@angular/router';
+import { ActivatedRoute, Router }   from '@angular/router';
 
 import { AppService } from '../../../app.service';
+import { BillService } from '../bill.service';
 
 @Component({
   selector: 'app-bill-detail',
@@ -23,7 +24,9 @@ export class BillDetailComponent implements OnInit {
 
     constructor(
         private appService: AppService,
-        private route: ActivatedRoute
+        private billService: BillService,
+        private route: ActivatedRoute,
+        private router: Router
       ) { }
     
     ngOnInit() {
@@ -163,8 +166,29 @@ export class BillDetailComponent implements OnInit {
             this.appService.afs.collection('bills').doc(this.billkey).update({
                 ['items.'+i.itemkey]: fs.firestore.FieldValue.delete()
             })        
-            
     }   
+
+    onEdit(i): void {
+        if (i.owner != this.appService.user.email)        
+            alert(this.appService.language.m9);
+        else {
+            this.billService.item = {
+                billkey: this.billkey,
+                billname: this.billname,
+                itemkey: i.itemkey,
+                payer: i.payer,
+                date: i.date,
+                place: i.place,
+                description: i.description,
+                type: i.type,
+                value: i.value,
+                multiplier: i.multiplier,
+                calculated: i.calculated,
+                benefited: i.benefited
+            }
+            this.router.navigate(['/bill-item/edit']);        
+        }
+    }
     
     backup() {
         this.items.subscribe(items => {

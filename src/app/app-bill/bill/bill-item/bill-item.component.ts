@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Observable } from 'rxjs/Observable'
-import { Router }   from '@angular/router';
+import { Router, ActivatedRoute }   from '@angular/router';
 import * as fs from 'firebase';
 
 import { AppService } from '../../../app.service';
+import { BillService } from '../bill.service';
 
 @Component({
   selector: 'app-bill-item',
@@ -16,15 +17,17 @@ export class BillItemComponent implements OnInit {
   bills: Observable<any[]>;   
   members: any[]; 
 
+  editmode: boolean;
+
   selected_bill: boolean;
   selected_member: boolean;
   erro: string;
   billname: string;
   billkey: string; 
+  itemkey: string;
   payer: string;
   place: string;
   type: string;
-
   date: string;
   description: string;
   value: string;
@@ -34,14 +37,23 @@ export class BillItemComponent implements OnInit {
  
   constructor(
     private appService: AppService,
-    private router: Router
+    private billService: BillService,
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
 
-    let d = new Date();
-    this.date = d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();
-    this.type = "";
+    let data = this.route.snapshot.paramMap.get('data');
+    if (data && data == "edit" && this.billService.item != undefined) {
+        this.onEdit(this.billService.item);
+        this.editmode = true;
+    } else {
+        this.editmode = false;
+        let d = new Date();
+        this.date = d.getFullYear()+'-'+((d.getMonth()+1)<10?'0':'')+(d.getMonth()+1)+'-'+((d.getDate())<10?'0':'')+d.getDate();
+        this.type = "";
+    }
 
     this.bills = this.appService.afs.collection('bills', ref => ref.where('access.'+this.appService.user.email.replace(/\./g,'´'),'==',true))
     .snapshotChanges()
@@ -56,6 +68,27 @@ export class BillItemComponent implements OnInit {
         })
     }); 
 
+  }
+
+  onEdit(data): void{
+    this.selected_member = true;
+    this.payer = data.payer;
+    this.place = data.place;
+    this.type = data.type;
+    let d = data.date;
+    this.date = d.getFullYear()+'-'+((d.getMonth()+1)<10?'0':'')+(d.getMonth()+1)+'-'+(d.getDate()<10?'0':'')+d.getDate();
+    console.log(data.date, this.date);
+    this.description = data.description;
+    this.value = data.value+'';
+    this.multiplier = data.multiplier+'';
+    this.calculated = data.calculated;
+    this.onSelectBill(
+        {
+            billname: data.billname, 
+            id: data.billkey
+        });    
+    this.benefited = data.benefited; 
+    this.itemkey = data.itemkey;       
   }
 
   onSelectMember(m): void {
@@ -116,7 +149,7 @@ export class BillItemComponent implements OnInit {
             this.place = '';
             this.type = '';
 
-            let itemkey = d.getFullYear()+''+d.getMonth()+''+d.getDate()+''+d.getHours()+''+d.getMinutes()+''+d.getSeconds()+''+(Math.floor(Math.random() * (99999 - 10000 + 1)) + 10000);
+            let itemkey = (this.editmode ? this.itemkey : d.getFullYear()+''+d.getMonth()+''+d.getDate()+''+d.getHours()+''+d.getMinutes()+''+d.getSeconds()+''+(Math.floor(Math.random() * (99999 - 10000 + 1)) + 10000));
 
             this.appService.afs.collection('bills').doc(this.billkey).update({
                 ['items.'+itemkey]: {

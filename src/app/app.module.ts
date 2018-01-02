@@ -8,7 +8,8 @@ import { AngularFireModule } from 'angularfire2/index';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 
-import { AppService } from './app.service'
+import { AppService } from './app.service';
+import { BillService } from './app-bill/bill/bill.service';
 
 import { ListModule } from './app-list/list/list.module';
 import { BillModule } from './app-bill/bill/bill.module';
@@ -39,7 +40,7 @@ import { MenuComponent } from './menu.component';
     AngularFireModule.initializeApp(FirebaseConfig),
     AngularFirestoreModule.enablePersistence()
   ],
-  providers: [AppService],
+  providers: [AppService, BillService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

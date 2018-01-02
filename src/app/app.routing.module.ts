@@ -54,6 +54,7 @@ const APP_ROUTES: Routes = [
     { path: 'bill-form', component: BillFormComponent, canActivate:[AuthGuard] },    
     { path: 'bill-access', component: BillAccessComponent, canActivate:[AuthGuard] },
     { path: 'bill-item', component: BillItemComponent, canActivate:[AuthGuard] },
+    { path: 'bill-item/:data', component: BillItemComponent, canActivate:[AuthGuard] },
     { path: 'bill-detail', component: BillDetailComponent, canActivate:[AuthGuard] },
     { path: 'bill-detail/:id1/:id2', component: BillDetailComponent, canActivate:[AuthGuard] }
 ]

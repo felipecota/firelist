@@ -70,14 +70,14 @@
 <div class="form-group">
     <label for="sel1">{{'t19' | translate}}</label>
     <select [disabled]="!selected_member" [(ngModel)]="benefited" multiple class="form-control" id="sel1">
-        <option *ngFor="let m of members">
+        <option *ngFor="let m of members" [value]="m.email">
             {{m.email}}
         </option>      
     </select>
 </div>
 <button [disabled]="!selected_member" (click)="Include()" class="btn btn-primary" type="button">
-    <span class="glyphicon glyphicon-floppy-disk"></span> {{'t3' | translate}}
-</button>       
+    <span class="glyphicon glyphicon-floppy-disk"></span> {{ (editmode ? 't39' : 't3') | translate}}
+</button> 
 <br><br>
 <div *ngIf="erro" class="alert alert-danger">
     {{erro}}

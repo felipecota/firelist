@@ -54,6 +54,9 @@ export const language_ptbr = {
     t34: 'Responsável',
     t35: 'Multiplicador',
     t36: 'Calculado',
+    t37: 'Excluir',
+    t38: 'Editar',
+    t39: 'Salvar',
     m1: 'Selecione uma lista',
     m2: 'Esqueci minha senha',
     m3: 'E-mail para resetar senha enviado',
@@ -61,7 +64,8 @@ export const language_ptbr = {
     m5: 'Nenhum item foi adicionado',
     m6: 'Saldo negativo? Você deve dinheiro.',
     m7: 'Confirma exclusão?',
-    m8: 'Somente o responsável pode excluir.'
+    m8: 'Somente o responsável pode excluir.',
+    m9: 'Somente o responsável pode alterar.'
 }
 
 export const language_en = {
@@ -116,6 +120,9 @@ export const language_en = {
     t34: 'Owner',
     t35: 'Multiplier',
     t36: 'Calculated',
+    t37: 'Remove',
+    t38: 'Edit',
+    t39: 'Save',
     m1: 'Select a list to continue',
     m2: 'Forgot my password',
     m3: 'Reset password mail sent',
@@ -123,5 +130,6 @@ export const language_en = {
     m5: 'There is no item to display',
     m6: 'Negative balance? You owe money.',
     m7: 'Are you sure to delete?',
-    m8: 'Only the owner is alowed to remove.'
+    m8: 'Only the owner is alowed to remove.',
+    m9: 'Only the owner is alowed to edit.'
 }
