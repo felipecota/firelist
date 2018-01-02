@@ -97,7 +97,7 @@ export class BillDetailComponent implements OnInit {
                             if (sn || sp) {
                                 members.forEach(member => {
                                     if (member.email == (sn?b:data.items[key].payer)){
-                                        let valuepp = data.items[key].value/data.items[key].benefited.length;
+                                        let valuepp = (data.items[key].value*(data.items[key].multiplier != undefined?data.items[key].multiplier:1))/data.items[key].benefited.length;
                                         if (sn)
                                             member.value+=valuepp;
                                         else
