@@ -43,7 +43,7 @@ export class BillDetailComponent implements OnInit {
         .map(bills => {
             return bills
             .sort(
-                (a,b) => a.payload.doc.data().listname.localeCompare(b.payload.doc.data().listname))
+                (a,b) => a.payload.doc.data().billname.localeCompare(b.payload.doc.data().billname))
             .map(bill => {
                 const data = bill.payload.doc.data();
                 const id = bill.payload.doc.id;                
@@ -65,10 +65,8 @@ export class BillDetailComponent implements OnInit {
             let items = [];
             let members = [];
 
-            if (Object.keys(bill.payload.data().items).length == 0) {
-                
-                this.erro = this.appService.language.m5;
-            
+            if (!bill.payload.exists || !bill.payload.data().items || Object.keys(bill.payload.data().items).length == 0) {                
+                this.erro = this.appService.language.m5;            
             } else {  
 
                 for (let key in bill.payload.data().access) {

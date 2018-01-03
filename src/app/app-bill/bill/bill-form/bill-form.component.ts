@@ -29,7 +29,7 @@ export class BillFormComponent implements OnInit {
         .map(bills => {
             return bills
             .sort(
-                (a,b) => a.payload.doc.data().listname.localeCompare(b.payload.doc.data().listname))
+                (a,b) => a.payload.doc.data().billname.localeCompare(b.payload.doc.data().billname))
             .map(bill => {
                 const data = bill.payload.doc.data();
                 const id = bill.payload.doc.id;                

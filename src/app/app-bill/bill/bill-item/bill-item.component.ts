@@ -60,7 +60,7 @@ export class BillItemComponent implements OnInit {
     .map(bills => {
         return bills
         .sort(
-            (a,b) => a.payload.doc.data().listname.localeCompare(b.payload.doc.data().listname))
+            (a,b) => a.payload.doc.data().billname.localeCompare(b.payload.doc.data().billname))
         .map(bill => {
             const data = bill.payload.doc.data();
             const id = bill.payload.doc.id;                
@@ -102,17 +102,19 @@ export class BillItemComponent implements OnInit {
     this.erro = '';
     this.billname = b.billname;
     this.billkey = b.id;
-    
+   
     this.appService.afs.collection('bills').doc(this.billkey)
     .snapshotChanges()
     .forEach(bill => {
-      let temp = [];
-      for (let key in bill.payload.data().access) {
-          temp.push({
-              email: key.replace(/´/g,'.')
-          });
-      }
-      this.members = temp;
+        if (bill.payload.exists) {
+            let temp = [];          
+            for (let key in bill.payload.data().access) {
+                temp.push({
+                    email: key.replace(/´/g,'.')
+                });
+            }
+            this.members = temp;            
+        }
     }); 
 
   }
