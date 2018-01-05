@@ -9,7 +9,7 @@
 <label class="input-group-btn">
     <span class="btn btn-primary">
         <span class="glyphicon glyphicon-upload"></span> 
-        {{'t40' | translate}} <input type="file" (change)="fileChange($event)" style="display: none;" placeholder="" accept=".txt">
+        {{'t40' | translate}} <input type="file" #file (change)="fileChange($event); file.value = '';" style="display: none;" placeholder="" accept=".txt">
     </span>
 </label>
 <br><br>
