@@ -3,6 +3,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { Observable } from 'rxjs/Observable'
 import * as fs from 'firebase';
 import { ActivatedRoute, Router }   from '@angular/router';
+import 'rxjs/add/operator/take';
 
 import { AppService } from '../../../app.service';
 import { BillService } from '../bill.service';
@@ -189,15 +190,21 @@ export class BillDetailComponent implements OnInit {
     }
     
     backup() {
-        this.items.subscribe(items => {
+
+        this.appService.afs.collection('bills').doc(this.billkey)
+        .snapshotChanges()
+        .take(1)
+        .forEach(bill => {
+            let payload = bill.payload.data();
             let now = new Date();
-            let data = new Blob([JSON.stringify(items)], {type: 'text/plain'});  
+            let data = new Blob([JSON.stringify(payload.items)], {type: 'text/plain'});  
             let link = document.createElement('a');
             link.href = window.URL.createObjectURL(data);
             link.setAttribute('download', 'backup_realtimeapp_'+now.getFullYear()+now.getMonth()+now.getDate()+'.txt');
             document.body.appendChild(link);    
             link.click();
-            document.body.removeChild(link);              
+            document.body.removeChild(link);                          
         });
+
     }
 }

@@ -5,12 +5,18 @@
 </div>
 <button class="btn btn-primary" type="button" (click)="Include()">
     <span class="glyphicon glyphicon-floppy-disk"></span> {{'t3' | translate}}
-</button>       
+</button>
+<label class="input-group-btn">
+    <span class="btn btn-primary">
+        <span class="glyphicon glyphicon-upload"></span> 
+        {{'t40' | translate}} <input type="file" (change)="fileChange($event)" style="display: none;" placeholder="" accept=".txt">
+    </span>
+</label>
 <br><br>
 <ul class="items">
     <li *ngFor="let b of bills | async">
         {{ b.billname }}
-        <span class="badge" (click)="onSelect(b.id, b.items)">X</span>    
+        <span class="badge" (click)="onSelect(b.id, b.access)">X</span>    
     </li>
 </ul>  
 <br>   

@@ -3,6 +3,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { Observable } from 'rxjs/Observable'
 import { Router, ActivatedRoute }   from '@angular/router';
 import * as fs from 'firebase';
+import 'rxjs/add/operator/take';
 
 import { AppService } from '../../../app.service';
 import { BillService } from '../bill.service';
@@ -77,7 +78,6 @@ export class BillItemComponent implements OnInit {
     this.type = data.type;
     let d = data.date;
     this.date = d.getFullYear()+'-'+((d.getMonth()+1)<10?'0':'')+(d.getMonth()+1)+'-'+(d.getDate()<10?'0':'')+d.getDate();
-    console.log(data.date, this.date);
     this.description = data.description;
     this.value = data.value+'';
     this.multiplier = data.multiplier+'';

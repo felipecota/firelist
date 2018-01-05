@@ -12,7 +12,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 export class AppComponent {  
 
   title = 'realtimeapp';
-  version = 'v6.2';
+  version = 'v6.3';
   isConnected: Observable<boolean>;
  
   constructor(

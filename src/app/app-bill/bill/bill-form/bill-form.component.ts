@@ -14,7 +14,7 @@ import { config } from '../../../../environments/language';
 export class BillFormComponent implements OnInit {
 
     erro: string;
-    billname: string;
+    billname: string = "";
     bills: Observable<any[]>;
    
     constructor(
@@ -61,13 +61,45 @@ export class BillFormComponent implements OnInit {
 
     }  
 
-    onSelect(id: string, items): void {
+    onSelect(id: string, access): void {
 
-        if (!items || Object.keys(items).length == 0)
-            this.appService.afs.collection('bills').doc(id).delete();
-        else
-            this.erro = this.appService.language.e7;
+        if (Object.keys(access).length == 1) {
+            if (confirm(this.appService.language.m7))
+                this.appService.afs.collection('bills').doc(id).delete();
+        } else
+            this.erro = this.appService.language.e15;
 
     }   
+
+    fileChange(event) {
+
+        if (this.billname == '') {
+            this.erro = this.appService.language.e6;
+            navigator.vibrate([500]);
+        } else {        
+
+            let fileList: FileList = event.target.files;
+            if(fileList.length > 0) {
+                let reader = new FileReader();
+                reader.onload = () => {
+                    let items = JSON.parse(reader.result);
+
+                    let d = new Date();
+                    let billkey = d.getFullYear()+''+d.getMonth()+''+d.getDay()+''+d.getHours()+''+d.getMinutes()+''+d.getSeconds()+''+(Math.floor(Math.random() * (99999 - 10000 + 1)) + 10000);
+                    let billname = this.billname;
+
+                    this.appService.afs.collection('bills').doc(billkey).set({
+                        billname: billname,
+                        access: {
+                            [this.appService.user.email.replace(/\./g,'´')]: true
+                        },
+                        items: items
+                    });                    
+                }
+                reader.readAsText(fileList[0]);      
+            }
+
+        }
+    }
 
 }

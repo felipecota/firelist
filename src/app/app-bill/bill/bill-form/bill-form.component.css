@@ -1,4 +1,8 @@
-.selected {
+  .input-group-btn {
+    display: inline-block;
+    margin: 0px;
+  }
+  .selected {
     background-color: #CFD8DC !important;
     color: white;
   }
