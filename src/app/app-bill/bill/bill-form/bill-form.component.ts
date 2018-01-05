@@ -44,13 +44,13 @@ export class BillFormComponent implements OnInit {
         let d = new Date();
         let billkey = d.getFullYear()+''+d.getMonth()+''+d.getDay()+''+d.getHours()+''+d.getMinutes()+''+d.getSeconds()+''+(Math.floor(Math.random() * (99999 - 10000 + 1)) + 10000);
         let billname = this.billname;
-        this.billname = '';
-        this.erro = '';
+        this.billname = '';        
 
         if (billname == '')  {
             this.erro = this.appService.language.e6;
             navigator.vibrate([500]);
         } else {
+            this.erro = '';
             this.appService.afs.collection('bills').doc(billkey).set({
                 billname: billname,
                 access: {
@@ -64,6 +64,7 @@ export class BillFormComponent implements OnInit {
     onSelect(id: string, access): void {
 
         if (Object.keys(access).length == 1) {
+            this.erro = '';
             if (confirm(this.appService.language.m7))
                 this.appService.afs.collection('bills').doc(id).delete();
         } else
@@ -76,7 +77,7 @@ export class BillFormComponent implements OnInit {
             this.erro = this.appService.language.e6;
             navigator.vibrate([500]);
         } else {        
-
+            this.erro = '';
             let fileList: FileList = event.target.files;
             if(fileList.length > 0) {
                 let reader = new FileReader();
