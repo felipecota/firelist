@@ -72,8 +72,6 @@ export class BillFormComponent implements OnInit {
     }   
 
     fileChange(event) {
-        console.log('lista', this.billname);
-
         if (this.billname == '') {
             this.erro = this.appService.language.e6;
             navigator.vibrate([500]);
