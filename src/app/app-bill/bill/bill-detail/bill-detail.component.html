@@ -18,7 +18,7 @@
 <div *ngIf="erro" class="alert alert-danger">
     {{erro}}
 </div>
-<table class="table">
+<table *ngIf="billselected" class="table">
     <thead>
         <tr>
         <th>{{'t22' | translate}}</th>
@@ -28,11 +28,11 @@
     <tbody>     
         <tr *ngFor="let m of members | async" class="{{m.value > 0 ? 'info' : m.value < 0 ? 'danger' : 'success'}}">
             <td>{{m.emailf}}</td>
-            <td class="right">{{m.value | number:'1.2-2'}}</td>
+            <td class="text-right">{{m.value | number:'1.2-2'}}</td>
         </tr>
     </tbody>
 </table>
-<div class="alert alert-warning">
+<div *ngIf="billselected" class="alert alert-warning">
     <strong>{{'t24' | translate}}:</strong> {{'m6' | translate}}
 </div>
 <ul class="list-group">

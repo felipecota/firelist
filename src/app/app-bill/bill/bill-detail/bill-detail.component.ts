@@ -22,6 +22,7 @@ export class BillDetailComponent implements OnInit {
     erro: string;
     billname: string;
     billkey: string;
+    billselected: boolean = false;
 
     constructor(
         private appService: AppService,
@@ -58,6 +59,7 @@ export class BillDetailComponent implements OnInit {
 
         this.billname = b.billname;
         this.billkey = b.id;
+        this.billselected = true;
         
         this.appService.afs.collection('bills').doc(b.id)
         .snapshotChanges()
