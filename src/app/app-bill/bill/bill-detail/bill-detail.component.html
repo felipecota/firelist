@@ -3,7 +3,7 @@
     <a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">{{'t14' | translate}} <span class="caret"></span></a>
     <ul class="dropdown-menu" role="menu">
         <li *ngFor="let b of bills | async" (click)="onSelectBill(b)">
-            {{b.billname}}
+            <a>{{b.billname}}</a>
         </li>
     </ul>
 </span> 
@@ -39,7 +39,6 @@
     <li class="list-group-item" *ngFor="let i of items | async" data-toggle="collapse" aria-expanded="false" attr.data-target="#{{i.itemkey}}">
         {{(i.date | date:'dd/MM') + ' - ' + i.description}}
         <div id="{{i.itemkey}}" class="collapse">
-            {{'t17' | translate}}: {{i.date | date:'dd/MM/yyyy'}}<br>
             {{'t34' | translate}}: {{i.owner}}<br>
             {{'t16' | translate}}: {{i.payer}}<br>
             {{'t25' | translate}}: {{i.place}}<br>

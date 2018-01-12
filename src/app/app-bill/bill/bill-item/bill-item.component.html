@@ -3,7 +3,7 @@
     <a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">{{'t14' | translate}} <span class="caret"></span></a>
     <ul class="dropdown-menu" role="menu">
         <li *ngFor="let b of bills | async" (click)="onSelectBill(b)">
-            {{b.billname}}
+            <a>{{b.billname}}</a>
         </li>
     </ul>
 </span> 
@@ -11,7 +11,7 @@
     <button [disabled]="!selected_bill" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">{{'t16' | translate}} <span class="caret"></span></button>
     <ul class="dropdown-menu" role="menu">
         <li *ngFor="let m of members" (click)="onSelectMember(m)">
-            {{m.email}}
+            <a>{{m.email}}</a>
         </li>
     </ul>
 </span>    

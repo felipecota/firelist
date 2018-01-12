@@ -3,7 +3,7 @@
     <a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">{{'t5' | translate}} <span class="caret"></span></a>
     <ul class="dropdown-menu" role="menu">
         <li *ngFor="let l of lists | async" (click)="onSelect(l)">
-            {{l.listname}}
+            <a>{{l.listname}}</a>
         </li>
     </ul>
 </span>  
