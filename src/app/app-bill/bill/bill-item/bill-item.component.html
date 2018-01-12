@@ -1,22 +1,21 @@
 <br>
-<div class="dropdown">
-    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">{{'t14' | translate}}
-    <span class="caret"></span></button>
-    <ul class="dropdown-menu">
+<span class="dropdown">
+    <a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">{{'t14' | translate}} <span class="caret"></span></a>
+    <ul class="dropdown-menu" role="menu">
         <li *ngFor="let b of bills | async" (click)="onSelectBill(b)">
             {{b.billname}}
         </li>
     </ul>
-</div>  
-<div class="dropdown">
-    <button [disabled]="!selected_bill" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">{{'t16' | translate}}
-    <span class="caret"></span></button>
-    <ul class="dropdown-menu">
+</span> 
+<span class="dropdown">
+    <button [disabled]="!selected_bill" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">{{'t16' | translate}} <span class="caret"></span></button>
+    <ul class="dropdown-menu" role="menu">
         <li *ngFor="let m of members" (click)="onSelectMember(m)">
             {{m.email}}
         </li>
     </ul>
-</div>
+</span>    
+<br><br> 
 <div class="form-group">
     <label for="pwd">{{'t14' | translate}}</label>  
     <input type="text" [disabled]="true" class="form-control" [(ngModel)]="billname" name="billname">        

@@ -5,8 +5,8 @@
 <img class="flag" src="/assets/images/flagUS.png" (click)="language(2)">
 <div class="jumbotron text-center">    
     <h1>{{title}}</h1>    
-    <div class="version">{{version}}</div>        
-    <img *ngIf="(this.router.url != '/menu' && this.appService.isSignin | async)" class="home" src="/assets/images/home.png" (click)="menu()">    
+    <div class="version">{{version}}</div> 
+    <span *ngIf="(this.router.url != '/menu' && this.appService.isSignin | async)" class="home glyphicon glyphicon-home" (click)="menu()"></span>       
 </div>
 <div *ngIf="(this.appService.lists.indexOf(this.router.url.split('/')[1]) >= 0 && this.appService.isSignin | async)">
     <ul class="nav nav-tabs">

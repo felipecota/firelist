@@ -46,7 +46,7 @@ export class BillFormComponent implements OnInit {
         let billname = this.billname;
         this.billname = '';        
 
-        if (billname == '')  {
+        if (!billname || billname == '')  {
             this.erro = this.appService.language.e6;
             navigator.vibrate([500]);
         } else {

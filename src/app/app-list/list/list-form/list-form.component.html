@@ -7,10 +7,10 @@
     <span class="glyphicon glyphicon-floppy-disk"></span> {{'t3' | translate}}
 </button>       
 <br><br>
-<ul class="items">
-    <li *ngFor="let l of lists | async">
+<ul class="list-group">
+    <li class="list-group-item" *ngFor="let l of lists | async">
+        <span class="badge" (click)="onSelect(l.id, l.items)">X</span>            
         {{ l.listname }}
-        <span class="badge" (click)="onSelect(l.id, l.items)">X</span>    
     </li>
 </ul>  
 <br>   

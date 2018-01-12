@@ -43,7 +43,7 @@ export class BillAccessComponent implements OnInit {
 
   }
 
-  onSelectList(b): void {
+  onSelectBill(b): void {
     this.selected = true;
     this.erro = '';
     this.billname = b.billname;
@@ -75,7 +75,7 @@ export class BillAccessComponent implements OnInit {
     // I neeed connection to check email
     if (!navigator.onLine)
       this.erro = this.appService.language.e12;    
-    else if (email == '') {
+    else if (!email || email == '') {
       this.erro = this.appService.language.e8;
       navigator.vibrate([500]);
     } else {  
@@ -102,11 +102,12 @@ export class BillAccessComponent implements OnInit {
 
     if (!navigator.onLine)
       this.erro = this.appService.language.e12;
-    else if (this.members.length > 1)
-      this.appService.afs.collection('bills').doc(this.billkey).update({
-        ['access.'+member.email.replace(/\./g,'´')]: fs.firestore.FieldValue.delete()
-      });
-    else {
+    else if (this.members.length > 1) {
+      if (confirm(this.appService.language.m7))
+        this.appService.afs.collection('bills').doc(this.billkey).update({
+          ['access.'+member.email.replace(/\./g,'´')]: fs.firestore.FieldValue.delete()
+        });
+    } else {      
       this.erro = this.appService.language.e10;      
     }
 

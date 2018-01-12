@@ -69,7 +69,7 @@ export class ListAccessComponent implements OnInit {
     // I neeed connection to check email
     if (!navigator.onLine)
       this.erro = this.appService.language.e12;    
-    else if (email == '') {
+    else if (!email || email == '') {
       this.erro = this.appService.language.e8;
       navigator.vibrate([500]);
     } else {  
@@ -95,11 +95,12 @@ export class ListAccessComponent implements OnInit {
 
     if (!navigator.onLine)
       this.erro = this.appService.language.e12;
-    else if (this.members.length > 1)
-      this.appService.afs.collection('lists').doc(this.listkey).update({
-        ['access.'+member.email.replace('.','`')]: fs.firestore.FieldValue.delete()
-      });
-    else {
+    else if (this.members.length > 1) {
+      if (confirm(this.appService.language.m7))
+        this.appService.afs.collection('lists').doc(this.listkey).update({
+          ['access.'+member.email.replace('.','`')]: fs.firestore.FieldValue.delete()
+        });
+    } else {
       this.erro = this.appService.language.e10;      
     }
 

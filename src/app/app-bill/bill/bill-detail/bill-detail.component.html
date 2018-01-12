@@ -1,16 +1,16 @@
 <br>
-<div class="dropdown">
-    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">{{'t14' | translate}}
-    <span class="caret"></span></button>
-    <ul class="dropdown-menu">
+<span class="dropdown">
+    <a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">{{'t14' | translate}} <span class="caret"></span></a>
+    <ul class="dropdown-menu" role="menu">
         <li *ngFor="let b of bills | async" (click)="onSelectBill(b)">
             {{b.billname}}
         </li>
     </ul>
-</div> 
+</span> 
 <button [disabled]="!billname" (click)="backup()" class="btn btn-primary" type="button">
     <span class="glyphicon glyphicon-floppy-disk"></span> Backup
 </button>   
+<br><br>
 <div class="form-group">
     <label for="pwd">{{'t14' | translate}}</label>  
     <input type="text" [disabled]="true" class="form-control" [(ngModel)]="billname" name="billname">        
@@ -35,8 +35,8 @@
 <div class="alert alert-warning">
     <strong>{{'t24' | translate}}:</strong> {{'m6' | translate}}
 </div>
-<ul class="items">
-    <li *ngFor="let i of items | async" data-toggle="collapse" aria-expanded="false" attr.data-target="#{{i.itemkey}}">
+<ul class="list-group">
+    <li class="list-group-item" *ngFor="let i of items | async" data-toggle="collapse" aria-expanded="false" attr.data-target="#{{i.itemkey}}">
         {{(i.date | date:'dd/MM') + ' - ' + i.description}}
         <div id="{{i.itemkey}}" class="collapse">
             {{'t17' | translate}}: {{i.date | date:'dd/MM/yyyy'}}<br>
@@ -51,10 +51,10 @@
             <span *ngFor="let b of i.benefited">
                 {{b}}<br>
             </span><br>
-            <button (click)="onRemove(i)" class="btn btn-primary" type="button">
+            <button (click)="onRemove(i)" class="btn btn-danger" type="button">
                 <span class="glyphicon glyphicon-trash"></span> {{'t37' | translate}}
             </button>
-            <button (click)="onEdit(i)" class="btn btn-primary" type="button">
+            <button (click)="onEdit(i)" class="btn btn-warning" type="button">
                 <span class="glyphicon glyphicon-pencil"></span> {{'t38' | translate}}
             </button>                     
         </div>        

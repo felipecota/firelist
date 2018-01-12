@@ -46,7 +46,7 @@ export class ListFormComponent implements OnInit {
         this.listname = '';
         this.erro = '';
 
-        if (listname == '')  {
+        if (!listname || listname == '')  {
             this.erro = this.appService.language.e6;
             navigator.vibrate([500]);
         } else {

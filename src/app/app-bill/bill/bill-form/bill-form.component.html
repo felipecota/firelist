@@ -13,8 +13,8 @@
     </span>
 </label>
 <br><br>
-<ul class="items">
-    <li *ngFor="let b of bills | async">
+<ul class="list-group">
+    <li class="list-group-item" *ngFor="let b of bills | async">
         {{ b.billname }}
         <span class="badge" (click)="onSelect(b.id, b.access)">X</span>    
     </li>

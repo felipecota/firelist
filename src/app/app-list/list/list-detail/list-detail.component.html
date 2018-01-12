@@ -1,10 +1,10 @@
-<ul class="lists">
-    <li *ngFor="let l of lists | async">
+<ul class="list-group">
+    <li class="list-group-item" *ngFor="let l of lists | async">
         {{l.listname}}
-      <ul class="items">
-        <li *ngFor="let i of l.items">
+      <ul class="list-group">
+        <li class="list-group-item" *ngFor="let i of l.items">
+            <span class="badge" (click)="onSelect(l,i.itemkey)">X</span>                
             {{ i.itemname + ' - ' + i.amount }}
-            <span class="badge" (click)="onSelect(l,i.itemkey)">X</span>    
         </li>
       </ul>
     </li>

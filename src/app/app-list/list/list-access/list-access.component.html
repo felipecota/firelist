@@ -1,13 +1,12 @@
 <br>
-<div class="dropdown">
-    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">{{'t5' | translate}}
-    <span class="caret"></span></button>
-    <ul class="dropdown-menu">
+<span class="dropdown">
+    <a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">{{'t5' | translate}} <span class="caret"></span></a>
+    <ul class="dropdown-menu" role="menu">
         <li *ngFor="let l of lists | async" (click)="onSelectList(l)">
             {{l.listname}}
         </li>
     </ul>
-</div>    
+</span>  
 <br><br>   
 <div class="form-group">
     <label for="pwd">{{'t5' | translate}}</label>  
@@ -24,8 +23,8 @@
 <div *ngIf="erro" class="alert alert-danger">
     {{erro}}
 </div> 
-<ul class="items">
-    <li *ngFor="let m of members">
+<ul class="list-group">
+    <li class="list-group-item" *ngFor="let m of members">
         {{ m.email }}
         <span class="badge" (click)="onRemove(m)">X</span>    
     </li>
