@@ -109,8 +109,12 @@ export class BillItemComponent implements OnInit {
         if (bill.payload.exists) {
             let temp = [];          
             for (let key in bill.payload.data().access) {
+                let format = key.replace(/´/g,'.').split("@");
+                if (format[0].length > 20)
+                    format[0] = format[0].substr(0,7)+"..."+format[0].substr(format[0].length-7,7);                
                 temp.push({
-                    email: key.replace(/´/g,'.')
+                    email: key.replace(/´/g,'.'),
+                    emailf: format[0]+"@"+format[1]
                 });
             }
             this.members = temp;            

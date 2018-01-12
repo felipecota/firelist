@@ -11,7 +11,7 @@
     <button [disabled]="!selected_bill" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">{{'t16' | translate}} <span class="caret"></span></button>
     <ul class="dropdown-menu" role="menu">
         <li *ngFor="let m of members" (click)="onSelectMember(m)">
-            <a>{{m.email}}</a>
+            <a>{{m.emailf}}</a>
         </li>
     </ul>
 </span>    
