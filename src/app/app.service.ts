@@ -23,9 +23,9 @@ export class AppService {
     
     constructor(
         public afs: AngularFirestore,
+        public afAuth: AngularFireAuth,        
         private router: Router,
         private route: ActivatedRoute,
-        private afAuth: AngularFireAuth,
     ) {
 
         if (localStorage.getItem('lang')) {

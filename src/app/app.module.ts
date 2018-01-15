@@ -25,7 +25,7 @@ import { MenuComponent } from './menu.component';
 @NgModule({
   declarations: [
     AppComponent,
-    MenuComponent      
+    MenuComponent
   ],
   imports: [   
     TranslatePipeModule,

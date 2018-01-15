@@ -4,8 +4,12 @@ module.exports = {
     root: 'dist/',
     staticFileGlobs: [
       'dist/index.html',
-      'dist/**.js',
       'dist/**.css',
-      'dist/assets/images/**.png'
+      'dist/**.js',
+      'dist/assets/images/flagBR.png',
+      'dist/assets/images/flagUS.png',
+      'dist/assets/css/**.css',
+      'dist/assets/fonts/**.**',
+      'dist/assets/js/**.js'      
     ]
   };
