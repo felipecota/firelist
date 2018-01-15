@@ -22,7 +22,7 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 To create service-worker.js file run `npm run sw`
 
-## Running update 
+## Running update
 
 ncu
 
