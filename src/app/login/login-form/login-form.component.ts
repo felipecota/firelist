@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Router } from '@angular/router';
+import * as firebase from 'firebase/app';
+
 import { AppService } from '../../app.service';
 
 @Component({
@@ -19,9 +21,7 @@ export class LoginFormComponent implements OnInit {
     private afAuth: AngularFireAuth, 
     private appService: AppService,
     private router: Router
-  ) { 
-    
-  }
+  ) { }
 
   ngOnInit() {
   }
@@ -30,6 +30,23 @@ export class LoginFormComponent implements OnInit {
     this.isLoggingIn = !this.isLoggingIn;
     this.erro = '';
   }  
+
+  loginWithFacebook() {
+      this.afAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider())
+      .then(ok => {})
+      .catch(error => {
+        this.afAuth.auth.fetchProvidersForEmail(error.email)
+        .then(providers => {
+          this.afAuth.auth.signInWithCredential(error.credential)   
+          .then(result => {
+            console.log("passei");
+            result.user.link(error.credential)
+          })
+          .catch(error => console.log('error2', error))     
+        })
+        console.log('error1', error);
+      });
+  }
 
   login() {
     if (!this.email || !this.password)  {
@@ -49,7 +66,7 @@ export class LoginFormComponent implements OnInit {
         .catch(error => {
           this.erro = this.appService.language.e4; 
         });
-  }
+  } 
 
   forgot() {
     if (!this.email)  {

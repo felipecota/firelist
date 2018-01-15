@@ -8,6 +8,7 @@
 </div>  
 <button class="btn btn-primary" (click)="login()" type="button">{{isLoggingIn ? ('t7'|translate) : ('t8'|translate)}}</button>
 <button class="btn btn-primary" (click)="toggleDisplay()" type="button">{{isLoggingIn ? ('t8'|translate) : ('t9'|translate)}}</button>
+<button (click)="loginWithFacebook()">Google</button>
 <br><br>
 <a href="javascript:void(0);" (click)="forgot()">{{'m2' | translate}}</a>
 <br><br>
