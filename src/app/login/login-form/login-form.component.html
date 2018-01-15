@@ -8,10 +8,13 @@
 </div>  
 <button class="btn btn-primary" (click)="login()" type="button">{{isLoggingIn ? ('t7'|translate) : ('t8'|translate)}}</button>
 <button class="btn btn-primary" (click)="toggleDisplay()" type="button">{{isLoggingIn ? ('t8'|translate) : ('t9'|translate)}}</button>
-<button (click)="loginWithFacebook()">Google</button>
 <br><br>
 <a href="javascript:void(0);" (click)="forgot()">{{'m2' | translate}}</a>
 <br><br>
 <div *ngIf="erro" class="alert alert-danger">
     {{erro}}
 </div>
+<span>{{'t41' | translate}}</span><br><br>
+<img class="logo" src="/assets/images/facebook.png" (click)="loginWithFacebook()">
+<img class="logo" src="/assets/images/google.png" (click)="loginWithGoogle()">
+<img class="logo" src="/assets/images/github.png" (click)="loginWithGithub()">
