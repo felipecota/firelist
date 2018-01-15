@@ -1,0 +1,61 @@
+<br>
+<span class="dropdown">
+    <a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">{{'t14' | translate}} <span class="caret"></span></a>
+    <ul class="dropdown-menu" role="menu">
+        <li *ngFor="let b of bills | async" (click)="onSelectBill(b)">
+            <a>{{b.billname}}</a>
+        </li>
+    </ul>
+</span> 
+<button [disabled]="!billselected" (click)="backup()" class="btn btn-primary" type="button">
+    <span class="glyphicon glyphicon-floppy-disk"></span> Backup
+</button>   
+<br><br>
+<div class="form-group">
+    <label for="pwd">{{'t14' | translate}}</label>  
+    <input type="text" [disabled]="true" class="form-control" [(ngModel)]="billname" name="billname">        
+</div>
+<div *ngIf="erro" class="alert alert-danger">
+    {{erro}}
+</div>
+<table *ngIf="billselected" class="table">
+    <thead>
+        <tr>
+        <th>{{'t22' | translate}}</th>
+        <th class="text-right">{{'t23' | translate}}</th>
+        </tr>
+    </thead>
+    <tbody>     
+        <tr *ngFor="let m of members | async" class="{{m.value > 0 ? 'info' : m.value < 0 ? 'danger' : 'success'}}">
+            <td>{{m.emailf}}</td>
+            <td class="text-right">{{m.value | number:'1.2-2'}}</td>
+        </tr>
+    </tbody>
+</table>
+<div *ngIf="billselected" class="alert alert-warning">
+    <strong>{{'t24' | translate}}:</strong> {{'m6' | translate}}
+</div>
+<ul class="list-group">
+    <li class="list-group-item" *ngFor="let i of items | async" data-toggle="collapse" aria-expanded="false" attr.data-target="#{{i.itemkey}}">
+        {{(i.date | date:'dd/MM') + ' - ' + i.description}}
+        <div id="{{i.itemkey}}" class="collapse">
+            {{'t34' | translate}}: {{i.owner}}<br>
+            {{'t16' | translate}}: {{i.payer}}<br>
+            {{'t25' | translate}}: {{i.place}}<br>
+            {{'t26' | translate}}: {{i.type}}<br>
+            {{'t18' | translate}}: {{i.value | number:'1.2-2' }}<br>
+            {{'t35' | translate}}: {{i.multiplier | number:'1.3-3' }}<br>
+            {{'t36' | translate}}: {{i.calculated | number:'1.2-2' }}<br>
+            {{'t19' | translate}}:<br>
+            <span *ngFor="let b of i.benefited">
+                {{b}}<br>
+            </span><br>
+            <button (click)="onRemove(i)" class="btn btn-danger" type="button">
+                <span class="glyphicon glyphicon-trash"></span> {{'t37' | translate}}
+            </button>
+            <button (click)="onEdit(i)" class="btn btn-warning" type="button">
+                <span class="glyphicon glyphicon-pencil"></span> {{'t38' | translate}}
+            </button>                     
+        </div>        
+    </li>    
+</ul>    

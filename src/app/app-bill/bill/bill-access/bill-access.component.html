@@ -1,0 +1,32 @@
+<br>
+<span class="dropdown">
+    <a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">{{'t14' | translate}} <span class="caret"></span></a>
+    <ul class="dropdown-menu" role="menu">
+        <li *ngFor="let b of bills | async" (click)="onSelectBill(b)">
+            <a>{{b.billname}}</a>
+        </li>
+    </ul>
+</span>    
+<br><br>   
+<div class="form-group">
+    <label for="pwd">{{'t14' | translate}}</label>  
+    <input type="text" [disabled]="true" class="form-control" [(ngModel)]="billname" name="billname">        
+</div>
+<div class="form-group">
+    <label for="pwd">E-mail</label>  
+    <input type="text" [disabled]="!selected" class="form-control email" [(ngModel)]="email" name="email">        
+</div>
+<button [disabled]="!selected" class="btn btn-primary" type="button" (click)="Include()">
+    <span class="glyphicon glyphicon-floppy-disk"></span> {{'t3' | translate}}
+</button>       
+<br><br>
+<div *ngIf="erro" class="alert alert-danger">
+    {{erro}}
+</div> 
+<ul class="list-group">
+    <li class="list-group-item" *ngFor="let m of members">
+        {{ m.emailf }}
+        <span class="badge" (click)="onRemove(m)">X</span>    
+    </li>
+</ul>        
+ 
