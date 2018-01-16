@@ -102,6 +102,10 @@ export class LoginFormComponent implements OnInit {
     this.loginSocial(new firebase.auth.GithubAuthProvider());
   }     
 
+  loginWithTwitter() {
+    this.loginSocial(new firebase.auth.TwitterAuthProvider());
+  }     
+
   loginSocial(provider) {
     this.appService.afAuth.auth.signInWithPopup(provider)
     .then(result => {
