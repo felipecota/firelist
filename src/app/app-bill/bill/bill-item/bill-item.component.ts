@@ -28,7 +28,7 @@ export class BillItemComponent implements OnInit {
   billkey: string; 
   itemkey: string;
   payer: string;
-  place: string;
+  place: string = "";
   type: string;
   date: string;
   description: string;
@@ -45,24 +45,7 @@ export class BillItemComponent implements OnInit {
     private http: HttpClient
   ) { }
 
-  ngOnInit() {
-
-    if(navigator.geolocation){
-        navigator.geolocation.getCurrentPosition(position => {
-          this.http.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + position.coords.latitude + '%2C' + position.coords.longitude + '&language=en')
-          .subscribe(data => {
-              data['results'].forEach(result => {
-                  result['address_components'].forEach(component => {
-                      component['types'].forEach(type => {
-                          if (type == "locality") {
-                              this.place = component['long_name'];
-                          }
-                      });
-                  });
-              });
-          });
-        });
-     }    
+  ngOnInit() { 
 
     let data = this.route.snapshot.paramMap.get('data');
     if (data && data == "edit" && this.billService.item != undefined) {
@@ -113,6 +96,24 @@ export class BillItemComponent implements OnInit {
   onSelectMember(m): void {
     this.selected_member = true;
     this.payer = m.email;
+
+    if(navigator.geolocation && this.place == ""){
+        navigator.geolocation.getCurrentPosition(position => {
+          this.http.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + position.coords.latitude + '%2C' + position.coords.longitude + '&language=en')
+          .subscribe(data => {
+              data['results'].forEach(result => {
+                  result['address_components'].forEach(component => {
+                      component['types'].forEach(type => {
+                          //Double check if getCurrentPosition or http.get take too long
+                          if (type == "locality" && this.place == "") {
+                              this.place = component['long_name'];
+                          }
+                      });
+                  });
+              });
+          });
+        });
+     }     
   }
 
   onSelectBill(b): void {
