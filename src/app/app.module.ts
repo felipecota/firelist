@@ -8,6 +8,8 @@ import { AngularFireModule } from 'angularfire2/index';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 
+import { HttpClientModule } from '@angular/common/http';
+
 import { AppService } from './app.service';
 import { BillService } from './app-bill/bill/bill.service';
 
@@ -36,6 +38,7 @@ import { MenuComponent } from './menu.component';
     BillModule,
     LoginModule,
     AppRoutingModule,
+    HttpClientModule,
     AngularFireDatabaseModule,
     AngularFireModule.initializeApp(FirebaseConfig),
     AngularFirestoreModule.enablePersistence()

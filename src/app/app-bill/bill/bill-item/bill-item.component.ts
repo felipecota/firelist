@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable'
 import { Router, ActivatedRoute }   from '@angular/router';
 import * as fs from 'firebase';
 import 'rxjs/add/operator/take';
+import { HttpClient } from '@angular/common/http';
 
 import { AppService } from '../../../app.service';
 import { BillService } from '../bill.service';
@@ -40,10 +41,28 @@ export class BillItemComponent implements OnInit {
     private appService: AppService,
     private billService: BillService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private http: HttpClient
   ) { }
 
   ngOnInit() {
+
+    if(navigator.geolocation){
+        navigator.geolocation.getCurrentPosition(position => {
+          this.http.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + position.coords.latitude + '%2C' + position.coords.longitude + '&language=en')
+          .subscribe(data => {
+              data['results'].forEach(result => {
+                  result['address_components'].forEach(component => {
+                      component['types'].forEach(type => {
+                          if (type == "locality") {
+                              this.place = component['long_name'];
+                          }
+                      });
+                  });
+              });
+          });
+        });
+     }    
 
     let data = this.route.snapshot.paramMap.get('data');
     if (data && data == "edit" && this.billService.item != undefined) {
