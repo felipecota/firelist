@@ -33,7 +33,7 @@ export class AuthGuard implements CanActivate {
     ) {}    
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    this.appService.returnUrl = state.url;
+    localStorage.setItem('lastroute', state.url);
     if (this.appService.isSignin) {
         return true;
     } else {

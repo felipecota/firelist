@@ -14,7 +14,6 @@ export class AppService {
     isConnected: Observable<boolean>;
     isSignin: Observable<boolean>;
     user: any;
-    returnUrl: string = '/menu';
     language: any;
 
     // list
@@ -47,7 +46,7 @@ export class AppService {
             if (user) { 
                 this.user = user;
                 this.isSignin = Observable.of(true);  
-                this.router.navigate([this.returnUrl]);
+                this.router.navigate([localStorage.getItem('lastroute')]);
             } else { 
                 this.user = undefined;
                 this.isSignin = Observable.of(false); 
