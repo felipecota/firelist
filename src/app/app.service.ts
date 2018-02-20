@@ -46,7 +46,10 @@ export class AppService {
             if (user) { 
                 this.user = user;
                 this.isSignin = Observable.of(true);  
-                this.router.navigate([localStorage.getItem('lastroute')]);
+                let lastroute = localStorage.getItem('lastroute');
+                if (lastroute == "/login")                
+                    lastroute = "/menu";
+                this.router.navigate([lastroute]);
             } else { 
                 this.user = undefined;
                 this.isSignin = Observable.of(false); 
