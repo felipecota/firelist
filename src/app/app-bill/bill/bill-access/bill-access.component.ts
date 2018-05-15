@@ -88,7 +88,7 @@ export class BillAccessComponent implements OnInit {
           } else {
 
             this.appService.afs.collection('bills').doc(this.billkey).update({
-                ['access.'+email.replace(/\./g,'´')]: true
+                ['access.'+email.toLowerCase().replace(/\./g,'´')]: true
             });            
                 
             this.erro = '';

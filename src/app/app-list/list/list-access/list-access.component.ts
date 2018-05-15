@@ -81,7 +81,7 @@ export class ListAccessComponent implements OnInit {
               this.erro = this.appService.language.e8
           } else {
               this.appService.afs.collection('lists').doc(this.listkey).update({
-                  ['access.'+email.replace('.','`')]: true
+                  ['access.'+email.toLowerCase().replace('.','`')]: true
               });            
                  
               this.erro = '';
