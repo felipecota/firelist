@@ -25,3 +25,4 @@ To create service-worker.js file run `npm run sw`
 ## Running update
 
 ncu
+npm update -D && npm update -S

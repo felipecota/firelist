@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { Observable } from 'rxjs/Observable'
+import { Observable, of } from 'rxjs'
 import { Router, ActivatedRoute }   from '@angular/router';
 import * as fs from 'firebase';
-import 'rxjs/add/operator/take';
 import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
 
 import { AppService } from '../../../app.service';
 import { BillService } from '../bill.service';
@@ -60,7 +60,7 @@ export class BillItemComponent implements OnInit {
 
     this.bills = this.appService.afs.collection('bills', ref => ref.where('access.'+this.appService.user.email.replace(/\./g,'´'),'==',true))
     .snapshotChanges()
-    .map(bills => {
+    .pipe(map(bills => {
         return bills
         .sort(
             (a,b) => a.payload.doc.data().billname.localeCompare(b.payload.doc.data().billname))
@@ -69,7 +69,7 @@ export class BillItemComponent implements OnInit {
             const id = bill.payload.doc.id;                
             return { id, ...data };                
         })
-    }); 
+    })); 
 
   }
 

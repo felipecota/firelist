@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router }   from '@angular/router';
-import { Observable } from 'rxjs/Observable'
+import { Observable, of } from 'rxjs'
+import { map } from 'rxjs/operators';
 
 import { AppService } from '../../../app.service';
 import { config } from '../../../../environments/language';
@@ -22,20 +23,22 @@ export class BillFormComponent implements OnInit {
         private router: Router
     ) { }
 
-    ngOnInit() {
+    ngOnInit() {     
 
         this.bills = this.appService.afs.collection('bills', ref => ref.where('access.'+this.appService.user.email.replace(/\./g,'´'),'==',true))
         .snapshotChanges()
-        .map(bills => {
-            return bills
-            .sort(
-                (a,b) => a.payload.doc.data().billname.localeCompare(b.payload.doc.data().billname))
-            .map(bill => {
-                const data = bill.payload.doc.data();
-                const id = bill.payload.doc.id;                
-                return { id, ...data };                
+        .pipe(
+            map(bills => {
+                return bills
+                .sort(
+                    (a,b) => a.payload.doc.data().billname.localeCompare(b.payload.doc.data().billname))
+                .map(bill => {
+                    const data = bill.payload.doc.data();
+                    const id = bill.payload.doc.id;                
+                    return { id, ...data };                
+                })
             })
-        }); 
+        ); 
 
     }
 

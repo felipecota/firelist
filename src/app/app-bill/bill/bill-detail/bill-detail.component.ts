@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { Observable } from 'rxjs/Observable'
+import { Observable, of } from 'rxjs'
 import * as fs from 'firebase';
 import { ActivatedRoute, Router }   from '@angular/router';
-import 'rxjs/add/operator/take';
+import { map } from 'rxjs/operators';
 
 import { AppService } from '../../../app.service';
 import { BillService } from '../bill.service';
@@ -42,7 +42,7 @@ export class BillDetailComponent implements OnInit {
 
         this.bills = this.appService.afs.collection('bills', ref => ref.where('access.'+this.appService.user.email.replace(/\./g,'´'),'==',true))
         .snapshotChanges()
-        .map(bills => {
+        .pipe(map(bills => {
             return bills
             .sort(
                 (a,b) => a.payload.doc.data().billname.localeCompare(b.payload.doc.data().billname))
@@ -51,7 +51,7 @@ export class BillDetailComponent implements OnInit {
                 const id = bill.payload.doc.id;                
                 return { id, ...data };                
             })
-        }); 
+        })); 
 
     }
 
@@ -144,9 +144,9 @@ export class BillDetailComponent implements OnInit {
                 };
             };
             
-            this.members = Observable.of(members);
+            this.members = of(members);
             
-            this.items = Observable.of(items.sort((a,b) => { 
+            this.items = of(items.sort((a,b) => { 
                 if (a.date < b.date) {
                     return 1;
                 } else if (a.date > b.date) {
@@ -195,8 +195,7 @@ export class BillDetailComponent implements OnInit {
 
         this.appService.afs.collection('bills').doc(this.billkey)
         .snapshotChanges()
-        .take(1)
-        .forEach(bill => {
+        .pipe(map(bill => {
             let payload = bill.payload.data();
             let now = new Date();
             let data = new Blob([JSON.stringify(payload.items)], {type: 'text/plain'});  
@@ -206,7 +205,7 @@ export class BillDetailComponent implements OnInit {
             document.body.appendChild(link);    
             link.click();
             document.body.removeChild(link);                          
-        });
+        }));
 
     }
 }

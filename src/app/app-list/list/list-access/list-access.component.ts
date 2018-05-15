@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { Observable } from 'rxjs/Observable'
+import { Observable, of } from 'rxjs'
 import * as fs from 'firebase';
+import { map } from 'rxjs/operators';
 
 import { AppService } from '../../../app.service';
 
@@ -30,7 +31,7 @@ export class ListAccessComponent implements OnInit {
 
     this.lists = this.appService.afs.collection('lists', ref => ref.where('access.'+this.appService.user.email.replace('.','`'),'==',true))
     .snapshotChanges()
-    .map(lists => {
+    .pipe(map(lists => {
         return lists
         .sort(
             (a,b) => a.payload.doc.data().listname.localeCompare(b.payload.doc.data().listname))
@@ -39,7 +40,7 @@ export class ListAccessComponent implements OnInit {
             const id = list.payload.doc.id;                
             return { id, ...data };                
         })
-    }); 
+    })); 
 
   }
 

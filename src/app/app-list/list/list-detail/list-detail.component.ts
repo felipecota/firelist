@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Observable'
+import { Observable, of } from 'rxjs'
 import * as fs from 'firebase';
+import { map } from 'rxjs/operators';
 
 import { AppService } from '../../../app.service'
 
@@ -24,7 +25,7 @@ export class ListDetailComponent implements OnInit {
 
         this.lists = this.appService.afs.collection('lists', ref => ref.where('access.'+this.appService.user.email.replace('.','`'),'==',true))
         .snapshotChanges()
-        .map(lists => {
+        .pipe(map(lists => {
             this.len = lists.length;
             return lists
             .sort(
@@ -43,7 +44,7 @@ export class ListDetailComponent implements OnInit {
                 const id = list.payload.doc.id;                
                 return { id, ...data };                
             })
-        });    
+        }));    
              
       }
 

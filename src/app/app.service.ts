@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable'
-import { Subscription } from 'rxjs/Subscription';
+import { Observable, Subscription, of, merge} from 'rxjs'
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { language_en, language_ptbr } from '../environments/language';
-import 'rxjs/add/observable/fromEvent';
+import { fromEvent } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 // The @Injectable() decorator tells TypeScript to emit metadata about the service. The metadata specifies that Angular may need to inject other dependencies into this service.
 @Injectable() 
@@ -37,15 +37,15 @@ export class AppService {
             this.language = language_ptbr;
         }
 
-        this.isConnected = Observable.merge(
-            Observable.of(navigator.onLine),
-            Observable.fromEvent(window, 'online').map(() => true),
-            Observable.fromEvent(window, 'offline').map(() => false)); 
+        this.isConnected = merge(
+            of(navigator.onLine)/*,
+            fromEvent(window, 'online').pipe(map(() => true)),
+        fromEvent(window, 'offline').pipe(map(() => false))*/); 
 
         this.afAuth.auth.onAuthStateChanged(user => {
             if (user) { 
                 this.user = user;
-                this.isSignin = Observable.of(true);  
+                this.isSignin = of(true);  
                 let lastroute = localStorage.getItem('lastroute');
                 console.log(lastroute);
                 if (lastroute == "/login" || lastroute == undefined)                
@@ -53,7 +53,7 @@ export class AppService {
                 this.router.navigate([lastroute]);
             } else { 
                 this.user = undefined;
-                this.isSignin = Observable.of(false); 
+                this.isSignin = of(false); 
                 this.router.navigate(["/login"]);
             } 
         });

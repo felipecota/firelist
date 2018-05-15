@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router }   from '@angular/router';
-import { Observable } from 'rxjs/Observable'
+import { Observable, of } from 'rxjs'
+import { map } from 'rxjs/operators';
 
 import { AppService } from '../../../app.service';
 import { config } from '../../../../environments/language';
@@ -25,16 +26,18 @@ export class ListFormComponent implements OnInit {
 
         this.lists = this.appService.afs.collection('lists', ref => ref.where('access.'+this.appService.user.email.replace('.','`'),'==',true))
         .snapshotChanges()
-        .map(lists => {
+        .pipe(
+            map(lists => {
             return lists
             .sort(
                 (a,b) => a.payload.doc.data().listname.localeCompare(b.payload.doc.data().listname))
-            .map(list => {
-                const data = list.payload.doc.data();
-                const id = list.payload.doc.id;                
-                return { id, ...data };                
+                .map(list => {
+                    const data = list.payload.doc.data();
+                    const id = list.payload.doc.id;                
+                    return { id, ...data };                
+                })
             })
-        }); 
+        ); 
 
     }
 

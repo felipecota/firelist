@@ -21,7 +21,8 @@ import { BillItemComponent } from './app-bill/bill/bill-item/bill-item.component
 import { BillDetailComponent } from './app-bill/bill/bill-detail/bill-detail.component';
 
 import { AppService } from './app.service';
-import { Observable } from 'rxjs/Observable';
+
+import { Observable, of } from 'rxjs';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
