@@ -4,7 +4,7 @@ import { FormsModule }   from '@angular/forms';
 import { HttpModule }   from '@angular/http';
 import { FirebaseConfig } from './../environments/firebase.config';
 
-import { AngularFireModule } from 'angularfire2/index';
+import { AngularFireModule, FirebaseOptionsToken, FirebaseAppNameToken, FirebaseAppConfigToken } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 
@@ -40,10 +40,15 @@ import { MenuComponent } from './menu.component';
     AppRoutingModule,
     HttpClientModule,
     AngularFireDatabaseModule,
-    AngularFireModule.initializeApp(FirebaseConfig),
+    AngularFireModule,
     AngularFirestoreModule.enablePersistence()
   ],
-  providers: [AppService, BillService],
+  providers: [
+    AppService, BillService,
+    { provide: FirebaseOptionsToken, useValue: FirebaseConfig },
+    { provide: FirebaseAppNameToken, useValue: 'stalldata' },
+    { provide: FirebaseAppConfigToken, useValue: undefined }
+  ],  
   bootstrap: [AppComponent]
 })
 export class AppModule { }
