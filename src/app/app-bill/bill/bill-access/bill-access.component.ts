@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { Observable, of } from 'rxjs'
-import * as fs from 'firebase';
+import { Observable, of } from 'rxjs';
+import { firestore } from 'firebase';
 import { map } from 'rxjs/operators';
 
 import { AppService } from '../../../app.service';
@@ -106,7 +106,7 @@ export class BillAccessComponent implements OnInit {
     else if (this.members.length > 1) {
       if (confirm(this.appService.language.m7))
         this.appService.afs.collection('bills').doc(this.billkey).update({
-          ['access.'+member.email.replace(/\./g,'´')]: fs.firestore.FieldValue.delete()
+          ['access.'+member.email.replace(/\./g,'´')]: firestore.FieldValue.delete()
         });
     } else {      
       this.erro = this.appService.language.e10;      

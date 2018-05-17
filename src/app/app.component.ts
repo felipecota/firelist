@@ -12,15 +12,15 @@ import { AngularFireAuth } from 'angularfire2/auth';
 export class AppComponent {  
 
   title = 'realtimeapp';
-  version = 'v7.8';
-  isConnected: Observable<boolean>;
+  version = 'v8.0';
+  isSignin: Observable<boolean>;
  
   constructor(
     public appService: AppService,
     public afAuth: AngularFireAuth,     
-    public router: Router) {
-        this.isConnected = this.appService.isConnected;
-  }    
+    public router: Router) { }  
+  
+  ngOnInit() { }
 
   logout() {
     this.afAuth.auth.signOut();   

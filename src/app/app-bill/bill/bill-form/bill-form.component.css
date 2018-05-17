@@ -2,3 +2,7 @@
     display: inline-block;
     margin: 0px;
   }
+
+  .btn {
+    margin-right: 4px;
+  }

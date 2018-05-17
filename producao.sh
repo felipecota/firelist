@@ -1,6 +1,6 @@
 #!/bin/bash  
 echo "Build"  
-ng build -prod
+ng build
 echo "Service Worker"  
 npm run sw
 echo "Limpando produção"

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { Observable, Subscription, of, merge} from 'rxjs'
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -25,6 +25,7 @@ export class AppService {
         public afAuth: AngularFireAuth,        
         private router: Router,
         private route: ActivatedRoute,
+        private ngZone: NgZone
     ) {
 
         if (localStorage.getItem('lang')) {
@@ -38,19 +39,19 @@ export class AppService {
         }
 
         this.isConnected = merge(
-            of(navigator.onLine)/*,
+            of(navigator.onLine),
             fromEvent(window, 'online').pipe(map(() => true)),
-        fromEvent(window, 'offline').pipe(map(() => false))*/); 
+            fromEvent(window, 'offline').pipe(map(() => false))
+        );
 
         this.afAuth.auth.onAuthStateChanged(user => {
             if (user) { 
                 this.user = user;
                 this.isSignin = of(true);  
                 let lastroute = localStorage.getItem('lastroute');
-                console.log(lastroute);
                 if (lastroute == "/login" || lastroute == undefined)                
                     lastroute = "/menu";
-                this.router.navigate([lastroute]);
+                this.ngZone.run(() => this.router.navigate([lastroute]));
             } else { 
                 this.user = undefined;
                 this.isSignin = of(false); 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { Observable, of } from 'rxjs'
-import * as fs from 'firebase';
+import { Observable, of } from 'rxjs';
+import { firestore } from 'firebase';
 import { ActivatedRoute, Router }   from '@angular/router';
 import { map } from 'rxjs/operators';
 
@@ -33,6 +33,8 @@ export class BillDetailComponent implements OnInit {
     
     ngOnInit() {
 
+        console.log(this.appService.isSignin);        
+        
         let b = {
             id: this.route.snapshot.paramMap.get('id1'),
             billname: this.route.snapshot.paramMap.get('id2')
@@ -46,7 +48,7 @@ export class BillDetailComponent implements OnInit {
             return bills
             .sort(
                 (a,b) => a.payload.doc.data().billname.localeCompare(b.payload.doc.data().billname))
-            .map(bill => {
+            .map(bill => {                
                 const data = bill.payload.doc.data();
                 const id = bill.payload.doc.id;                
                 return { id, ...data };                
@@ -83,7 +85,7 @@ export class BillDetailComponent implements OnInit {
                             value: 0
                         });
                     }
-                }  
+                }                  
                      
                 let data = bill.payload.data();
                 for (let key in data.items) {                  
@@ -111,11 +113,11 @@ export class BillDetailComponent implements OnInit {
                             }
                         };
                     });
-
+                    
                     if (show) 
                         items.push({
                             benefited: data.items[key].benefited,
-                            date: new Date(data.items[key].date),
+                            date: new Date(data.items[key].date.seconds*1000),
                             description: data.items[key].description,
                             value: data.items[key].value,
                             multiplier: (data.items[key].multiplier != undefined?data.items[key].multiplier:1),
@@ -165,7 +167,7 @@ export class BillDetailComponent implements OnInit {
             alert(this.appService.language.m8);
         else if (confirm(this.appService.language.m7))
             this.appService.afs.collection('bills').doc(this.billkey).update({
-                ['items.'+i.itemkey]: fs.firestore.FieldValue.delete()
+                ['items.'+i.itemkey]: firestore.FieldValue.delete()
             })        
     }   
 
@@ -193,9 +195,10 @@ export class BillDetailComponent implements OnInit {
     
     backup() {
 
-        this.appService.afs.collection('bills').doc(this.billkey)
+        let subs = this.appService.afs.collection('bills').doc(this.billkey)
         .snapshotChanges()
-        .pipe(map(bill => {
+        .subscribe(bill => {
+            console.log(bill);
             let payload = bill.payload.data();
             let now = new Date();
             let data = new Blob([JSON.stringify(payload.items)], {type: 'text/plain'});  
@@ -205,7 +208,8 @@ export class BillDetailComponent implements OnInit {
             document.body.appendChild(link);    
             link.click();
             document.body.removeChild(link);                          
-        }));
+            subs.unsubscribe();
+        });
 
     }
 }
