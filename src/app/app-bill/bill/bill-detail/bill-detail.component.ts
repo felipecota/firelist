@@ -32,8 +32,6 @@ export class BillDetailComponent implements OnInit {
       ) { }
     
     ngOnInit() {
-
-        console.log(this.appService.isSignin);        
         
         let b = {
             id: this.route.snapshot.paramMap.get('id1'),
@@ -198,7 +196,6 @@ export class BillDetailComponent implements OnInit {
         let subs = this.appService.afs.collection('bills').doc(this.billkey)
         .snapshotChanges()
         .subscribe(bill => {
-            console.log(bill);
             let payload = bill.payload.data();
             let now = new Date();
             let data = new Blob([JSON.stringify(payload.items)], {type: 'text/plain'});  
