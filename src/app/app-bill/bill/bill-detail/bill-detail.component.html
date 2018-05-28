@@ -21,7 +21,7 @@
 <table *ngIf="billselected" class="table">
     <thead>
         <tr>
-        <th>{{'t22' | translate}}</th>
+        <th style="padding-left: 0px;">{{'t22' | translate}}</th>
         <th class="text-right">{{'t23' | translate}}</th>
         </tr>
     </thead>
@@ -33,7 +33,7 @@
     </tbody>
 </table>
 <div *ngIf="billselected" class="alert alert-warning">
-    <strong>{{'t24' | translate}}:</strong> {{'m6' | translate}}
+    <strong>{{'t24' | translate}}: </strong>{{'m6' | translate}}
 </div>
 <ul class="list-group">
     <li class="list-group-item" *ngFor="let i of items | async">

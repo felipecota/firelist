@@ -12,7 +12,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 export class AppComponent {  
 
   title = 'realtimeapp';
-  version = 'v8.1';
+  version = 'v8.2';
   isSignin: Observable<boolean>;
  
   constructor(

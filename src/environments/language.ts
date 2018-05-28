@@ -67,7 +67,7 @@ export const language_ptbr = {
     m3: 'E-mail para resetar senha enviado',
     m4: 'Nenhuma lista disponível',
     m5: 'Nenhum item foi adicionado',
-    m6: 'Saldo negativo? Você deve dinheiro.',
+    m6: 'Saldo negativo? Você deve',
     m7: 'Confirma exclusão?',
     m8: 'Somente o responsável pode excluir.',
     m9: 'Somente o responsável pode alterar.'
@@ -138,7 +138,7 @@ export const language_en = {
     m3: 'Reset password mail sent',
     m4: 'There is no list to display',
     m5: 'There is no item to display',
-    m6: 'Negative balance? You owe money.',
+    m6: 'Negative balance? You owe',
     m7: 'Are you sure to delete?',
     m8: 'Only the owner is alowed to remove.',
     m9: 'Only the owner is alowed to edit.'
