@@ -36,8 +36,8 @@
     <strong>{{'t24' | translate}}:</strong> {{'m6' | translate}}
 </div>
 <ul class="list-group">
-    <li class="list-group-item" *ngFor="let i of items | async" data-toggle="collapse" aria-expanded="false" attr.data-target="#{{i.itemkey}}">
-        {{(i.date | date:'dd/MM') + ' - ' + i.description}}
+    <li class="list-group-item" *ngFor="let i of items | async">
+        <a href="javascript: void(0)" data-toggle="collapse" aria-expanded="false" attr.data-target="#{{i.itemkey}}">{{(i.date | date:'dd/MM') + ' - ' + i.description}}</a>
         <div id="{{i.itemkey}}" class="collapse">
             {{'t34' | translate}}: {{i.owner}}<br>
             {{'t16' | translate}}: {{i.payer}}<br>

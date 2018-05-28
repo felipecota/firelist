@@ -1,3 +1,11 @@
+a {
+  color: #ffffff;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
 .collapse, .collapsing {
   margin-top: 10px;
 }
