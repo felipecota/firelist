@@ -101,7 +101,6 @@ export class BillItemComponent implements OnInit {
         navigator.geolocation.getCurrentPosition(position => {
           this.http.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + position.coords.latitude + '%2C' + position.coords.longitude + '&language=en&key=' + FirebaseConfig.apiKey)
           .subscribe(data => {
-              console.log(data);
               data['results'].forEach(result => {
                   result['address_components'].forEach(component => {
                       component['types'].forEach(type => {
