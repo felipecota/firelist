@@ -98,8 +98,9 @@ export class BillItemComponent implements OnInit {
 
     if(navigator.geolocation && this.place == ""){
         navigator.geolocation.getCurrentPosition(position => {
-          this.http.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + position.coords.latitude + '%2C' + position.coords.longitude + '&language=en')
+          this.http.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + position.coords.latitude + '%2C' + position.coords.longitude + '&language=en&key=AIzaSyBg6t7wkWg1rF8jz-FiVPw043WWbEVvfrw')
           .subscribe(data => {
+              console.log(data);
               data['results'].forEach(result => {
                   result['address_components'].forEach(component => {
                       component['types'].forEach(type => {
