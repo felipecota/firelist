@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router }   from '@angular/router';
-import { Observable, of } from 'rxjs'
+import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators';
 
 import { AppService } from '../../../app.service';
-import { config } from '../../../../environments/language';
 
 @Component({
   selector: 'app-bill-form',

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, of } from 'rxjs'
+import { Observable } from 'rxjs'
 import * as fs from 'firebase';
 import { map } from 'rxjs/operators';
 

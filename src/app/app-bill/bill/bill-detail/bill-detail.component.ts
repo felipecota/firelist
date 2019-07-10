@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireAuth } from 'angularfire2/auth';
 import { Observable, of } from 'rxjs';
 import { firestore } from 'firebase';
 import { ActivatedRoute, Router }   from '@angular/router';

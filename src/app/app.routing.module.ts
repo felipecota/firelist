@@ -1,9 +1,9 @@
-import { NgModule, ModuleWithProviders } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { 
     Routes, RouterModule, 
     CanActivate, Router,
     RouterStateSnapshot, ActivatedRouteSnapshot,
-    ActivatedRoute, Params
+    ActivatedRoute
 } from '@angular/router';
 import { Injectable } from '@angular/core';
 
@@ -21,8 +21,6 @@ import { BillItemComponent } from './app-bill/bill/bill-item/bill-item.component
 import { BillDetailComponent } from './app-bill/bill/bill-detail/bill-detail.component';
 
 import { AppService } from './app.service';
-
-import { Observable, of } from 'rxjs';
 
 @Injectable()
 export class AuthGuard implements CanActivate {

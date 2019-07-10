@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { firestore } from 'firebase';
 import { map } from 'rxjs/operators';
 
