@@ -7,6 +7,7 @@ import { map } from 'rxjs/operators';
 
 import { AppService } from '../../../app.service';
 import { BillService } from '../bill.service';
+import { FirebaseConfig } from '../../../../environments/firebase.config';
 
 @Component({
   selector: 'app-bill-item',
@@ -98,7 +99,7 @@ export class BillItemComponent implements OnInit {
 
     if(navigator.geolocation && this.place == ""){
         navigator.geolocation.getCurrentPosition(position => {
-          this.http.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + position.coords.latitude + '%2C' + position.coords.longitude + '&language=en&key=AIzaSyBg6t7wkWg1rF8jz-FiVPw043WWbEVvfrw')
+          this.http.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + position.coords.latitude + '%2C' + position.coords.longitude + '&language=en&key=' + FirebaseConfig.apiKey)
           .subscribe(data => {
               console.log(data);
               data['results'].forEach(result => {
