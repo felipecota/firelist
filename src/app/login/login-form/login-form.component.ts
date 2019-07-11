@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from '../../app.service';
+import { auth } from 'firebase/app';
 
 @Component({
   selector: 'app-login-form',
@@ -27,19 +28,19 @@ export class LoginFormComponent implements OnInit {
   }  
 
   loginWithFacebook() {
-    this.loginSocial(new this.appService.afAuth.auth.FacebookAuthProvider());
+    this.loginSocial(new auth.FacebookAuthProvider());
   }
 
   loginWithGoogle() {
-    this.loginSocial(new this.appService.afAuth.auth.GoogleAuthProvider());
+    this.loginSocial(new auth.GoogleAuthProvider());
   }  
 
   loginWithGithub() {
-    this.loginSocial(new this.appService.afAuth.auth.GithubAuthProvider());
+    this.loginSocial(new auth.GithubAuthProvider());
   }     
 
   loginWithTwitter() {
-    this.loginSocial(new this.appService.afAuth.auth.TwitterAuthProvider());
+    this.loginSocial(new auth.TwitterAuthProvider());
   }     
 
   loginSocial(provider) {
@@ -89,7 +90,7 @@ export class LoginFormComponent implements OnInit {
           if (error.code === "auth/email-already-in-use") {
             this.appService.afAuth.auth.fetchSignInMethodsForEmail(this.email).then(providers => {
               this.erro = this.appService.language.e17.replace('$input$',providers[0].replace('.com',''));       
-              this.pendingCred = this.appService.afAuth.auth.EmailAuthProvider.credential(this.email, this.password);
+              this.pendingCred = auth.EmailAuthProvider.credential(this.email, this.password);
               this.pendingMail = this.email;
             });
           }    
