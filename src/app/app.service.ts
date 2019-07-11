@@ -2,7 +2,7 @@ import { Injectable, NgZone } from '@angular/core';
 import { Observable, of, merge} from 'rxjs'
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { language_en, language_ptbr } from '../environments/language';
 import { fromEvent } from 'rxjs';
 import { map } from 'rxjs/operators';
