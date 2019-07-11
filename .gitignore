@@ -1,5 +1,6 @@
 node_modules/
 dist/
 producao/
-src/environments/environment.ts
 package-lock.json
+src/environments/environment.ts
+src/environments/environment.prod.ts
