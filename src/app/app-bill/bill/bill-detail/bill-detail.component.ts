@@ -44,7 +44,7 @@ export class BillDetailComponent implements OnInit {
         .pipe(map(bills => {
             return bills
             .sort(
-                (a,b) => a.payload.doc.data().billname.localeCompare(b.payload.doc.data().billname))
+                (a,b) => a.payload.doc.data()["billname"].localeCompare(b.payload.doc.data()["billname"]))
             .map(bill => {                
                 const data = bill.payload.doc.data();
                 const id = bill.payload.doc.id;                
@@ -67,11 +67,11 @@ export class BillDetailComponent implements OnInit {
             let items = [];
             let members = [];
 
-            if (!bill.payload.exists || !bill.payload.data().items || Object.keys(bill.payload.data().items).length == 0) {                
+            if (!bill.payload.exists || !bill.payload.data()["items"] || Object.keys(bill.payload.data()["items"]).length == 0) {                
                 this.erro = this.appService.language.m5;            
             } else {  
 
-                for (let key in bill.payload.data().access) {
+                for (let key in bill.payload.data()["access"]) {
                     if (key.replace(/´/g,'.') != this.appService.user.email) {
                         let format = key.replace(/´/g,'.').split("@");
                         if (format[0].length > 20)
@@ -85,22 +85,22 @@ export class BillDetailComponent implements OnInit {
                 }                  
                      
                 let data = bill.payload.data();
-                for (let key in data.items) {                  
+                for (let key in data["items"]) {                  
                     
                     // Only show bills that's from my interest
                     let show = false;
 
-                    data.items[key].benefited.forEach(b => {
-                        let sn = data.items[key].payer == this.appService.user.email && b != this.appService.user.email;
-                        let sp = data.items[key].payer != this.appService.user.email && b == this.appService.user.email;
-                        let ow = data.items[key].owner == this.appService.user.email;
-                        let my = data.items[key].payer == this.appService.user.email && b == this.appService.user.email;
+                    data["items"][key].benefited.forEach(b => {
+                        let sn = data["items"][key].payer == this.appService.user.email && b != this.appService.user.email;
+                        let sp = data["items"][key].payer != this.appService.user.email && b == this.appService.user.email;
+                        let ow = data["items"][key].owner == this.appService.user.email;
+                        let my = data["items"][key].payer == this.appService.user.email && b == this.appService.user.email;
                         if (sn || sp || ow || my) {
                             show = true;
                             if (sn || sp) {
                                 members.forEach(member => {
-                                    if (member.email == (sn?b:data.items[key].payer)){
-                                        let valuepp = (data.items[key].value*(data.items[key].multiplier != undefined?data.items[key].multiplier:1))/data.items[key].benefited.length;
+                                    if (member.email == (sn?b:data["items"][key].payer)){
+                                        let valuepp = (data["items"][key].value*(data["items"][key].multiplier != undefined?data["items"][key].multiplier:1))/data["items"][key].benefited.length;
                                         if (sn)
                                             member.value+=valuepp;
                                         else
@@ -113,31 +113,31 @@ export class BillDetailComponent implements OnInit {
                     
                     if (show) 
                         items.push({
-                            benefited: data.items[key].benefited,
-                            date: new Date(data.items[key].date.seconds*1000),
-                            description: data.items[key].description,
-                            value: data.items[key].value,
-                            multiplier: (data.items[key].multiplier != undefined?data.items[key].multiplier:1),
-                            calculated: data.items[key].value*(data.items[key].multiplier != undefined?data.items[key].multiplier:1),
-                            payer: data.items[key].payer,
-                            place: data.items[key].place,
+                            benefited: data["items"][key].benefited,
+                            date: new Date(data["items"][key].date.seconds*1000),
+                            description: data["items"][key].description,
+                            value: data["items"][key].value,
+                            multiplier: (data["items"][key].multiplier != undefined?data["items"][key].multiplier:1),
+                            calculated: data["items"][key].value*(data["items"][key].multiplier != undefined?data["items"][key].multiplier:1),
+                            payer: data["items"][key].payer,
+                            place: data["items"][key].place,
                             type: (
                                 this.appService.language.name == "en_us" ? 
-                                data.items[key].type
+                                data["items"][key].type
                                 .replace('Diversos','Others')
                                 .replace('Transporte','Transportation')
                                 .replace('Hospedagem','Hosting')
                                 .replace('Passeios','Recreation')
                                 .replace('Taxas','Taxes')
                                 .replace('Alimentação','Food') : 
-                                data.items[key].type
+                                data["items"][key].type
                                 .replace('Others','Diversos')
                                 .replace('Transportation','Transporte')
                                 .replace('Hosting','Hospedagem')
                                 .replace('Recreation','Passeios')
                                 .replace('Taxes','Taxas')
                                 .replace('Food','Alimentação') ),
-                            owner: data.items[key].owner,
+                            owner: data["items"][key].owner,
                             itemkey: key
                         });
                 };
@@ -199,7 +199,7 @@ export class BillDetailComponent implements OnInit {
         .subscribe(bill => {
             let payload = bill.payload.data();
             let now = new Date();
-            let data = new Blob([JSON.stringify(payload.items)], {type: 'text/plain'});  
+            let data = new Blob([JSON.stringify(payload["items"])], {type: 'text/plain'});  
             let link = document.createElement('a');
             link.href = window.URL.createObjectURL(data);
             link.setAttribute('download', 'backup_realtimeapp_'+now.getFullYear()+now.getMonth()+now.getDate()+'.txt');

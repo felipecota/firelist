@@ -62,7 +62,7 @@ export class BillItemComponent implements OnInit {
     .pipe(map(bills => {
         return bills
         .sort(
-            (a,b) => a.payload.doc.data().billname.localeCompare(b.payload.doc.data().billname))
+            (a,b) => a.payload.doc.data()["billname"].localeCompare(b.payload.doc.data()["billname"]))
         .map(bill => {
             const data = bill.payload.doc.data();
             const id = bill.payload.doc.id;                
@@ -127,7 +127,7 @@ export class BillItemComponent implements OnInit {
     .forEach(bill => {
         if (bill.payload.exists) {
             let temp = [];          
-            for (let key in bill.payload.data().access) {
+            for (let key in bill.payload.data()["access"]) {
                 let format = key.replace(/´/g,'.').split("@");
                 if (format[0].length > 20)
                     format[0] = format[0].substr(0,7)+"..."+format[0].substr(format[0].length-7,7);                

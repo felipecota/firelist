@@ -29,7 +29,7 @@ export class ListFormComponent implements OnInit {
             map(lists => {
             return lists
             .sort(
-                (a,b) => a.payload.doc.data().listname.localeCompare(b.payload.doc.data().listname))
+                (a,b) => a.payload.doc.data()["listname"].localeCompare(b.payload.doc.data()["listname"]))
                 .map(list => {
                     const data = list.payload.doc.data();
                     const id = list.payload.doc.id;                

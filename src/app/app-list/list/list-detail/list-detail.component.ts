@@ -29,18 +29,18 @@ export class ListDetailComponent implements OnInit {
             this.len = lists.length;
             return lists
             .sort(
-                (a,b) => a.payload.doc.data().listname.localeCompare(b.payload.doc.data().listname))
+                (a,b) => a.payload.doc.data()["listname"].localeCompare(b.payload.doc.data()["listname"]))
             .map(list => {                
                 let temp = [];
                 const data = list.payload.doc.data();                
-                for (let key in data.items) {
+                for (let key in data["items"]) {
                     temp.push({
                         itemkey: key,
-                        itemname: data.items[key].itemname,
-                        amount: data.items[key].amount
+                        itemname: data["items"][key].itemname,
+                        amount: data["items"][key].amount
                     });
                 }
-                data.items = temp.sort((a,b) => a.itemname.localeCompare(b.itemname));
+                data["items"] = temp.sort((a,b) => a.itemname.localeCompare(b.itemname));
                 const id = list.payload.doc.id;                
                 return { id, ...data };                
             })

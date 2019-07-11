@@ -32,7 +32,7 @@ export class ListAccessComponent implements OnInit {
     .pipe(map(lists => {
         return lists
         .sort(
-            (a,b) => a.payload.doc.data().listname.localeCompare(b.payload.doc.data().listname))
+            (a,b) => a.payload.doc.data()["listname"].localeCompare(b.payload.doc.data()["listname"]))
         .map(list => {
             const data = list.payload.doc.data();
             const id = list.payload.doc.id;                
@@ -52,7 +52,7 @@ export class ListAccessComponent implements OnInit {
     .snapshotChanges()
     .forEach(list => {
       let temp = [];
-      for (let key in list.payload.data().access) {
+      for (let key in list.payload.data()["access"]) {
           temp.push({
               email: key.replace('`','.')
           });

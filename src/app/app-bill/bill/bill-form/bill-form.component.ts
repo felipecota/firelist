@@ -30,7 +30,7 @@ export class BillFormComponent implements OnInit {
             map(bills => {
                 return bills
                 .sort(
-                    (a,b) => a.payload.doc.data().billname.localeCompare(b.payload.doc.data().billname))
+                    (a,b) => a.payload.doc.data()["billname"].localeCompare(b.payload.doc.data()["billname"]))
                 .map(bill => {
                     const data = bill.payload.doc.data();
                     const id = bill.payload.doc.id;                
@@ -74,6 +74,17 @@ export class BillFormComponent implements OnInit {
 
     }   
 
+
+    readThis(inputValue: any): void {
+        var file: File = inputValue.files[0];
+        var myReader: FileReader = new FileReader();
+        myReader.onloadend = function (e) {
+            console.log(myReader.result);
+        }
+
+        myReader.readAsText(file);
+    }    
+
     fileChange(event) {
        
         if (this.billname == '') {
@@ -85,7 +96,7 @@ export class BillFormComponent implements OnInit {
             if(fileList.length > 0) {
                 let reader = new FileReader();
                 reader.onload = () => {
-                    let items = JSON.parse(reader.result);
+                    let items = JSON.parse(reader.result as string);
 
                     let d = new Date();
                     let billkey = d.getFullYear()+''+d.getMonth()+''+d.getDay()+''+d.getHours()+''+d.getMinutes()+''+d.getSeconds()+''+(Math.floor(Math.random() * (99999 - 10000 + 1)) + 10000);
