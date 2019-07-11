@@ -32,7 +32,6 @@ export class ListItemComponent implements OnInit {
     }      
 
     ngOnInit() { 
-
         this.lists = this.appService.afs.collection('lists', ref => ref.where('access.'+this.appService.user.email.replace('.','`'),'==',true))
         .snapshotChanges()
         .pipe(

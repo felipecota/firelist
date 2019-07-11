@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireAuth } from 'angularfire2/auth';
 import { Observable } from 'rxjs';
-import { firestore } from 'firebase';
 import { map } from 'rxjs/operators';
+import { firestore } from 'firebase';
 
 import { AppService } from '../../../app.service';
 
@@ -23,8 +22,7 @@ export class BillAccessComponent implements OnInit {
   email: string;
   
   constructor(
-    private appService: AppService,
-    private afAuth: AngularFireAuth
+    private appService: AppService
   ) { }
 
   ngOnInit() {
@@ -49,7 +47,7 @@ export class BillAccessComponent implements OnInit {
     this.erro = '';
     this.billname = b.billname;
     this.billkey = b.id;
-    
+   
     this.appService.afs.collection('bills').doc(this.billkey)
     .snapshotChanges()
     .forEach(bill => {
@@ -66,7 +64,8 @@ export class BillAccessComponent implements OnInit {
         }
         this.members = temp;
       }      
-    });     
+    });
+         
   }    
 
   Include() {
@@ -82,7 +81,7 @@ export class BillAccessComponent implements OnInit {
     } else {  
 
         // Check if e-mail is already in the list
-        this.afAuth.auth.fetchProvidersForEmail(email)
+        this.appService.afAuth.auth.fetchSignInMethodsForEmail(email)
         .then(providers => { 
           if (providers.length == 0) {
               this.erro = this.appService.language.e8

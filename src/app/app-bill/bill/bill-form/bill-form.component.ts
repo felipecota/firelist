@@ -75,6 +75,7 @@ export class BillFormComponent implements OnInit {
     }   
 
     fileChange(event) {
+       
         if (this.billname == '') {
             this.erro = this.appService.language.e6;
             navigator.vibrate([500]);
@@ -100,8 +101,8 @@ export class BillFormComponent implements OnInit {
                 }
                 reader.readAsText(fileList[0]);      
             }
-
         }
+       
     }
 
 }

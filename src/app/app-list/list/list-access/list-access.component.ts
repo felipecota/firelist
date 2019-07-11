@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireAuth } from 'angularfire2/auth';
 import { Observable } from 'rxjs';
-import { firestore } from 'firebase';
 import { map } from 'rxjs/operators';
+import { firestore } from 'firebase';
 
 import { AppService } from '../../../app.service';
 
@@ -23,8 +22,7 @@ export class ListAccessComponent implements OnInit {
   email: string;
   
   constructor(
-    private appService: AppService,
-    private afAuth: AngularFireAuth
+    private appService: AppService
   ) { }
 
   ngOnInit() {
@@ -60,7 +58,8 @@ export class ListAccessComponent implements OnInit {
           });
       }
       this.members = temp;
-    });     
+    });  
+      
   }    
 
   Include() {
@@ -76,7 +75,7 @@ export class ListAccessComponent implements OnInit {
     } else {  
 
         // Check if e-mail is already in the list
-        this.afAuth.auth.fetchProvidersForEmail(email)
+        this.appService.afAuth.auth.fetchSignInMethodsForEmail(email)
         .then(providers => { 
           if (providers.length == 0) {
               this.erro = this.appService.language.e8

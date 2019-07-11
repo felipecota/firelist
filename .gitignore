@@ -1,4 +1,5 @@
 node_modules/
-src/environments/firebase.config.ts
 dist/
 producao/
+src/environments/environment.ts
+package-lock.json

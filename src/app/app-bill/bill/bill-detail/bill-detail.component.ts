@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { firestore } from 'firebase';
 import { ActivatedRoute, Router }   from '@angular/router';
 import { map } from 'rxjs/operators';
+import { firestore } from 'firebase';
 
 import { AppService } from '../../../app.service';
 import { BillService } from '../bill.service';
@@ -156,16 +156,18 @@ export class BillDetailComponent implements OnInit {
             }));
         
         }); 
-    
+   
     }  
     
     onRemove(i): void {
+        
         if (i.owner != this.appService.user.email)        
             alert(this.appService.language.m8);
         else if (confirm(this.appService.language.m7))
             this.appService.afs.collection('bills').doc(this.billkey).update({
                 ['items.'+i.itemkey]: firestore.FieldValue.delete()
-            })        
+            })    
+               
     }   
 
     onEdit(i): void {

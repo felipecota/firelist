@@ -2,11 +2,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule }   from '@angular/forms';
 import { HttpModule }   from '@angular/http';
-import { FirebaseConfig } from './../environments/firebase.config';
 
-import { AngularFireModule, FirebaseOptionsToken, FirebaseAppNameToken, FirebaseAppConfigToken } from 'angularfire2';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
-import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFireModule } from '@angular/fire';
+import { environment } from './../environments/environment';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 
 import { HttpClientModule } from '@angular/common/http';
 
@@ -41,13 +42,12 @@ import { MenuComponent } from './menu.component';
     HttpClientModule,
     AngularFireDatabaseModule,
     AngularFireModule,
-    AngularFirestoreModule.enablePersistence()
+    AngularFireAuthModule,
+    AngularFirestoreModule.enablePersistence(),
+    AngularFireModule.initializeApp(environment.firebase)
   ],
   providers: [
-    AppService, BillService,
-    { provide: FirebaseOptionsToken, useValue: FirebaseConfig },
-    { provide: FirebaseAppNameToken, useValue: 'stalldata' },
-    { provide: FirebaseAppConfigToken, useValue: undefined }
+    AppService, BillService
   ],  
   bootstrap: [AppComponent]
 })

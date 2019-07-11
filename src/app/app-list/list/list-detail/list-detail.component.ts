@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs'
-import * as fs from 'firebase';
 import { map } from 'rxjs/operators';
+import { firestore } from 'firebase';
 
 import { AppService } from '../../../app.service'
 
@@ -45,14 +45,14 @@ export class ListDetailComponent implements OnInit {
                 return { id, ...data };                
             })
         }));    
-             
+            
       }
 
       onSelect(list, itemkey): void {
-
+        
         this.appService.afs.collection('lists').doc(list.id).update({
-            ['items.'+itemkey]: fs.firestore.FieldValue.delete()
-        })        
+            ['items.'+itemkey]: firestore.FieldValue.delete()
+        })    
           
     }
 
