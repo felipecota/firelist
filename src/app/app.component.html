@@ -1,8 +1,8 @@
 <div class="icone" *ngIf="(this.appService.isSignin | async)">
     <span class="glyphicon glyphicon-off" [ngStyle]="{'color': (this.appService.isConnected | async) ? 'green' : 'red' }" (click)="logout()"></span>
 </div>
-<img class="flag" src="/assets/images/flagBR.png" (click)="language(1)">
-<img class="flag" src="/assets/images/flagUS.png" (click)="language(2)">
+<img class="flag" src="assets/images/flagBR.png" (click)="language(1)">
+<img class="flag" src="assets/images/flagUS.png" (click)="language(2)">
 <div class="jumbotron text-center">    
     <h1>{{title}}</h1>    
     <div class="version">{{version}}</div> 
