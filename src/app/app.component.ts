@@ -3,6 +3,7 @@ import { AppService } from './app.service'
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { version } from '../../package.json';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +13,8 @@ import { AngularFireAuth } from '@angular/fire/auth';
 export class AppComponent {  
 
   title = 'realtimeapp';
-  version = 'v9.0';
+  version = version;
+    
   isSignin: Observable<boolean>;
  
   constructor(

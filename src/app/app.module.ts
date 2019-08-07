@@ -25,6 +25,8 @@ import { TranslatePipeModule } from './translate.module'
 import { AppComponent } from './app.component';
 import { MenuComponent } from './menu.component';
 
+import { APP_BASE_HREF, LocationStrategy, HashLocationStrategy } from '@angular/common';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,8 +49,11 @@ import { MenuComponent } from './menu.component';
     AngularFireModule.initializeApp(environment.firebase)
   ],
   providers: [
-    AppService, BillService
+    AppService, BillService,
+    { provide: APP_BASE_HREF, useValue: '/' },
+    { provide: LocationStrategy, useClass: HashLocationStrategy },    
   ],  
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { 
+}
