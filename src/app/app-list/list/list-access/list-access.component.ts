@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 import { firestore } from 'firebase';
 
 import { AppService } from '../../../app.service';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-list-access',
@@ -66,28 +67,20 @@ export class ListAccessComponent implements OnInit {
 
     let email = this.email;
 
-    // I neeed connection to check email
-    if (!navigator.onLine)
+    if (this.members.length >= environment.limit)
+      this.erro = this.appService.language.e18;
+    else if (!navigator.onLine)
       this.erro = this.appService.language.e12;    
     else if (!email || email == '') {
       this.erro = this.appService.language.e8;
       navigator.vibrate([500]);
     } else {  
-
-        // Check if e-mail is already in the list
-        this.appService.afAuth.auth.fetchSignInMethodsForEmail(email)
-        .then(providers => { 
-          if (providers.length == 0) {
-              this.erro = this.appService.language.e8
-          } else {
-              this.appService.afs.collection('lists').doc(this.listkey).update({
-                  ['access.'+email.toLowerCase().replace('.','`')]: true
-              });            
-                 
-              this.erro = '';
-              this.email = '';
-          }}
-        );
+      this.appService.afs.collection('lists').doc(this.listkey).update({
+          ['access.'+email.toLowerCase().replace('.','`')]: true
+      });            
+          
+      this.erro = '';
+      this.email = '';
     }
   }
 

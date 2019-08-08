@@ -148,50 +148,54 @@ export class BillItemComponent implements OnInit {
   
   Include() { 
 
-        if (!this.date || !this.description || this.description.trim() == '' || !this.value || Number(this.value) == NaN || Number(this.value) <= 0 || !this.benefited || this.benefited.length == 0 || !this.place || !this.type || this.type == "" || this.multiplier == "" || Number(this.multiplier) <= 0)  {
+    if (this.members.length >= environment.limit){
 
-            this.erro = this.appService.language.e14;
-            navigator.vibrate([500]);
+        this.erro = this.appService.language.e18;
+        
+    } else if (!this.date || !this.description || this.description.trim() == '' || !this.value || Number(this.value) == NaN || Number(this.value) <= 0 || !this.benefited || this.benefited.length == 0 || !this.place || !this.type || this.type == "" || this.multiplier == "" || Number(this.multiplier) <= 0)  {
 
-        } else {  
+        this.erro = this.appService.language.e14;
+        navigator.vibrate([500]);
 
-            let date = this.date;
-            let description = this.description;
-            let value = this.value.replace(',','.');
-            let multiplier = this.multiplier.replace(',','.');
-            let payer = this.payer;
-            let benefited = this.benefited; 
-            let place = this.place;
-            let type = this.type;           
-            
-            let d = new Date();
-            this.date = d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();
-            this.description = '';
-            this.value = '';
-            this.multiplier = '';
-            this.payer = '';
-            this.benefited = '';
-            this.place = '';
-            this.type = '';
+    } else {  
 
-            let itemkey = (this.editmode ? this.itemkey : d.getFullYear()+''+d.getMonth()+''+d.getDate()+''+d.getHours()+''+d.getMinutes()+''+d.getSeconds()+''+(Math.floor(Math.random() * (99999 - 10000 + 1)) + 10000));
+        let date = this.date;
+        let description = this.description;
+        let value = this.value.replace(',','.');
+        let multiplier = this.multiplier.replace(',','.');
+        let payer = this.payer;
+        let benefited = this.benefited; 
+        let place = this.place;
+        let type = this.type;           
+        
+        let d = new Date();
+        this.date = d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();
+        this.description = '';
+        this.value = '';
+        this.multiplier = '';
+        this.payer = '';
+        this.benefited = '';
+        this.place = '';
+        this.type = '';
 
-            this.appService.afs.collection('bills').doc(this.billkey).update({
-                ['items.'+itemkey]: {
-                    payer: payer,
-                    benefited: benefited,
-                    date: new Date(Number(date.substring(0,4)), Number(date.substring(5,7))-1, Number(date.substring(8,10))),
-                    description: description,
-                    value: Number(value),
-                    multiplier: Number(multiplier),
-                    place: place,
-                    type: type,
-                    owner: this.appService.user.email
-                }
-            })
+        let itemkey = (this.editmode ? this.itemkey : d.getFullYear()+''+d.getMonth()+''+d.getDate()+''+d.getHours()+''+d.getMinutes()+''+d.getSeconds()+''+(Math.floor(Math.random() * (99999 - 10000 + 1)) + 10000));
 
-            this.erro = '';
-            this.router.navigate(['/bill-detail/'+this.billkey+'/'+this.billname]);
+        this.appService.afs.collection('bills').doc(this.billkey).update({
+            ['items.'+itemkey]: {
+                payer: payer,
+                benefited: benefited,
+                date: new Date(Number(date.substring(0,4)), Number(date.substring(5,7))-1, Number(date.substring(8,10))),
+                description: description,
+                value: Number(value),
+                multiplier: Number(multiplier),
+                place: place,
+                type: type,
+                owner: this.appService.user.email
+            }
+        })
+
+        this.erro = '';
+        this.router.navigate(['/bill-detail/'+this.billkey+'/'+this.billname]);
 
         }   
     }  

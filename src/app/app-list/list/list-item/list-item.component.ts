@@ -4,6 +4,7 @@ import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators';
 
 import { AppService } from '../../../app.service';
+import { environment } from '../../../../environments/environment';
 
 @Component({
     selector: 'app-list-item',
@@ -62,8 +63,12 @@ export class ListItemComponent implements OnInit {
         let itemname = this.itemname;
         let amount = this.amount;
 
-        if (!itemname || itemname.trim() == '' || !amount || amount.trim() == '')  {
+        if (this.items.length >= environment.limit) {            
 
+            this.erro = this.appService.language.e18;        
+            
+        } else if (!itemname || itemname.trim() == '' || !amount || amount.trim() == '')  {
+            
             this.erro = this.appService.language.e1;
             navigator.vibrate([500]);
 

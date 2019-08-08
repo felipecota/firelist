@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router }   from '@angular/router';
 import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators';
 
 import { AppService } from '../../../app.service';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-bill-form',
@@ -16,10 +16,10 @@ export class BillFormComponent implements OnInit {
     erro: string;
     billname: string = "";
     bills: Observable<any[]>;
+    length: any;
    
     constructor(
-        private appService: AppService,
-        private router: Router
+        private appService: AppService
     ) { }
 
     ngOnInit() {     
@@ -28,6 +28,7 @@ export class BillFormComponent implements OnInit {
         .snapshotChanges()
         .pipe(
             map(bills => {
+                this.length = bills.length;
                 return bills
                 .sort(
                     (a,b) => a.payload.doc.data()["billname"].localeCompare(b.payload.doc.data()["billname"]))
@@ -48,10 +49,17 @@ export class BillFormComponent implements OnInit {
         let billname = this.billname;
         this.billname = '';        
 
-        if (!billname || billname == '')  {
+        if (this.length >= environment.limit) {
+
+            this.erro = this.appService.language.e18;        
+        
+        } else if (!billname || billname == '')  {
+
             this.erro = this.appService.language.e6;
             navigator.vibrate([500]);
+
         } else {
+
             this.erro = '';
             this.appService.afs.collection('bills').doc(billkey).set({
                 billname: billname,
@@ -60,7 +68,6 @@ export class BillFormComponent implements OnInit {
                 }
             });
         }
-
     }  
 
     onSelect(id: string, access): void {
@@ -112,8 +119,6 @@ export class BillFormComponent implements OnInit {
                 }
                 reader.readAsText(fileList[0]);      
             }
-        }
-       
+        }       
     }
-
 }

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router }   from '@angular/router';
 import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators';
 
 import { AppService } from '../../../app.service';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-list-form',
@@ -15,10 +15,10 @@ export class ListFormComponent implements OnInit {
     erro: string;
     listname: string;
     lists: Observable<any[]>;
+    length: any;
    
     constructor(
         private appService: AppService,
-        private router: Router
     ) { }
 
     ngOnInit() {
@@ -27,15 +27,16 @@ export class ListFormComponent implements OnInit {
         .snapshotChanges()
         .pipe(
             map(lists => {
-            return lists
-            .sort(
-                (a,b) => a.payload.doc.data()["listname"].localeCompare(b.payload.doc.data()["listname"]))
-                .map(list => {
-                    const data = list.payload.doc.data();
-                    const id = list.payload.doc.id;                
-                    return { id, ...data };                
+                this.length = lists.length;
+                return lists
+                .sort(
+                    (a,b) => a.payload.doc.data()["listname"].localeCompare(b.payload.doc.data()["listname"]))
+                    .map(list => {
+                        const data = list.payload.doc.data();
+                        const id = list.payload.doc.id;                
+                        return { id, ...data };                
+                    })
                 })
-            })
         ); 
         
     }
@@ -48,10 +49,17 @@ export class ListFormComponent implements OnInit {
         this.listname = '';
         this.erro = '';
 
-        if (!listname || listname == '')  {
+        if (this.length >= environment.limit) {
+
+            this.erro = this.appService.language.e18;        
+        
+        } else if (!listname || listname == '')  {
+
             this.erro = this.appService.language.e6;
             navigator.vibrate([500]);
+
         } else {
+
             this.appService.afs.collection('lists').doc(listkey).set({
                 listname: listname,
                 access: {
@@ -59,7 +67,6 @@ export class ListFormComponent implements OnInit {
                 }
             });
         }
-
     }  
 
     onSelect(id: string, items): void {
