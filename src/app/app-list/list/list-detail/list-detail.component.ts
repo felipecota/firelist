@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators';
-import { firestore } from 'firebase';
+import { firestore } from 'firebase/app';
 
 import { AppService } from '../../../app.service'
 
