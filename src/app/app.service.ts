@@ -7,7 +7,7 @@ import { fromEvent } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 
-import { language_en, language_ptbr } from '../environments/language';
+import { languages } from '../environments/language';
 import { environment } from '../environments/environment';
 
 // The @Injectable() decorator tells TypeScript to emit metadata about the service. The metadata specifies that Angular may need to inject other dependencies into this service.
@@ -32,10 +32,10 @@ export class AppService {
     ) {
 
         // Default language is english
-        this.language = language_en;
+        this.language = languages.find(element => { return element.name == 'en'});
 
         if (localStorage.getItem('lang') && localStorage.getItem('lang') == 'ptbr')
-            this.language = language_ptbr;
+            this.language = languages.find(element => { return element.name == 'ptbr'});
         else
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(position => {
@@ -47,7 +47,7 @@ export class AppService {
                                 if (!localStorage.getItem('lang') && component['long_name'] == "Brazil")
                                 {
                                     localStorage.setItem('lang', 'ptbr');        
-                                    this.language = language_ptbr;                                    
+                                    this.language = languages.find(element => { return element.name == 'ptbr'});
                                 }
                               });
                           });
@@ -81,7 +81,7 @@ export class AppService {
 
     language_set(lang) {
         localStorage.setItem('lang', lang);        
-        this.language = lang == 'ptbr' ? language_ptbr : language_en;
+        this.language = languages.find(element => { return element.name == lang});
     }
     
 }
