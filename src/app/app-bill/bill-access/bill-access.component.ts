@@ -3,8 +3,8 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { firestore } from 'firebase/app';
 
-import { AppService } from '../../../app.service';
-import { environment } from '../../../../environments/environment';
+import { AppService } from '../../app.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-bill-access',

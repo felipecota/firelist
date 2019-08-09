@@ -7,7 +7,7 @@ import { ListFormComponent } from './list-form/list-form.component';
 import { ListAccessComponent } from './list-access/list-access.component';
 import { ListItemComponent } from './list-item/list-item.component';
 
-import { TranslatePipeModule } from '../../translate.module'
+import { TranslatePipeModule } from '../translate.module'
 
 @NgModule({
   declarations: [

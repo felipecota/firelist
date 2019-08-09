@@ -12,10 +12,11 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppService } from './app.service';
-import { BillService } from './app-bill/bill/bill.service';
+import { BillService } from './app-bill/bill.service';
 
-import { ListModule } from './app-list/list/list.module';
-import { BillModule } from './app-bill/bill/bill.module';
+import { ListModule } from './app-list/list.module';
+import { BillModule } from './app-bill/bill.module';
+import { SettingsModule } from './settings/settings.module';
 
 import { LoginModule } from './login/login.module';
 import { AppRoutingModule } from './app.routing.module';
@@ -39,6 +40,7 @@ import { APP_BASE_HREF, LocationStrategy, HashLocationStrategy } from '@angular/
     HttpModule,
     ListModule,
     BillModule,
+    SettingsModule,
     LoginModule,
     AppRoutingModule,
     HttpClientModule,

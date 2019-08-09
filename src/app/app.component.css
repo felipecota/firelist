@@ -8,13 +8,12 @@
     cursor: pointer;
 }
 
-.flag {
-    float: left;
-    margin: 10px 0px 0px 10px;
-    cursor: pointer;
-}
-
 .home {
     float: left;
     cursor: pointer;
+}
+
+.title {
+    font-size: 35px;
+    text-shadow: 1px 1px 3px  #b4b3b2;
 }

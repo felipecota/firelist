@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators';
 
-import { AppService } from '../../../app.service';
-import { environment } from '../../../../environments/environment';
+import { AppService } from '../../app.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-bill-form',

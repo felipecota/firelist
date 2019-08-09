@@ -7,7 +7,7 @@ import { BillAccessComponent } from './bill-access/bill-access.component';
 import { BillItemComponent } from './bill-item/bill-item.component';
 import { BillDetailComponent } from './bill-detail/bill-detail.component';
 
-import { TranslatePipeModule } from '../../translate.module'
+import { TranslatePipeModule } from '../translate.module'
 
 @NgModule({
   declarations: [

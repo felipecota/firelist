@@ -3,7 +3,7 @@ import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators';
 import { firestore } from 'firebase/app';
 
-import { AppService } from '../../../app.service'
+import { AppService } from '../../app.service'
 
 @Component({
   selector: 'app-list-detail',

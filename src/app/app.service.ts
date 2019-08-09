@@ -3,9 +3,12 @@ import { Observable, of, merge} from 'rxjs'
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
-import { language_en, language_ptbr } from '../environments/language';
 import { fromEvent } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+
+import { language_en, language_ptbr } from '../environments/language';
+import { environment } from '../environments/environment';
 
 // The @Injectable() decorator tells TypeScript to emit metadata about the service. The metadata specifies that Angular may need to inject other dependencies into this service.
 @Injectable() 
@@ -24,18 +27,34 @@ export class AppService {
         public afs: AngularFirestore,
         public afAuth: AngularFireAuth,        
         private router: Router,
-        private ngZone: NgZone
+        private ngZone: NgZone,
+        private http: HttpClient
     ) {
 
-        if (localStorage.getItem('lang')) {
-            if (localStorage.getItem('lang') == 'ptbr')
-                this.language = language_ptbr;
-            else
-                this.language = language_en;
-        } else {
-            localStorage.setItem('lang', 'ptbr');        
+        // Default language is english
+        this.language = language_en;
+
+        if (localStorage.getItem('lang') && localStorage.getItem('lang') == 'ptbr')
             this.language = language_ptbr;
-        }
+        else
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(position => {
+                  this.http.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + position.coords.latitude + '%2C' + position.coords.longitude + '&language=en&key=' + environment.apiGeolocationKey)
+                  .subscribe(data => {
+                      data['results'].forEach(result => {
+                          result['address_components'].forEach(component => {
+                              component['types'].forEach(type => {
+                                if (!localStorage.getItem('lang') && component['long_name'] == "Brazil")
+                                {
+                                    localStorage.setItem('lang', 'ptbr');        
+                                    this.language = language_ptbr;                                    
+                                }
+                              });
+                          });
+                      });
+                  });
+                });
+             }  
 
         this.isConnected = merge(
             of(navigator.onLine),
@@ -60,14 +79,9 @@ export class AppService {
             
     }
 
-    language_set(i) {
-        if (i==1) {
-            localStorage.setItem('lang', 'ptbr');        
-            this.language = language_ptbr;
-        } else {
-            localStorage.setItem('lang', 'en');        
-            this.language = language_en;
-        }
+    language_set(lang) {
+        localStorage.setItem('lang', lang);        
+        this.language = lang == 'ptbr' ? language_ptbr : language_en;
     }
     
 }

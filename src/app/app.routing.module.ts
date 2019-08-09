@@ -2,23 +2,24 @@ import { NgModule } from '@angular/core';
 import { 
     Routes, RouterModule, 
     CanActivate, Router,
-    RouterStateSnapshot, ActivatedRouteSnapshot,
-    ActivatedRoute
+    RouterStateSnapshot, ActivatedRouteSnapshot
 } from '@angular/router';
 import { Injectable } from '@angular/core';
 
-import { LoginFormComponent } from './login/login-form/login-form.component';
-import { ListDetailComponent } from './app-list/list/list-detail/list-detail.component';
-import { ListFormComponent } from './app-list/list/list-form/list-form.component';
-import { ListAccessComponent } from './app-list/list/list-access/list-access.component';
-import { ListItemComponent } from './app-list/list/list-item/list-item.component';
-
 import { MenuComponent } from './menu.component';
 
-import { BillFormComponent } from './app-bill/bill/bill-form/bill-form.component';
-import { BillAccessComponent } from './app-bill/bill/bill-access/bill-access.component';
-import { BillItemComponent } from './app-bill/bill/bill-item/bill-item.component';
-import { BillDetailComponent } from './app-bill/bill/bill-detail/bill-detail.component';
+import { SettingsFormComponent } from './settings/settings-form/settings-form.component';
+
+import { LoginFormComponent } from './login/login-form/login-form.component';
+import { ListDetailComponent } from './app-list/list-detail/list-detail.component';
+import { ListFormComponent } from './app-list/list-form/list-form.component';
+import { ListAccessComponent } from './app-list/list-access/list-access.component';
+import { ListItemComponent } from './app-list/list-item/list-item.component';
+
+import { BillFormComponent } from './app-bill/bill-form/bill-form.component';
+import { BillAccessComponent } from './app-bill/bill-access/bill-access.component';
+import { BillItemComponent } from './app-bill/bill-item/bill-item.component';
+import { BillDetailComponent } from './app-bill/bill-detail/bill-detail.component';
 
 import { AppService } from './app.service';
 
@@ -27,8 +28,7 @@ export class AuthGuard implements CanActivate {
   
   constructor(
       private appService: AppService, 
-      private router: Router,
-      private route: ActivatedRoute
+      private router: Router
     ) {}    
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {    
@@ -46,6 +46,7 @@ const APP_ROUTES: Routes = [
     { path: '', redirectTo: '/menu', pathMatch: 'full' },
     { path: 'login', component: LoginFormComponent },
     { path: 'menu', component: MenuComponent, canActivate:[AuthGuard] },
+    { path: 'settings', component: SettingsFormComponent, canActivate:[AuthGuard] },
     { path: 'list-detail', component: ListDetailComponent, canActivate:[AuthGuard] },
     { path: 'list-form', component: ListFormComponent, canActivate:[AuthGuard] },
     { path: 'list-access', component: ListAccessComponent, canActivate:[AuthGuard] },

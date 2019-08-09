@@ -17,4 +17,5 @@ import { TranslatePipeModule } from '../translate.module'
   declarations: [LoginFormComponent],
   providers: [AngularFireAuth]
 })
+
 export class LoginModule { }

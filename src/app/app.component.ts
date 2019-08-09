@@ -1,18 +1,19 @@
 import { Component } from '@angular/core';
-import { AppService } from './app.service'
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { version } from '../../package.json';
+import { AppService } from './app.service'
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
 export class AppComponent {  
 
-  title = 'realtimeapp';
+  title = 'Firelist';
   version = version;
     
   isSignin: Observable<boolean>;
@@ -26,10 +27,6 @@ export class AppComponent {
 
   logout() {
     this.afAuth.auth.signOut();   
-  }
-
-  language(i) {
-    this.appService.language_set(i);
   }
 
   menu() {

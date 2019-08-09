@@ -4,9 +4,9 @@ import { Router, ActivatedRoute }   from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
-import { AppService } from '../../../app.service';
+import { AppService } from '../../app.service';
 import { BillService } from '../bill.service';
-import { environment } from '../../../../environments/environment';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-bill-item',
