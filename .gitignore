@@ -2,3 +2,4 @@ node_modules/
 dist/
 producao/
 src/environments/environment.ts
+package-lock.json
