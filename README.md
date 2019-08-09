@@ -1,8 +1,6 @@
 # Realtimeapp
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.2.9.
-
-Start example: https://imasters.com.br/perfil/evelynmendes/?trace=3182418120&source=single
+This project was generated with [Angular](https://angular.io/)
 
 Live at: https://felipecota.github.io
 
