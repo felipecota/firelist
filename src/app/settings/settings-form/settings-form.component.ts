@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Version } from '@angular/core';
 import { AppService } from '../../app.service'
 import { languages } from '../../../environments/language';
+import { version } from '../../../../package.json';
 
 @Component({
   selector: 'app-settings',
@@ -10,6 +11,7 @@ import { languages } from '../../../environments/language';
 export class SettingsFormComponent implements OnInit {
 
   languages: any[];
+  version = version;
 
   constructor(
     public appService: AppService

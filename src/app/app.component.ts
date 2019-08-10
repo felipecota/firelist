@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { version } from '../../package.json';
 import { AppService } from './app.service'
 
 @Component({
@@ -14,7 +13,6 @@ import { AppService } from './app.service'
 export class AppComponent {  
 
   title = 'Firelist';
-  version = version;
     
   isSignin: Observable<boolean>;
  
