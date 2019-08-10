@@ -15,7 +15,7 @@ export class ListFormComponent implements OnInit {
     erro: string;
     listname: string;
     lists: Observable<any[]>;
-    length: any;
+    length: any = 0;
    
     constructor(
         private appService: AppService,

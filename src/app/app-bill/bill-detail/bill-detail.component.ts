@@ -23,6 +23,8 @@ export class BillDetailComponent implements OnInit {
     billkey: string;
     billselected: boolean = false;
 
+    title: string = this.appService.language["t14"];
+
     constructor(
         private appService: AppService,
         private billService: BillService,
@@ -59,6 +61,7 @@ export class BillDetailComponent implements OnInit {
         this.billname = b.billname;
         this.billkey = b.id;
         this.billselected = true;
+        this.title = b.billname;
         
         this.appService.afs.collection('bills').doc(b.id)
         .snapshotChanges()

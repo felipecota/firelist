@@ -7,7 +7,7 @@
                 {{'m5' | translate}}
             </div>            
             <li class="list-group-item" *ngFor="let i of l.items">
-                <span class="badge" (click)="onSelect(l,i.itemkey)">X</span>                
+                <span class="glyphicon glyphicon-trash pull-right" (click)="onSelect(l,i.itemkey)"></span>                
                 {{ i.itemname + ' - ' + i.amount }}               
             </li>
           </ul>

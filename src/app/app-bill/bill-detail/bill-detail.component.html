@@ -1,6 +1,6 @@
 <br>
 <span class="dropdown">
-    <a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">{{'t14' | translate}} <span class="caret"></span></a>
+    <a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">{{title}} <span class="caret"></span></a>
     <ul class="dropdown-menu" role="menu">
         <li *ngFor="let b of bills | async" (click)="onSelectBill(b)">
             <a>{{b.billname}}</a>
@@ -11,10 +11,6 @@
     <span class="glyphicon glyphicon-floppy-disk"></span> Backup
 </button>   
 <br><br>
-<div class="form-group">
-    <label for="pwd">{{'t14' | translate}}</label>  
-    <input type="text" [disabled]="true" class="form-control" [(ngModel)]="billname" name="billname">        
-</div>
 <div *ngIf="erro" class="alert alert-danger">
     {{erro}}
 </div>

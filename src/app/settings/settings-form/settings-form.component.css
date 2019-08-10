@@ -2,8 +2,6 @@ img {
     margin-left: 5px;
 }
 
-.btn {
-    margin: 15px auto;
-    display: block;
-    width: 100%;
+.language {
+    text-align: center;
 }

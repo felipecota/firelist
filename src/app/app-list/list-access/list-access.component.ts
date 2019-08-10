@@ -21,6 +21,8 @@ export class ListAccessComponent implements OnInit {
   listname: string;
   listkey: string;
   email: string;
+
+  title: string = this.appService.language["t5"];
   
   constructor(
     private appService: AppService
@@ -48,6 +50,7 @@ export class ListAccessComponent implements OnInit {
     this.erro = '';
     this.listname = l.listname;
     this.listkey = l.id;
+    this.title = l.listname;
     
     this.appService.afs.collection('lists').doc(this.listkey)
     .snapshotChanges()
@@ -67,7 +70,7 @@ export class ListAccessComponent implements OnInit {
 
     let email = this.email;
 
-    if (this.members.length >= environment.limit)
+    if (this.members && this.members.length >= environment.limit)
       this.erro = this.appService.language.e18;
     else if (!navigator.onLine)
       this.erro = this.appService.language.e12;    

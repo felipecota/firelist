@@ -1,21 +1,31 @@
-    /* You can add global styles to this file, and also import other style files */
-    ul.dropdown-menu {
-        background-color: #375a7f;
-    }
+/* You can add global styles to this file, and also import other style files */
 
-    ul.dropdown-menu a:hover {
-        background-color: #b2b3b4;
-    }    
+body {
+    background-color: #fafafa;
+}
 
-    ul.dropdown-menu li {
-        padding: 5px;
-        cursor: pointer;
-    }
+ul.dropdown-menu {
+    background-color: #2fa4e7;
+}
 
-    .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
-        background-color: #b2b3b4;
-    }  
+ul.dropdown-menu a:hover {
+    background-color: #7dbce0;
+    border-radius: 2px;
+}    
 
-    .badge {
-        cursor: pointer;
-    }
+ul.dropdown-menu li {
+    padding: 5px;
+    cursor: pointer;
+}
+
+ul.dropdown-menu li a {
+    color: #fff;
+}
+
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+    background-color: #eee;
+}  
+
+.glyphicon-trash {
+    cursor: pointer;
+}

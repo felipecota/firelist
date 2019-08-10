@@ -16,7 +16,7 @@ export class BillFormComponent implements OnInit {
     erro: string;
     billname: string = "";
     bills: Observable<any[]>;
-    length: any;
+    length: any = 0;
    
     constructor(
         private appService: AppService

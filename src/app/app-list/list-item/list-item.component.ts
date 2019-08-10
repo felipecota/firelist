@@ -26,6 +26,8 @@ export class ListItemComponent implements OnInit {
     itemname: string;
     amount: string;
 
+    title: string = this.appService.language["t5"];
+
     constructor(
         private appService: AppService, 
         private router: Router
@@ -56,6 +58,7 @@ export class ListItemComponent implements OnInit {
         this.erro = '';
         this.listname = l.listname;
         this.listkey = l.id;
+        this.title = l.listname;
     }    
 
     Include() { 
@@ -63,7 +66,7 @@ export class ListItemComponent implements OnInit {
         let itemname = this.itemname;
         let amount = this.amount;
 
-        if (this.items.length >= environment.limit) {            
+        if (this.items && this.items.length >= environment.limit) {            
 
             this.erro = this.appService.language.e18;        
             

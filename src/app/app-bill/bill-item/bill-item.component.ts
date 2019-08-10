@@ -35,6 +35,7 @@ export class BillItemComponent implements OnInit {
   multiplier: string = "1";
   calculated: number;
   benefited: any;
+  title: string = this.appService.language['t14'];
  
   constructor(
     private appService: AppService,
@@ -121,6 +122,7 @@ export class BillItemComponent implements OnInit {
     this.erro = '';
     this.billname = b.billname;
     this.billkey = b.id;
+    this.title = b.billname;
    
     this.appService.afs.collection('bills').doc(this.billkey)
     .snapshotChanges()
@@ -148,7 +150,7 @@ export class BillItemComponent implements OnInit {
   
   Include() { 
 
-    if (this.members.length >= environment.limit){
+    if (this.members && this.members.length >= environment.limit){
 
         this.erro = this.appService.language.e18;
         
