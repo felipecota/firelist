@@ -1,7 +1,6 @@
-/* You can add global styles to this file, and also import other style files */
-
 body {
     background-color: #fafafa;
+    font-size: 16px;
 }
 
 ul.dropdown-menu {
@@ -26,6 +25,18 @@ ul.dropdown-menu li a {
     background-color: #eee;
 }  
 
-.glyphicon-trash {
+.glyphicon-trash, .pointer {
     cursor: pointer;
+}
+
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
+    background-color: #fafafa;
+}
+
+.btn {
+    font-size: 15px;
+}
+
+.form-control {
+    font-size: 15px;
 }

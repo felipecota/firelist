@@ -124,22 +124,7 @@ export class BillDetailComponent implements OnInit {
                             calculated: data["items"][key].value*(data["items"][key].multiplier != undefined?data["items"][key].multiplier:1),
                             payer: data["items"][key].payer,
                             place: data["items"][key].place,
-                            type: (
-                                this.appService.language.name == "en_us" ? 
-                                data["items"][key].type
-                                .replace('Diversos','Others')
-                                .replace('Transporte','Transportation')
-                                .replace('Hospedagem','Hosting')
-                                .replace('Passeios','Recreation')
-                                .replace('Taxas','Taxes')
-                                .replace('Alimentação','Food') : 
-                                data["items"][key].type
-                                .replace('Others','Diversos')
-                                .replace('Transportation','Transporte')
-                                .replace('Hosting','Hospedagem')
-                                .replace('Recreation','Passeios')
-                                .replace('Taxes','Taxas')
-                                .replace('Food','Alimentação') ),
+                            type: this.appService.language[data["items"][key].type],
                             owner: data["items"][key].owner,
                             itemkey: key
                         });
@@ -205,7 +190,7 @@ export class BillDetailComponent implements OnInit {
             let data = new Blob([JSON.stringify(payload["items"])], {type: 'text/plain'});  
             let link = document.createElement('a');
             link.href = window.URL.createObjectURL(data);
-            link.setAttribute('download', 'backup_realtimeapp_'+now.getFullYear()+now.getMonth()+now.getDate()+'.txt');
+            link.setAttribute('download', 'backup_'+this.billname.toLowerCase()+'_'+now.getFullYear()+now.getMonth()+now.getDate()+'.txt');
             document.body.appendChild(link);    
             link.click();
             document.body.removeChild(link);                          
@@ -213,4 +198,5 @@ export class BillDetailComponent implements OnInit {
         });
 
     }
+
 }

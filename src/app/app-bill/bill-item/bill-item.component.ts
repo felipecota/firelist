@@ -36,6 +36,7 @@ export class BillItemComponent implements OnInit {
   calculated: number;
   benefited: any;
   title: string = this.appService.language['t14'];
+  tpayer: string = this.appService.language['t16'];
  
   constructor(
     private appService: AppService,
@@ -96,6 +97,7 @@ export class BillItemComponent implements OnInit {
   onSelectMember(m): void {
     this.selected_member = true;
     this.payer = m.email;
+    this.tpayer = this.payer;
 
     if(navigator.geolocation && this.place == ""){
         navigator.geolocation.getCurrentPosition(position => {

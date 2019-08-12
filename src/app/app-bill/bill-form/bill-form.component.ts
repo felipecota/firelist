@@ -100,22 +100,34 @@ export class BillFormComponent implements OnInit {
         } else {        
             this.erro = '';
             let fileList: FileList = event.target.files;
-            if(fileList.length > 0) {
+            if ( fileList.length > 0 ) {
                 let reader = new FileReader();
                 reader.onload = () => {
                     let items = JSON.parse(reader.result as string);
 
-                    let d = new Date();
-                    let billkey = d.getFullYear()+''+d.getMonth()+''+d.getDay()+''+d.getHours()+''+d.getMinutes()+''+d.getSeconds()+''+(Math.floor(Math.random() * (99999 - 10000 + 1)) + 10000);
-                    let billname = this.billname;
+                    let length = 0;
+                    for (let key in items)
+                        length++
 
-                    this.appService.afs.collection('bills').doc(billkey).set({
-                        billname: billname,
-                        access: {
-                            [this.appService.user.email.replace(/\./g,'´')]: true
-                        },
-                        items: items
-                    });                    
+                    if (length >= environment.limit) {
+
+                        this.erro = this.appService.language.e18;        
+                    
+                    } else {
+
+                        let d = new Date();
+                        let billkey = d.getFullYear()+''+d.getMonth()+''+d.getDay()+''+d.getHours()+''+d.getMinutes()+''+d.getSeconds()+''+(Math.floor(Math.random() * (99999 - 10000 + 1)) + 10000);
+                        let billname = this.billname;
+
+                        this.appService.afs.collection('bills').doc(billkey).set({
+                            billname: billname,
+                            access: {
+                                [this.appService.user.email.replace(/\./g,'´')]: true
+                            },
+                            items: items
+                        });     
+
+                    }               
                 }
                 reader.readAsText(fileList[0]);      
             }

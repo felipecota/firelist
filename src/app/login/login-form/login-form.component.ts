@@ -104,6 +104,7 @@ export class LoginFormComponent implements OnInit {
       this.erro = this.appService.language.e3;
       navigator.vibrate([500]);
     } else {
+      auth().useDeviceLanguage(); 
       this.appService.afAuth.auth.sendPasswordResetEmail(this.email).then(() => {
         this.erro = this.appService.language.m3;
       }).catch((err) => {

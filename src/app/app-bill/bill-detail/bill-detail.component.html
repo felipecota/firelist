@@ -33,7 +33,7 @@
 </div>
 <ul class="list-group">
     <li class="list-group-item" *ngFor="let i of items | async">
-        <a href="javascript: void(0)" data-toggle="collapse" aria-expanded="false" attr.data-target="#{{i.itemkey}}">{{(i.date | date:'dd/MM') + ' - ' + i.description}}</a>
+        {{(i.date | date:'dd/MM') + ' - ' + i.description}}<span data-toggle="collapse" aria-expanded="false" attr.data-target="#{{i.itemkey}}" onclick="if ($(this).attr('aria-expanded') == 'false') { $(this).removeClass('glyphicon-chevron-down'); $(this).addClass('glyphicon-chevron-up'); } else { $(this).removeClass('glyphicon-chevron-up'); $(this).addClass('glyphicon-chevron-down'); };" class="glyphicon glyphicon-chevron-down pull-right pointer"></span>
         <div id="{{i.itemkey}}" class="collapse">
             {{'t34' | translate}}: {{i.owner}}<br>
             {{'t16' | translate}}: {{i.payer}}<br>
