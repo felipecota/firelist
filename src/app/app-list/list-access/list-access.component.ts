@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { firestore } from 'firebase/app';
@@ -11,7 +11,7 @@ import { environment } from '../../../environments/environment';
   templateUrl: './list-access.component.html',
   styleUrls: ['./list-access.component.css']
 })
-export class ListAccessComponent implements OnInit {
+export class ListAccessComponent implements OnInit, OnDestroy {
 
   lists: Observable<any[]>;
   members: any[];
@@ -21,6 +21,8 @@ export class ListAccessComponent implements OnInit {
   listname: string;
   listkey: string;
   email: string;
+
+  sub: any;
 
   title: string = this.appService.language["t5"];
   
@@ -55,6 +57,10 @@ export class ListAccessComponent implements OnInit {
 
   }
 
+  ngOnDestroy() {
+    this.sub.unsubscribe();
+  }  
+
   onSelectList(l): void {
     this.selected = true;
     this.erro = '';
@@ -63,9 +69,9 @@ export class ListAccessComponent implements OnInit {
     this.title = l.listname;
     localStorage.setItem('lastList', l.id);
     
-    this.appService.afs.collection('lists').doc(this.listkey)
+    this.sub = this.appService.afs.collection('lists').doc(this.listkey)
     .snapshotChanges()
-    .forEach(list => {
+    .subscribe(list => {
       let temp = [];
       for (let key in list.payload.data()["access"]) {
           temp.push({

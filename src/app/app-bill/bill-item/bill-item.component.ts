@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Router, ActivatedRoute }   from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -13,7 +13,7 @@ import { environment } from '../../../environments/environment';
   templateUrl: './bill-item.component.html',
   styleUrls: ['./bill-item.component.css']
 })
-export class BillItemComponent implements OnInit {
+export class BillItemComponent implements OnInit, OnDestroy {
 
   bills: Observable<any[]>;   
   members: any[]; 
@@ -37,6 +37,8 @@ export class BillItemComponent implements OnInit {
   benefited: any;
   title: string = this.appService.language['t14'];
   tpayer: string = this.appService.language['t16'];
+
+  sub: any;
  
   constructor(
     private appService: AppService,
@@ -86,6 +88,10 @@ export class BillItemComponent implements OnInit {
     })); 
 
   }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
+  }  
 
   onEdit(data): void{
     this.selected_member = true;
@@ -140,9 +146,9 @@ export class BillItemComponent implements OnInit {
     this.title = b.billname;
     localStorage.setItem('lastBill', b.id);
    
-    this.appService.afs.collection('bills').doc(this.billkey)
+    this.sub = this.appService.afs.collection('bills').doc(this.billkey)
     .snapshotChanges()
-    .forEach(bill => {
+    .subscribe(bill => {
         if (bill.payload.exists) {
             let temp = [];          
             for (let key in bill.payload.data()["access"]) {

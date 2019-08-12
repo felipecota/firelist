@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { ActivatedRoute, Router }   from '@angular/router';
 import { map } from 'rxjs/operators';
@@ -15,7 +15,7 @@ import { environment } from '../../../environments/environment';
   styleUrls: ['./bill-detail.component.css']
 })
 
-export class BillDetailComponent implements OnInit {
+export class BillDetailComponent implements OnInit, OnDestroy {
 
     bills: Observable<any[]>; 
     items: Observable<any[]>;
@@ -24,6 +24,8 @@ export class BillDetailComponent implements OnInit {
     billname: string;
     billkey: string;
     billselected: boolean = false;
+
+    sub: any;
 
     title: string = this.appService.language["t14"];
 
@@ -68,6 +70,10 @@ export class BillDetailComponent implements OnInit {
 
     }
 
+    ngOnDestroy() {
+        this.sub.unsubscribe();
+    }
+
     onSelectBill(b): void {
 
         this.billname = b.billname;
@@ -76,9 +82,9 @@ export class BillDetailComponent implements OnInit {
         this.title = b.billname;
         localStorage.setItem('lastBill', b.id);
         
-        this.appService.afs.collection('bills').doc(b.id)
+        this.sub = this.appService.afs.collection('bills').doc(b.id)
         .snapshotChanges()
-        .forEach(bill => {
+        .subscribe(bill => {
 
             let items = [];
             let members = [];

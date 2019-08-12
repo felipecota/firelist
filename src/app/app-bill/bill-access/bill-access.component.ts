@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { firestore } from 'firebase/app';
@@ -11,7 +11,7 @@ import { environment } from '../../../environments/environment';
   templateUrl: './bill-access.component.html',
   styleUrls: ['./bill-access.component.css']
 })
-export class BillAccessComponent implements OnInit {
+export class BillAccessComponent implements OnInit, OnDestroy {
 
   bills: Observable<any[]>;
   members: any[];
@@ -21,6 +21,8 @@ export class BillAccessComponent implements OnInit {
   billname: string;
   billkey: string;
   email: string;
+
+  sub: any;
 
   title: string = this.appService.language["t14"];
   
@@ -55,6 +57,10 @@ export class BillAccessComponent implements OnInit {
 
   }
 
+  ngOnDestroy() {
+    this.sub.unsubscribe();
+  }
+
   onSelectBill(b): void {
     this.selected = true;
     this.erro = '';
@@ -63,9 +69,9 @@ export class BillAccessComponent implements OnInit {
     this.title = b.billname;
     localStorage.setItem('lastBill', b.id);
    
-    this.appService.afs.collection('bills').doc(this.billkey)
+    this.sub = this.appService.afs.collection('bills').doc(this.billkey)
     .snapshotChanges()
-    .forEach(bill => {
+    .subscribe(bill => {
       if (bill.payload.exists) {
         let temp = [];
         for (let key in bill.payload.data()["access"]) {
