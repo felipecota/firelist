@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { Router }   from '@angular/router';
 import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators';
 import { firestore } from 'firebase/app';
+import * as CryptoJS from 'crypto-js'; 
 
 import { AppService } from '../../app.service'
+import { environment } from '../../../environments/environment';
+import { BillService } from '../../app-bill/bill.service';
 
 @Component({
   selector: 'app-list-detail',
@@ -13,17 +17,19 @@ import { AppService } from '../../app.service'
 
 export class ListDetailComponent implements OnInit {
 
-      lists: Observable<any[]>;
-      items: any[];
-      len: number;
+    lists: Observable<any[]>;
+    items: any[];
+    len: number;
 
-      constructor(
-          private appService: AppService
-      ) { }
+    constructor(
+        private appService: AppService,
+        private router: Router,
+        private billService: BillService,
+    ) { }
   
-      ngOnInit() { 
+    ngOnInit() { 
 
-        this.lists = this.appService.afs.collection('lists', ref => ref.where('access.'+this.appService.user.email.replace('.','`'),'==',true))
+        this.lists = this.appService.afs.collection('lists', ref => ref.where('access.'+this.appService.user.email.replace('.','´'),'==',true))
         .snapshotChanges()
         .pipe(map(lists => {
             this.len = lists.length;
@@ -46,14 +52,55 @@ export class ListDetailComponent implements OnInit {
             })
         }));    
             
-      }
+    }
 
-      onSelect(list, itemkey): void {
-        
+    onSelect(list, itemkey): void {        
         this.appService.afs.collection('lists').doc(list.id).update({
             ['items.'+itemkey]: firestore.FieldValue.delete()
-        })    
-          
+        })
     }
+
+    onExport(itemname,itemkey,listid): void {
+        this.appService.afs.collection('lists').doc(listid).update({
+            ['items.'+itemkey]: firestore.FieldValue.delete()
+        })        
+        this.billService.item = {
+            billkey: '',
+            billname: '',
+            itemkey: '',
+            payer: '',
+            date: new Date,
+            place: '',
+            description: itemname,
+            type: '',
+            value: 0,
+            multiplier: 1,
+            calculated: 0,
+            benefited: []
+        }
+        this.router.navigate(['/bill-item/new']);         
+    }
+
+    backup(listid, listname) {
+        let subs = this.appService.afs.collection('lists').doc(listid)
+        .snapshotChanges()
+        .subscribe(bill => {
+            let payload = bill.payload.data();
+            let now = new Date();
+            let crypto = CryptoJS.AES.encrypt(JSON.stringify({
+                type: "list",
+                items: payload["items"]
+            }), environment.cryptoPass).toString();
+            let data = new Blob([crypto], {type: 'text/plain'});              
+            let link = document.createElement('a');
+            link.href = window.URL.createObjectURL(data);
+            link.setAttribute('download', 'backup_'+this.appService.language["t5"].toLowerCase()+'_'+listname.toLowerCase()+'_'+now.getFullYear()+now.getMonth()+now.getDate()+'.txt');
+            document.body.appendChild(link);    
+            link.click();
+            document.body.removeChild(link);                          
+            subs.unsubscribe();
+        });
+
+    }      
 
 }

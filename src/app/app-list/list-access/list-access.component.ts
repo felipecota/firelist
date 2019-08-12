@@ -30,9 +30,19 @@ export class ListAccessComponent implements OnInit {
 
   ngOnInit() {
 
-    this.lists = this.appService.afs.collection('lists', ref => ref.where('access.'+this.appService.user.email.replace('.','`'),'==',true))
+    this.lists = this.appService.afs.collection('lists', ref => ref.where('access.'+this.appService.user.email.replace('.','´'),'==',true))
     .snapshotChanges()
     .pipe(map(lists => {
+
+        if (localStorage.getItem('lastList')) {
+            let result = lists.find(list => list.payload.doc.id == localStorage.getItem('lastList'));
+            if (result != undefined) {
+                const data = result.payload.doc.data();
+                const id = result.payload.doc.id;                
+                this.onSelectList({ id, ...data });
+            }
+        }                
+
         return lists
         .sort(
             (a,b) => a.payload.doc.data()["listname"].localeCompare(b.payload.doc.data()["listname"]))
@@ -51,6 +61,7 @@ export class ListAccessComponent implements OnInit {
     this.listname = l.listname;
     this.listkey = l.id;
     this.title = l.listname;
+    localStorage.setItem('lastList', l.id);
     
     this.appService.afs.collection('lists').doc(this.listkey)
     .snapshotChanges()
@@ -58,7 +69,7 @@ export class ListAccessComponent implements OnInit {
       let temp = [];
       for (let key in list.payload.data()["access"]) {
           temp.push({
-              email: key.replace('`','.')
+              email: key.replace('´','.')
           });
       }
       this.members = temp;
@@ -79,7 +90,7 @@ export class ListAccessComponent implements OnInit {
       navigator.vibrate([500]);
     } else {  
       this.appService.afs.collection('lists').doc(this.listkey).update({
-          ['access.'+email.toLowerCase().replace('.','`')]: true
+          ['access.'+email.toLowerCase().replace('.','´')]: true
       });            
           
       this.erro = '';
@@ -94,7 +105,7 @@ export class ListAccessComponent implements OnInit {
     else if (this.members.length > 1) {
       if (confirm(this.appService.language.m7))
         this.appService.afs.collection('lists').doc(this.listkey).update({
-          ['access.'+member.email.replace('.','`')]: firestore.FieldValue.delete()
+          ['access.'+member.email.replace('.','´')]: firestore.FieldValue.delete()
         });
     } else {
       this.erro = this.appService.language.e10;      

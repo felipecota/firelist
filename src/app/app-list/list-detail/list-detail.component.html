@@ -1,13 +1,14 @@
 <br>
 <div class="panel panel-primary" *ngFor="let l of lists | async">
-    <div class="panel-heading text-center">{{l.listname}}</div>
+    <div class="panel-heading text-center">{{l.listname}} <span (click)="backup(l.id, l.listname)" class="glyphicon glyphicon-floppy-save pull-right"></span></div>
     <div class="panel-body">
         <ul class="list-group">
             <div *ngIf="l.items.length == 0">
                 {{'m5' | translate}}
             </div>            
             <li class="list-group-item" *ngFor="let i of l.items">
-                <span class="glyphicon glyphicon-trash pull-right" (click)="onSelect(l,i.itemkey)"></span>                
+                <span class="glyphicon glyphicon-trash pull-right" (click)="onSelect(l,i.itemkey)"></span>
+                <span class="glyphicon glyphicon glyphicon-export pull-right pointer" (click)="onExport(i.itemname, i.itemkey, l.id)"></span>
                 {{ i.itemname + ' - ' + i.amount }}               
             </li>
           </ul>

@@ -35,10 +35,20 @@ export class ListItemComponent implements OnInit {
     }      
 
     ngOnInit() { 
-        this.lists = this.appService.afs.collection('lists', ref => ref.where('access.'+this.appService.user.email.replace('.','`'),'==',true))
+        this.lists = this.appService.afs.collection('lists', ref => ref.where('access.'+this.appService.user.email.replace('.','´'),'==',true))
         .snapshotChanges()
         .pipe(
             map(lists => {
+
+                if (localStorage.getItem('lastList')) {
+                    let result = lists.find(list => list.payload.doc.id == localStorage.getItem('lastList'));
+                    if (result != undefined) {
+                        const data = result.payload.doc.data();
+                        const id = result.payload.doc.id;                
+                        this.onSelect({ id, ...data });
+                    }
+                }                
+
                 return lists
                 .sort(
                     (a,b) => a.payload.doc.data()["listname"].localeCompare(b.payload.doc.data()["listname"]))
@@ -59,6 +69,7 @@ export class ListItemComponent implements OnInit {
         this.listname = l.listname;
         this.listkey = l.id;
         this.title = l.listname;
+        localStorage.setItem('lastList', l.id);
     }    
 
     Include() { 

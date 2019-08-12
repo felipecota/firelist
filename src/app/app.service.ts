@@ -19,7 +19,6 @@ export class AppService {
     user: any;
     language: any;
 
-    // list
     lists: any[] = ['list-detail','list-form','list-access','list-item'];
     bills: any[] = ['bill-detail','bill-form','bill-access','bill-item'];
     

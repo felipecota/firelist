@@ -1,3 +1,7 @@
 .panel {
   background-color: transparent;
 }
+
+.glyphicon {
+  margin-left: 15px;
+}

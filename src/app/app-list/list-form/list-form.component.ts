@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators';
+import * as CryptoJS from 'crypto-js'; 
 
 import { AppService } from '../../app.service';
 import { environment } from '../../../environments/environment';
@@ -23,7 +24,7 @@ export class ListFormComponent implements OnInit {
 
     ngOnInit() {
 
-        this.lists = this.appService.afs.collection('lists', ref => ref.where('access.'+this.appService.user.email.replace('.','`'),'==',true))
+        this.lists = this.appService.afs.collection('lists', ref => ref.where('access.'+this.appService.user.email.replace('.','´'),'==',true))
         .snapshotChanges()
         .pipe(
             map(lists => {
@@ -63,7 +64,7 @@ export class ListFormComponent implements OnInit {
             this.appService.afs.collection('lists').doc(listkey).set({
                 listname: listname,
                 access: {
-                    [this.appService.user.email.replace('.','`')]: true
+                    [this.appService.user.email.replace('.','´')]: true
                 }
             });
         }
@@ -77,5 +78,64 @@ export class ListFormComponent implements OnInit {
             this.erro = this.appService.language.e7;
 
     }   
+
+    fileChange(event) {
+      
+        if (!this.listname || this.listname == '') {
+            this.erro = this.appService.language.e6;
+            navigator.vibrate([500]);
+        } else {        
+            this.erro = '';
+            let fileList: FileList = event.target.files;
+            if ( fileList.length > 0 ) {
+                let reader = new FileReader();
+                reader.onload = () => {
+
+                    let obj;
+
+                    try {
+                        let decrypto = CryptoJS.AES.decrypt(reader.result, environment.cryptoPass).toString(CryptoJS.enc.Utf8);
+                        obj = JSON.parse(decrypto as string);
+                    } catch {
+                        obj = undefined;                       
+                    }
+
+                    if (obj.type == "list") {
+
+                        let items = obj.items;
+
+                        let length = 0;
+                        for (let key in items)
+                            length++
+
+                        if (length >= environment.limit) {
+
+                            this.erro = this.appService.language.e18;        
+                        
+                        } else {
+
+                            let d = new Date();
+                            let listkey = d.getFullYear()+''+d.getMonth()+''+d.getDay()+''+d.getHours()+''+d.getMinutes()+''+d.getSeconds()+''+(Math.floor(Math.random() * (99999 - 10000 + 1)) + 10000);
+                            let listname = this.listname;
+
+                            this.appService.afs.collection('lists').doc(listkey).set({
+                                listname: listname,
+                                access: {
+                                    [this.appService.user.email.replace(/\./g,'´')]: true
+                                },
+                                items: items
+                            });
+                            
+                            this.listname = "";
+
+                        }
+                    } else {
+                        this.erro = this.appService.language.e19;
+                    }
+                }
+                reader.readAsText(fileList[0]);      
+            }
+        }       
+    }    
 
 }

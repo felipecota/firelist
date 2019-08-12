@@ -1,6 +1,6 @@
 {
   "name": "realtimeapp",
-  "version": "2.2.2",
+  "version": "2.2.3",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
@@ -26,6 +26,7 @@
     "@angular/router": "^8.2.1",
     "@ng-bootstrap/ng-bootstrap": "^5.1.0",
     "core-js": "^3.2.0",
+    "crypto-js": "^3.1.9-1",
     "firebase": "^6.3.4",
     "ngx-popover": "0.0.16",
     "rxjs": "^6.1.0",

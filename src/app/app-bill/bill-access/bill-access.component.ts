@@ -33,6 +33,16 @@ export class BillAccessComponent implements OnInit {
     this.bills = this.appService.afs.collection('bills', ref => ref.where('access.'+this.appService.user.email.replace(/\./g,'´'),'==',true))
     .snapshotChanges()
     .pipe(map(bills => {
+
+        if (localStorage.getItem('lastBill')) {
+          let result = bills.find(bill => bill.payload.doc.id == localStorage.getItem('lastBill'));
+          if (result != undefined) {
+              const data = result.payload.doc.data();
+              const id = result.payload.doc.id;                
+              this.onSelectBill({ id, ...data });
+          }
+        }
+
         return bills
         .sort(
             (a,b) => a.payload.doc.data()["billname"].localeCompare(b.payload.doc.data()["billname"]))
@@ -51,6 +61,7 @@ export class BillAccessComponent implements OnInit {
     this.billname = b.billname;
     this.billkey = b.id;
     this.title = b.billname;
+    localStorage.setItem('lastBill', b.id);
    
     this.appService.afs.collection('bills').doc(this.billkey)
     .snapshotChanges()

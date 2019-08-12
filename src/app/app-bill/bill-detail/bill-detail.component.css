@@ -1,19 +1,47 @@
-a {
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: none;
-}
-
-a:active {
-  text-decoration: none;
-}
-
 .collapse, .collapsing {
   margin-top: 10px;
 }
 
 .btn {
   margin-right: 4px;
+}
+
+.table thead th {
+  border: 0px;
+}
+
+.table tbody tr {
+  border-bottom: solid 1px #ddd;
+}
+
+.table tbody tr:first-child td:first-child {
+  border: 0px;
+  border-radius: 4px 0px 0px 0px;
+}
+
+.table tbody tr:first-child td:last-child {
+  border: 0px;
+  border-radius: 0px 4px 0px 0px;
+}
+
+.table tbody tr:last-child td:last-child {
+  border: 0px;
+  border-radius: 0px 0px 4px 0px;
+}
+
+.table tbody tr:last-child td:first-child {
+  border: 0px;
+  border-radius: 0px 0px 0px 4px;
+}
+
+.danger td {
+  background-color: #ff8181;  
+}
+
+.success td {
+  background-color: #acf39b;  
+}
+
+.info td {
+  background-color: #a3e4fd;  
 }

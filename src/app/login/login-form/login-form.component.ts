@@ -35,9 +35,13 @@ export class LoginFormComponent implements OnInit {
     this.loginSocial(new auth.GoogleAuthProvider());
   }  
 
-  loginWithGithub() {
-    this.loginSocial(new auth.GithubAuthProvider());
+  loginWithYahoo() {
+    this.loginSocial(new auth.OAuthProvider('yahoo.com'));
   }     
+
+  loginWithMicrosoft() {
+    this.loginSocial(new auth.OAuthProvider('microsoft.com'));
+  }   
 
   loginWithTwitter() {
     this.loginSocial(new auth.TwitterAuthProvider());

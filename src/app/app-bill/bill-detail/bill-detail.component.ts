@@ -3,9 +3,11 @@ import { Observable, of } from 'rxjs';
 import { ActivatedRoute, Router }   from '@angular/router';
 import { map } from 'rxjs/operators';
 import { firestore } from 'firebase/app';
+import * as CryptoJS from 'crypto-js'; 
 
 import { AppService } from '../../app.service';
 import { BillService } from '../bill.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-bill-detail',
@@ -44,6 +46,16 @@ export class BillDetailComponent implements OnInit {
         this.bills = this.appService.afs.collection('bills', ref => ref.where('access.'+this.appService.user.email.replace(/\./g,'´'),'==',true))
         .snapshotChanges()
         .pipe(map(bills => {
+
+            if (localStorage.getItem('lastBill')) {
+                let result = bills.find(bill => bill.payload.doc.id == localStorage.getItem('lastBill'));
+                if (result != undefined) {
+                    const data = result.payload.doc.data();
+                    const id = result.payload.doc.id;                
+                    this.onSelectBill({ id, ...data });
+                }
+            }
+
             return bills
             .sort(
                 (a,b) => a.payload.doc.data()["billname"].localeCompare(b.payload.doc.data()["billname"]))
@@ -62,6 +74,7 @@ export class BillDetailComponent implements OnInit {
         this.billkey = b.id;
         this.billselected = true;
         this.title = b.billname;
+        localStorage.setItem('lastBill', b.id);
         
         this.appService.afs.collection('bills').doc(b.id)
         .snapshotChanges()
@@ -85,8 +98,8 @@ export class BillDetailComponent implements OnInit {
                             value: 0
                         });
                     }
-                }                  
-                     
+                }  
+                                    
                 let data = bill.payload.data();
                 for (let key in data["items"]) {                  
                     
@@ -131,7 +144,7 @@ export class BillDetailComponent implements OnInit {
                 };
             };
             
-            this.members = of(members);
+            this.members = of(members.sort((a,b) => { return a.value-b.value }));            
             
             this.items = of(items.sort((a,b) => { 
                 if (a.date < b.date) {
@@ -187,10 +200,14 @@ export class BillDetailComponent implements OnInit {
         .subscribe(bill => {
             let payload = bill.payload.data();
             let now = new Date();
-            let data = new Blob([JSON.stringify(payload["items"])], {type: 'text/plain'});  
+            let crypto = CryptoJS.AES.encrypt(JSON.stringify({
+                type: "bill",
+                items: payload["items"]
+            }), environment.cryptoPass).toString();
+            let data = new Blob([crypto], {type: 'text/plain'});              
             let link = document.createElement('a');
             link.href = window.URL.createObjectURL(data);
-            link.setAttribute('download', 'backup_'+this.billname.toLowerCase()+'_'+now.getFullYear()+now.getMonth()+now.getDate()+'.txt');
+            link.setAttribute('download', 'backup_'+this.appService.language['t14'].toLowerCase()+'_'+this.billname.toLowerCase()+'_'+now.getFullYear()+now.getMonth()+now.getDate()+'.txt');
             document.body.appendChild(link);    
             link.click();
             document.body.removeChild(link);                          

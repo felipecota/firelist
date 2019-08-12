@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators';
+import * as CryptoJS from 'crypto-js'; 
 
 import { AppService } from '../../app.service';
 import { environment } from '../../../environments/environment';
@@ -81,20 +82,9 @@ export class BillFormComponent implements OnInit {
 
     }   
 
-
-    readThis(inputValue: any): void {
-        var file: File = inputValue.files[0];
-        var myReader: FileReader = new FileReader();
-        myReader.onloadend = function (e) {
-            console.log(myReader.result);
-        }
-
-        myReader.readAsText(file);
-    }    
-
     fileChange(event) {
        
-        if (this.billname == '') {
+        if (!this.billname || this.billname == '') {
             this.erro = this.appService.language.e6;
             navigator.vibrate([500]);
         } else {        
@@ -103,31 +93,48 @@ export class BillFormComponent implements OnInit {
             if ( fileList.length > 0 ) {
                 let reader = new FileReader();
                 reader.onload = () => {
-                    let items = JSON.parse(reader.result as string);
 
-                    let length = 0;
-                    for (let key in items)
-                        length++
+                    let obj;
 
-                    if (length >= environment.limit) {
+                    try {
+                        let decrypto = CryptoJS.AES.decrypt(reader.result, environment.cryptoPass).toString(CryptoJS.enc.Utf8);
+                        obj = JSON.parse(decrypto as string);
+                    } catch {
+                        obj = undefined;                       
+                    }
 
-                        this.erro = this.appService.language.e18;        
-                    
+                    if (obj.type == "bill") {
+
+                        let items = obj.items;
+
+                        let length = 0;
+                        for (let key in items)
+                            length++
+
+                        if (length >= environment.limit) {
+
+                            this.erro = this.appService.language.e18;        
+                        
+                        } else {
+
+                            let d = new Date();
+                            let billkey = d.getFullYear()+''+d.getMonth()+''+d.getDay()+''+d.getHours()+''+d.getMinutes()+''+d.getSeconds()+''+(Math.floor(Math.random() * (99999 - 10000 + 1)) + 10000);
+                            let billname = this.billname;
+
+                            this.appService.afs.collection('bills').doc(billkey).set({
+                                billname: billname,
+                                access: {
+                                    [this.appService.user.email.replace(/\./g,'´')]: true
+                                },
+                                items: items
+                            });
+                            
+                            this.billname = "";
+
+                        }
                     } else {
-
-                        let d = new Date();
-                        let billkey = d.getFullYear()+''+d.getMonth()+''+d.getDay()+''+d.getHours()+''+d.getMinutes()+''+d.getSeconds()+''+(Math.floor(Math.random() * (99999 - 10000 + 1)) + 10000);
-                        let billname = this.billname;
-
-                        this.appService.afs.collection('bills').doc(billkey).set({
-                            billname: billname,
-                            access: {
-                                [this.appService.user.email.replace(/\./g,'´')]: true
-                            },
-                            items: items
-                        });     
-
-                    }               
+                        this.erro = this.appService.language.e19;
+                    }
                 }
                 reader.readAsText(fileList[0]);      
             }
