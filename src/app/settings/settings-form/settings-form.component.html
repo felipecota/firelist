@@ -1,7 +1,7 @@
 {{'t42' | translate}}
 <br><br>
 <ul class="list-group">
-    <li class="list-group-item language" *ngFor="let l of languages" (click)="language(l.name)">
+    <li class="list-group-item language pointer" *ngFor="let l of languages" (click)="language(l.name)">
         {{l.description}}<img class="flag" src="../../../assets/images/{{l.flag}}">
     </li>
 </ul>
