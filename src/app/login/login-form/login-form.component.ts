@@ -17,10 +17,11 @@ export class LoginFormComponent implements OnInit {
   pendingMail: string;
 
   constructor(
-    private appService: AppService
+    private appService: AppService,
   ) { }
 
-  ngOnInit() { }
+  ngOnInit() { 
+  }
 
   toggleDisplay() {
     this.isLoggingIn = !this.isLoggingIn;
@@ -61,7 +62,7 @@ export class LoginFormComponent implements OnInit {
         this.appService.afAuth.auth.fetchSignInMethodsForEmail(this.pendingMail).then(providers => {
           if (providers[0] == "password") {
             this.email = error.email;
-            this.erro = this.appService.language.e16;            
+            this.erro = this.appService.language.e16;
           } else
           {        
             this.erro = this.appService.language.e17.replace('$input$',providers[0].replace('.com',''));
@@ -82,14 +83,26 @@ export class LoginFormComponent implements OnInit {
           if (this.pendingMail == this.email) {
             this.appService.afAuth.auth.currentUser.linkWithCredential(this.pendingCred);
           }
+          if (!this.appService.isEmailVerified && this.appService.afAuth.auth.currentUser.emailVerified) {
+            this.appService.login(this.appService.afAuth.auth.currentUser);
+          }
         })
         .catch(error => {
-          this.erro = this.appService.language.e4
+          if (error.code == "auth/user-not-found") {            
+            this.toggleDisplay();            
+            this.erro = this.appService.language.e21;
+          }
+          else {
+            this.erro = this.appService.language.e4;
+          }
         });    
-    else
+    else {      
       this.appService.afAuth.auth.createUserWithEmailAndPassword(
         this.email, this.password)
-        .then(ok => {})
+        .then(ok => {
+          this.toggleDisplay(); // Send verification e-mail and enable loggin
+          this.erro = this.appService.language.e20;
+        })
         .catch(error => {
           if (error.code === "auth/email-already-in-use") {
             this.appService.afAuth.auth.fetchSignInMethodsForEmail(this.email).then(providers => {
@@ -101,6 +114,7 @@ export class LoginFormComponent implements OnInit {
           else
             this.erro = this.appService.language.e4; 
         });
+      }
   } 
 
   forgot() {

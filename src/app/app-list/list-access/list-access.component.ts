@@ -58,7 +58,8 @@ export class ListAccessComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.sub.unsubscribe();
+    if (this.sub != undefined)
+      this.sub.unsubscribe();
   }  
 
   onSelectList(l): void {

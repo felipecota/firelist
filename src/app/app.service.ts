@@ -9,6 +9,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { languages } from '../environments/language';
 import { environment } from '../environments/environment';
+import { LoginFormComponent } from './login/login-form/login-form.component';
 
 // The @Injectable() decorator tells TypeScript to emit metadata about the service. The metadata specifies that Angular may need to inject other dependencies into this service.
 @Injectable() 
@@ -16,6 +17,7 @@ export class AppService {
 
     isConnected: Observable<boolean>;
     isSignin: Observable<boolean>;
+    isEmailVerified: boolean;
     user: any;
     language: any;
 
@@ -24,7 +26,7 @@ export class AppService {
     
     constructor(
         public afs: AngularFirestore,
-        public afAuth: AngularFireAuth,        
+        public afAuth: AngularFireAuth,
         private router: Router,
         private ngZone: NgZone,
         private http: HttpClient
@@ -62,20 +64,30 @@ export class AppService {
         );
 
         this.afAuth.auth.onAuthStateChanged(user => {
-            if (user) { 
-                this.user = user;
-                this.isSignin = of(true);  
-                let lastroute = localStorage.getItem('lastroute');
-                if (lastroute == "/login" || lastroute == undefined)                
-                    lastroute = "/menu";
-                this.ngZone.run(() => this.router.navigate([lastroute]));
-            } else { 
+            if (user) {
+                this.isEmailVerified = user.emailVerified;
+                if (user.emailVerified) {
+                    this.login(user);
+                } else {
+                    this.afAuth.auth.useDeviceLanguage(); 
+                    user.sendEmailVerification();
+                }                
+            } else {                 
                 this.user = undefined;
                 this.isSignin = of(false); 
                 this.router.navigate(["/login"]);
             } 
         });
             
+    }
+
+    login(user){
+        this.user = user;
+        this.isSignin = of(true);  
+        let lastroute = localStorage.getItem('lastroute');
+        if (lastroute == "/login" || lastroute == undefined)                
+            lastroute = "/menu";
+        this.ngZone.run(() => this.router.navigate([lastroute]))        
     }
 
     language_set(lang) {

@@ -90,7 +90,8 @@ export class BillItemComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.sub.unsubscribe();
+    if (this.sub != undefined)
+        this.sub.unsubscribe();
   }  
 
   onEdit(data): void{

@@ -71,7 +71,8 @@ export class BillDetailComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        this.sub.unsubscribe();
+        if (this.sub != undefined)
+            this.sub.unsubscribe();
     }
 
     onSelectBill(b): void {

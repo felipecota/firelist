@@ -24,7 +24,7 @@ export class AppComponent {
   ngOnInit() { }
 
   logout() {
-    this.afAuth.auth.signOut();   
+    this.afAuth.auth.signOut();
   }
 
   menu() {
