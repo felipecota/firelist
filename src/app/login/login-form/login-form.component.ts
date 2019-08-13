@@ -49,7 +49,7 @@ export class LoginFormComponent implements OnInit {
   }     
 
   loginSocial(provider) {
-    this.appService.afAuth.auth.signInWithPopup(provider)
+    this.appService.afAuth.auth.signInWithRedirect(provider)
     .then(result => {
       if (this.pendingMail == this.appService.afAuth.auth.currentUser.email)
         this.appService.afAuth.auth.currentUser.linkWithCredential(this.pendingCred);
