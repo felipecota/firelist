@@ -47,7 +47,7 @@ import { APP_BASE_HREF, LocationStrategy, HashLocationStrategy } from '@angular/
     AngularFireDatabaseModule,
     AngularFireModule,
     AngularFireAuthModule,
-    AngularFirestoreModule.enablePersistence(),
+    AngularFirestoreModule.enablePersistence({synchronizeTabs:true}),
     AngularFireModule.initializeApp(environment.firebase)
   ],
   providers: [

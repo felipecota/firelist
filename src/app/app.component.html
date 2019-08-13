@@ -4,7 +4,7 @@
 <div class="jumbotron text-center">    
     <div class="title"><img class="logo" src="assets/images/launcher-icon-1x.png">{{title}}</div>    
     <span *ngIf="(router.url != '/menu' && this.appService.isSignin | async)" class="home glyphicon glyphicon-home" (click)="menu()"></span>       
-</div>
+</div> 
 <div *ngIf="(this.appService.lists.indexOf(this.router.url.split('/')[1]) >= 0 && this.appService.isSignin | async)">
     <ul class="nav nav-tabs">
         <li routerLinkActive="active"><a routerLink="/list-detail">{{'t12' | translate}}</a></li>
