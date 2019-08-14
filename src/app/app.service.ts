@@ -34,8 +34,8 @@ export class AppService {
         // Default language is english
         this.language = languages.find(element => { return element.name == 'en'});
 
-        if (localStorage.getItem('lang') && localStorage.getItem('lang') == 'ptbr')
-            this.language = languages.find(element => { return element.name == 'ptbr'});
+        if (localStorage.getItem('lang'))
+            this.language = languages.find(element => { return element.name == localStorage.getItem('lang')});
         else
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(position => {

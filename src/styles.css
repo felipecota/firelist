@@ -3,6 +3,10 @@ body {
     font-size: 16px;
 }
 
+.nav li a {
+    padding: 10px;
+}
+
 ul.dropdown-menu {
     background-color: #2fa4e7;
 }
