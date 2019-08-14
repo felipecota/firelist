@@ -20,7 +20,30 @@ export class LoginFormComponent implements OnInit {
     private appService: AppService,
   ) { }
 
-  ngOnInit() { 
+  ngOnInit() {  
+
+    this.appService.afAuth.auth.getRedirectResult().then(result => {
+      if (this.pendingMail == this.appService.afAuth.auth.currentUser.email)
+        this.appService.afAuth.auth.currentUser.linkWithCredential(this.pendingCred);
+    })
+    .catch(error => {      
+      if (error.code === 'auth/account-exists-with-different-credential') {
+        this.pendingCred = error.credential;
+        this.pendingMail = error.email;          
+        // Get registered providers for this email.
+        this.appService.afAuth.auth.fetchSignInMethodsForEmail(this.pendingMail).then(providers => {
+          this.email = "teste@teste.com";
+          if (providers[0] == "password") {
+            this.email = error.email;
+            this.erro = this.appService.language.e16;
+          } 
+          else
+          {        
+            this.erro = this.appService.language.e17.replace('$input$',providers[0].replace('.com',''));
+          }
+        });
+      }
+    });        
   }
 
   toggleDisplay() {
@@ -49,27 +72,7 @@ export class LoginFormComponent implements OnInit {
   }     
 
   loginSocial(provider) {
-    this.appService.afAuth.auth.signInWithRedirect(provider)
-    .then(result => {
-      if (this.pendingMail == this.appService.afAuth.auth.currentUser.email)
-        this.appService.afAuth.auth.currentUser.linkWithCredential(this.pendingCred);
-    })
-    .catch(error => {
-      if (error.code === 'auth/account-exists-with-different-credential') {
-        this.pendingCred = error.credential;
-        this.pendingMail = error.email;
-        // Get registered providers for this email.
-        this.appService.afAuth.auth.fetchSignInMethodsForEmail(this.pendingMail).then(providers => {
-          if (providers[0] == "password") {
-            this.email = error.email;
-            this.erro = this.appService.language.e16;
-          } else
-          {        
-            this.erro = this.appService.language.e17.replace('$input$',providers[0].replace('.com',''));
-          }
-        });
-      }
-    });
+    this.appService.afAuth.auth.signInWithRedirect(provider);
   }
 
   login() {

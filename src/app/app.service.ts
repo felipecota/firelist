@@ -9,7 +9,6 @@ import { HttpClient } from '@angular/common/http';
 
 import { languages } from '../environments/language';
 import { environment } from '../environments/environment';
-import { LoginFormComponent } from './login/login-form/login-form.component';
 
 // The @Injectable() decorator tells TypeScript to emit metadata about the service. The metadata specifies that Angular may need to inject other dependencies into this service.
 @Injectable() 
@@ -75,7 +74,7 @@ export class AppService {
             } else {                 
                 this.user = undefined;
                 this.isSignin = of(false); 
-                this.router.navigate(["/login"]);
+                this.ngZone.run(() => this.router.navigate(["/login"]));
             } 
         });
             
