@@ -41,17 +41,25 @@
         <option value='t32'>{{'t32' | translate}}</option>
       </select>          
 </div>
-<div class="form-group">
-    <label for="value">{{'t18' | translate}}</label>
-    <input type="text" [disabled]="!selected_member" class="form-control" [(ngModel)]="value" (ngModelChange)="onChange()" name="value" placeholder="0,00">
-</div>
-<div class="form-group">
-    <label for="value">{{'t35' | translate}}</label>
-    <input type="text" [disabled]="!selected_member" class="form-control" [(ngModel)]="multiplier" (ngModelChange)="onChange()" name="multiplier" placeholder="0,00">
-</div>
-<div class="form-group">
-    <label for="value">{{'t36' | translate}}</label>
-    <input type="text" disabled="disabled" class="form-control" [(ngModel)]="calculated" name="calculated" placeholder="0,00">
+<div class="row">
+    <div class="col-xs-4">    
+        <div class="form-group">
+            <label for="value">{{'t18' | translate}}</label>
+            <input type="text" [disabled]="!selected_member" class="form-control" [(ngModel)]="value" (ngModelChange)="onChange()" name="value" placeholder="0,00">
+        </div>
+    </div>
+    <div class="col-xs-4">        
+        <div class="form-group">
+            <label for="value">{{'t35' | translate}}</label>
+            <input type="text" [disabled]="!selected_member" class="form-control" [(ngModel)]="multiplier" (ngModelChange)="onChange()" name="multiplier" placeholder="0,00">
+        </div>
+    </div>
+    <div class="col-xs-4">        
+        <div class="form-group">
+            <label for="value">{{'t36' | translate}}</label>
+            <input type="text" disabled="disabled" class="form-control" [(ngModel)]="calculated" name="calculated" placeholder="0,00">
+        </div>
+    </div>        
 </div>
 <div class="form-group">
     <label for="sel1">{{'t19' | translate}}</label>
