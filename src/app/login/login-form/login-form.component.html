@@ -4,7 +4,7 @@
 </div>
 <div class="form-group">
   <label for="password">{{'t6'|translate}}:</label>
-  <input type="password" class="form-control email" required [(ngModel)]="password" name="password" placeholder="{{'t6'|translate}}">
+  <input type="password" class="form-control email" required [(ngModel)]="password" name="password" placeholder="{{'t6'|translate}}" (keypress)="$event.keyCode == 13 ? login() : null">
 </div>  
 <button class="btn btn-primary" (click)="login()" type="button">{{isLoggingIn ? ('t7'|translate) : ('t8'|translate)}}</button>
 <button class="btn btn-primary" (click)="toggleDisplay()" type="button">{{isLoggingIn ? ('t8'|translate) : ('t9'|translate)}}</button>
