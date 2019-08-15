@@ -23,10 +23,23 @@ import { AppRoutingModule } from './app.routing.module';
 
 import { TranslatePipeModule } from './translate.module'
 
+import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
+
 import { AppComponent } from './app.component';
 import { MenuComponent } from './menu.component';
 
 import { APP_BASE_HREF, LocationStrategy, HashLocationStrategy } from '@angular/common';
+
+declare var Hammer: any;
+
+export class MyHammerConfig extends HammerGestureConfig  {
+  buildHammer(element: HTMLElement) {
+    let mc = new Hammer(element, {
+      touchAction: "pan-y"
+    });
+    return mc;
+  }
+}
 
 @NgModule({
   declarations: [
@@ -54,6 +67,11 @@ import { APP_BASE_HREF, LocationStrategy, HashLocationStrategy } from '@angular/
     AppService, BillService,
     { provide: APP_BASE_HREF, useValue: '/' },
     { provide: LocationStrategy, useClass: HashLocationStrategy },    
+    {
+      // hammer instantion with custom config
+      provide: HAMMER_GESTURE_CONFIG,
+      useClass: MyHammerConfig ,
+    }
   ],  
   bootstrap: [AppComponent]
 })
