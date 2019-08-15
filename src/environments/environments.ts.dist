@@ -1,0 +1,15 @@
+export const environment = {
+    production: true,
+    limit: 1000,
+    cryptoPass: "some_pass",    
+    firebase: {
+        apiKey: "yourfirebaseapikey",
+        authDomain: "your authDomain",
+        databaseURL: "your databaseURL",
+        projectId: "your projectId",
+        storageBucket: "your storageBucket",
+        messagingSenderId: "your_messagingSenderID",        
+        appId: "your_appId"
+    },
+    apiGeolocationKey: "your_geolocation_api_key_could_be_same_as_firebase"
+};
