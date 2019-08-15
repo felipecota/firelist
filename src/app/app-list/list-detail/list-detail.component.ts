@@ -89,7 +89,8 @@ export class ListDetailComponent implements OnInit {
             let now = new Date();
             let crypto = CryptoJS.AES.encrypt(JSON.stringify({
                 type: "list",
-                items: payload["items"]
+                items: payload["items"],
+                access: payload["access"]
             }), environment.cryptoPass).toString();
             let data = new Blob([crypto], {type: 'text/plain'});              
             let link = document.createElement('a');

@@ -74,11 +74,13 @@ export class ListAccessComponent implements OnInit, OnDestroy {
     .snapshotChanges()
     .subscribe(list => {
       let temp = [];
-      for (let key in list.payload.data()["access"]) {
-          temp.push({
-              email: key.replace('´','.')
-          });
-      }
+      try {
+        for (let key in list.payload.data()["access"]) {
+            temp.push({
+                email: key.replace('´','.')
+            });
+        }
+      } catch {}
       this.members = temp;
     });  
       

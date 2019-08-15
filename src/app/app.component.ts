@@ -31,4 +31,37 @@ export class AppComponent {
     this.router.navigate(['/menu']);
   }
 
+  swipe (type) {
+    if ( type == 'swipeleft' )
+    {
+      if (this.router.url == "/list-detail")
+        this.router.navigate(['/list-item']);
+      else if (this.router.url == "/list-item")
+        this.router.navigate(['/list-form']);        
+      else if (this.router.url == "/list-form")
+        this.router.navigate(['/list-access']);
+      else if (this.router.url == "/bill-detail")
+        this.router.navigate(['/bill-item']);
+      else if (this.router.url == "/bill-item")
+        this.router.navigate(['/bill-form']);        
+      else if (this.router.url == "/bill-form")
+        this.router.navigate(['/bill-access']);                
+    }
+    else
+    {
+      if (this.router.url == "/list-access")
+        this.router.navigate(['/list-form']);
+      else if (this.router.url == "/list-form")
+        this.router.navigate(['/list-item']);        
+      else if (this.router.url == "/list-item")
+        this.router.navigate(['/list-detail']);
+      else if (this.router.url == "/bill-access")
+        this.router.navigate(['/bill-form']);
+      else if (this.router.url == "/bill-form")
+        this.router.navigate(['/bill-item']);        
+      else if (this.router.url == "/bill-item")
+        this.router.navigate(['/bill-detail']);                      
+    }
+  }
+
 }

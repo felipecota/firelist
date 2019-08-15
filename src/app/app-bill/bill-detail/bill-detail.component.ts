@@ -209,7 +209,8 @@ export class BillDetailComponent implements OnInit, OnDestroy {
             let now = new Date();
             let crypto = CryptoJS.AES.encrypt(JSON.stringify({
                 type: "bill",
-                items: payload["items"]
+                items: payload["items"],
+                access: payload["access"]
             }), environment.cryptoPass).toString();
             let data = new Blob([crypto], {type: 'text/plain'});              
             let link = document.createElement('a');

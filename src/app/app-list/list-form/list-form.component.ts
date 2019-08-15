@@ -120,9 +120,7 @@ export class ListFormComponent implements OnInit {
 
                             this.appService.afs.collection('lists').doc(listkey).set({
                                 listname: listname,
-                                access: {
-                                    [this.appService.user.email.replace(/\./g,'´')]: true
-                                },
+                                access: obj.access,
                                 items: items
                             });
                             

@@ -123,9 +123,7 @@ export class BillFormComponent implements OnInit {
 
                             this.appService.afs.collection('bills').doc(billkey).set({
                                 billname: billname,
-                                access: {
-                                    [this.appService.user.email.replace(/\./g,'´')]: true
-                                },
+                                access: obj.access,
                                 items: items
                             });
                             

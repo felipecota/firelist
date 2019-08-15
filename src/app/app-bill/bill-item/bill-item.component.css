@@ -1,3 +1,7 @@
 .btn {
     margin-right: 4px;
-  }
+}
+
+select.members option {
+  line-height: 200%;
+}
