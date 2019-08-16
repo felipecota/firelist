@@ -15,7 +15,7 @@ import { environment } from '../environments/environment';
 export class AppService {
 
     isConnected: Observable<boolean>;
-    isSignin: Observable<boolean>;
+    isSignin: boolean = false;
     isEmailVerified: boolean;
     user: any;
     language: any;
@@ -73,7 +73,7 @@ export class AppService {
                 }                
             } else {                 
                 this.user = undefined;
-                this.isSignin = of(false); 
+                this.isSignin = false; 
                 this.ngZone.run(() => this.router.navigate(["/login"]));
             } 
         });
@@ -82,7 +82,7 @@ export class AppService {
 
     login(user){
         this.user = user;
-        this.isSignin = of(true);  
+        this.isSignin = true;  
         let lastroute = localStorage.getItem('lastroute');
         if (lastroute == "/login" || lastroute == undefined)                
             lastroute = "/menu";

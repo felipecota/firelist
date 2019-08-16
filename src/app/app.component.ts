@@ -13,8 +13,6 @@ import { AppService } from './app.service'
 export class AppComponent {  
 
   title = 'Firelist';
-    
-  isSignin: Observable<boolean>;
  
   constructor(
     public appService: AppService,

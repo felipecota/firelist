@@ -1,12 +1,12 @@
 <div class="swipe" (swipeleft)="swipe($event.type)" (swiperight)="swipe($event.type)">
-    <div class="icone" *ngIf="(this.appService.isSignin | async)">
-        <span class="glyphicon glyphicon-off" [ngStyle]="{'color': (this.appService.isConnected | async) ? 'green' : 'red' }" (click)="logout()"></span>
+    <div class="icone" *ngIf="(this.appService.isSignin)">
+        <span class="glyphicon glyphicon-off pointer" [ngStyle]="{'color': (this.appService.isConnected | async) ? 'green' : 'red' }" (click)="logout()"></span>
     </div>
     <div class="jumbotron text-center">    
         <div class="title"><img class="logo" src="assets/images/logo.png"><br>{{title}}</div>
-        <span *ngIf="(router.url != '/menu' && this.appService.isSignin | async)" class="home glyphicon glyphicon-home" (click)="menu()"></span>       
+        <span *ngIf="(router.url != '/menu' && this.appService.isSignin)" class="home glyphicon glyphicon-home" (click)="menu()"></span>       
     </div> 
-    <div *ngIf="(this.appService.lists.indexOf(this.router.url.split('/')[1]) >= 0 && this.appService.isSignin | async)">
+    <div *ngIf="(this.appService.lists.indexOf(this.router.url.split('/')[1]) >= 0)">
         <ul class="nav nav-tabs">
             <li routerLinkActive="active"><a routerLink="/list-detail">{{'t12' | translate}}</a></li>
             <li routerLinkActive="active"><a routerLink="/list-item">{{'t11' | translate}}</a></li>
@@ -14,7 +14,7 @@
             <li routerLinkActive="active"><a routerLink="/list-access">{{'t13' | translate}}</a></li>
         </ul>
     </div>
-    <div *ngIf="(this.appService.bills.indexOf(this.router.url.split('/')[1]) >= 0 && this.appService.isSignin | async)">
+    <div *ngIf="(this.appService.bills.indexOf(this.router.url.split('/')[1]) >= 0)">
             <ul class="nav nav-tabs">
                 <li routerLinkActive="active"><a routerLink="/bill-detail">{{'t12' | translate}}</a></li>
                 <li routerLinkActive="active"><a routerLink="/bill-item">{{'t11' | translate}}</a></li>
