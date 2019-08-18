@@ -1,10 +1,10 @@
 <div class="form-group">
   <label for="email">Email:</label>
-  <input type="text" class="form-control email" required [(ngModel)]="email" name="email" placeholder="Email">
+  <input type="text" class="form-control email" required [(ngModel)]="email" name="email" placeholder="Email" (keypress)="this.erro='';">
 </div>
 <div class="form-group">
   <label for="password">{{'t6'|translate}}:</label>
-  <input type="password" class="form-control email" required [(ngModel)]="password" name="password" placeholder="{{'t6'|translate}}" (keypress)="$event.keyCode == 13 ? login() : null">
+  <input type="password" class="form-control email" required [(ngModel)]="password" name="password" placeholder="{{'t6'|translate}}" (keypress)="this.erro=''; $event.keyCode == 13 ? login() : null">
 </div>  
 <button class="btn btn-primary" (click)="login()" type="button">{{isLoggingIn ? ('t7'|translate) : ('t8'|translate)}}</button>
 <button class="btn btn-primary" (click)="toggleDisplay()" type="button">{{isLoggingIn ? ('t8'|translate) : ('t9'|translate)}}</button>
