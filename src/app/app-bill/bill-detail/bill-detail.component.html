@@ -7,7 +7,7 @@
         </li>
     </ul>
 </span> 
-<button [disabled]="!billselected" (click)="backup()" class="btn btn-primary" type="button">
+<button [disabled]="!billselected" *ngIf="(!this.appService.isCordova)" (click)="backup()" class="btn btn-primary" type="button">
     <span class="glyphicon glyphicon-floppy-disk"></span> {{'t24' | translate}}
 </button>   
 <br><br>

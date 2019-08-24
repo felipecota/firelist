@@ -19,7 +19,7 @@ export class ListFormComponent implements OnInit {
     length: any = 0;
    
     constructor(
-        private appService: AppService,
+        public appService: AppService,
     ) { }
 
     ngOnInit() {

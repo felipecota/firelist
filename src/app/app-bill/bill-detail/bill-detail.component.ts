@@ -30,7 +30,7 @@ export class BillDetailComponent implements OnInit, OnDestroy {
     title: string = this.appService.language["t14"];
 
     constructor(
-        private appService: AppService,
+        public appService: AppService,
         private billService: BillService,
         private route: ActivatedRoute,
         private router: Router
