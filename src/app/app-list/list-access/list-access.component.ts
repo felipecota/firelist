@@ -32,7 +32,7 @@ export class ListAccessComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    this.lists = this.appService.afs.collection('lists', ref => ref.where('access.'+this.appService.user.email.replace('.','´'),'==',true))
+    this.lists = this.appService.afs.collection('lists', ref => ref.where('access.'+this.appService.user.email.replace(/\./g,'´'),'==',true))
     .snapshotChanges()
     .pipe(map(lists => {
 
@@ -77,7 +77,7 @@ export class ListAccessComponent implements OnInit, OnDestroy {
       try {
         for (let key in list.payload.data()["access"]) {
             temp.push({
-                email: key.replace('´','.')
+                email: key.replace(/\´/g,'.')
             });
         }
       } catch {}
@@ -90,7 +90,7 @@ export class ListAccessComponent implements OnInit, OnDestroy {
 
     let email = this.email;
 
-    if (this.members && this.members.length >= environment.limit)
+    if (this.members && this.members.length >= environment.limit_access)
       this.erro = this.appService.language.e18;
     else if (!navigator.onLine)
       this.erro = this.appService.language.e12;    
@@ -99,7 +99,7 @@ export class ListAccessComponent implements OnInit, OnDestroy {
       navigator.vibrate([500]);
     } else {  
       this.appService.afs.collection('lists').doc(this.listkey).update({
-          ['access.'+email.toLowerCase().replace('.','´')]: true
+          ['access.'+email.toLowerCase().replace(/\./g,'´')]: true
       });            
           
       this.erro = '';
@@ -114,7 +114,7 @@ export class ListAccessComponent implements OnInit, OnDestroy {
     else if (this.members.length > 1) {
       if (confirm(this.appService.language.m7))
         this.appService.afs.collection('lists').doc(this.listkey).update({
-          ['access.'+member.email.replace('.','´')]: firestore.FieldValue.delete()
+          ['access.'+member.email.replace(/\./g,'´')]: firestore.FieldValue.delete()
         });
     } else {
       this.erro = this.appService.language.e10;      

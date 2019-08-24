@@ -144,7 +144,7 @@ export class BillDetailComponent implements OnInit, OnDestroy {
                             calculated: data["items"][key].value*(data["items"][key].multiplier != undefined?data["items"][key].multiplier:1),
                             payer: data["items"][key].payer,
                             place: data["items"][key].place,
-                            type: this.appService.language[data["items"][key].type],
+                            type: data["items"][key].type,
                             owner: data["items"][key].owner,
                             itemkey: key
                         });

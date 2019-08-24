@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule }   from '@angular/forms';
 import { HttpModule }   from '@angular/http';
+import { DatePipe } from '@angular/common'
 
 import { AngularFireModule } from '@angular/fire';
 import { environment } from './../environments/environment';
@@ -64,7 +65,7 @@ export class MyHammerConfig extends HammerGestureConfig  {
     AngularFireModule.initializeApp(environment.firebase)
   ],
   providers: [
-    AppService, BillService,
+    AppService, BillService, DatePipe,
     { provide: APP_BASE_HREF, useValue: '/' },
     { provide: LocationStrategy, useClass: HashLocationStrategy },    
     {

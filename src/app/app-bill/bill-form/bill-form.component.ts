@@ -50,7 +50,7 @@ export class BillFormComponent implements OnInit {
         let billname = this.billname;
         this.billname = '';        
 
-        if (this.length >= environment.limit) {
+        if (this.length >= environment.limit_list) {
 
             this.erro = this.appService.language.e18;        
         
@@ -107,29 +107,18 @@ export class BillFormComponent implements OnInit {
 
                         let items = obj.items;
 
-                        let length = 0;
-                        for (let key in items)
-                            length++
+                        let d = new Date();
+                        let billkey = d.getFullYear()+''+d.getMonth()+''+d.getDay()+''+d.getHours()+''+d.getMinutes()+''+d.getSeconds()+''+(Math.floor(Math.random() * (99999 - 10000 + 1)) + 10000);
+                        let billname = this.billname;
 
-                        if (length >= environment.limit) {
-
-                            this.erro = this.appService.language.e18;        
+                        this.appService.afs.collection('bills').doc(billkey).set({
+                            billname: billname,
+                            access: obj.access,
+                            items: items
+                        });
                         
-                        } else {
+                        this.billname = "";
 
-                            let d = new Date();
-                            let billkey = d.getFullYear()+''+d.getMonth()+''+d.getDay()+''+d.getHours()+''+d.getMinutes()+''+d.getSeconds()+''+(Math.floor(Math.random() * (99999 - 10000 + 1)) + 10000);
-                            let billname = this.billname;
-
-                            this.appService.afs.collection('bills').doc(billkey).set({
-                                billname: billname,
-                                access: obj.access,
-                                items: items
-                            });
-                            
-                            this.billname = "";
-
-                        }
                     } else {
                         this.erro = this.appService.language.e19;
                     }

@@ -24,7 +24,7 @@ export class ListFormComponent implements OnInit {
 
     ngOnInit() {
 
-        this.lists = this.appService.afs.collection('lists', ref => ref.where('access.'+this.appService.user.email.replace('.','´'),'==',true))
+        this.lists = this.appService.afs.collection('lists', ref => ref.where('access.'+this.appService.user.email.replace(/\./g,'´'),'==',true))
         .snapshotChanges()
         .pipe(
             map(lists => {
@@ -50,7 +50,7 @@ export class ListFormComponent implements OnInit {
         this.listname = '';
         this.erro = '';
 
-        if (this.length >= environment.limit) {
+        if (this.length >= environment.limit_list) {
 
             this.erro = this.appService.language.e18;        
         
@@ -64,7 +64,7 @@ export class ListFormComponent implements OnInit {
             this.appService.afs.collection('lists').doc(listkey).set({
                 listname: listname,
                 access: {
-                    [this.appService.user.email.replace('.','´')]: true
+                    [this.appService.user.email.replace(/\./g,'´')]: true
                 }
             });
         }
@@ -104,30 +104,19 @@ export class ListFormComponent implements OnInit {
 
                         let items = obj.items;
 
-                        let length = 0;
-                        for (let key in items)
-                            length++
+                        let d = new Date();
+                        let listkey = d.getFullYear()+''+d.getMonth()+''+d.getDay()+''+d.getHours()+''+d.getMinutes()+''+d.getSeconds()+''+(Math.floor(Math.random() * (99999 - 10000 + 1)) + 10000);
+                        let listname = this.listname;
 
-                        if (length >= environment.limit) {
-
-                            this.erro = this.appService.language.e18;        
+                        this.appService.afs.collection('lists').doc(listkey).set({
+                            listname: listname,
+                            access: obj.access,
+                            items: items
+                        });
                         
-                        } else {
+                        this.listname = "";
 
-                            let d = new Date();
-                            let listkey = d.getFullYear()+''+d.getMonth()+''+d.getDay()+''+d.getHours()+''+d.getMinutes()+''+d.getSeconds()+''+(Math.floor(Math.random() * (99999 - 10000 + 1)) + 10000);
-                            let listname = this.listname;
-
-                            this.appService.afs.collection('lists').doc(listkey).set({
-                                listname: listname,
-                                access: obj.access,
-                                items: items
-                            });
-                            
-                            this.listname = "";
-
-                        }
-                    } else {
+                     } else {
                         this.erro = this.appService.language.e19;
                     }
                 }

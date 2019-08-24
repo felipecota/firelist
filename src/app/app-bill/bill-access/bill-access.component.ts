@@ -94,7 +94,7 @@ export class BillAccessComponent implements OnInit, OnDestroy {
 
     let email = this.email;
 
-    if (this.members && this.members.length >= environment.limit)
+    if (this.members && this.members.length >= environment.limit_access)
       this.erro = this.appService.language.e18;
     else if (!navigator.onLine)
       this.erro = this.appService.language.e12;    

@@ -7,6 +7,7 @@ import { map } from 'rxjs/operators';
 import { AppService } from '../../app.service';
 import { BillService } from '../bill.service';
 import { environment } from '../../../environments/environment';
+import { DatePipe } from '@angular/common'
 
 @Component({
   selector: 'app-bill-item',
@@ -29,7 +30,7 @@ export class BillItemComponent implements OnInit, OnDestroy {
   payer: string;
   place: string = "";
   type: string;
-  date: string;
+  dateForm: Date;
   description: string;
   value: string;
   multiplier: string = "1";
@@ -45,7 +46,8 @@ export class BillItemComponent implements OnInit, OnDestroy {
     private billService: BillService,
     private router: Router,
     private route: ActivatedRoute,
-    private http: HttpClient
+    private http: HttpClient,
+    public datepipe: DatePipe
   ) { }
 
   ngOnInit() { 
@@ -59,8 +61,7 @@ export class BillItemComponent implements OnInit, OnDestroy {
         this.description = this.billService.item.description;
     } else {
         this.editmode = false;
-        let d = new Date();
-        this.date = d.getFullYear()+'-'+((d.getMonth()+1)<10?'0':'')+(d.getMonth()+1)+'-'+((d.getDate())<10?'0':'')+d.getDate();
+        this.dateForm = new Date();
         this.type = "";
     }
 
@@ -99,8 +100,7 @@ export class BillItemComponent implements OnInit, OnDestroy {
     this.payer = data.payer;
     this.place = data.place;
     this.type = data.type;
-    let d = data.date;
-    this.date = d.getFullYear()+'-'+((d.getMonth()+1)<10?'0':'')+(d.getMonth()+1)+'-'+(d.getDate()<10?'0':'')+d.getDate();
+    this.dateForm = data.date;
     this.description = data.description;
     this.value = data.value+'';
     this.multiplier = data.multiplier+'';
@@ -173,18 +173,18 @@ export class BillItemComponent implements OnInit, OnDestroy {
   
   Include() { 
 
-    if (this.members && this.members.length >= environment.limit){
+    if (this.members && this.members.length >= environment.limit_itens){
 
         this.erro = this.appService.language.e18;
         
-    } else if (!this.date || !this.description || this.description.trim() == '' || !this.value || Number(this.value) == NaN || Number(this.value) <= 0 || !this.benefited || this.benefited.length == 0 || !this.place || !this.type || this.type == "" || this.multiplier == "" || Number(this.multiplier) <= 0)  {
+    } else if (!this.dateForm || !this.description || this.description.trim() == '' || !this.value || Number(this.value) == NaN || Number(this.value) <= 0 || !this.benefited || this.benefited.length == 0 || !this.place || !this.type || this.type == "" || this.multiplier == "" || Number(this.multiplier) <= 0)  {
 
         this.erro = this.appService.language.e14;
         navigator.vibrate([500]);
 
     } else {  
 
-        let date = this.date;
+        let date = this.dateForm;
         let description = this.description;
         let value = this.value.replace(',','.');
         let multiplier = this.multiplier.replace(',','.');
@@ -194,7 +194,7 @@ export class BillItemComponent implements OnInit, OnDestroy {
         let type = this.type;           
         
         let d = new Date();
-        this.date = d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();
+        this.dateForm = d;
         this.description = '';
         this.value = '';
         this.multiplier = '';
@@ -209,7 +209,7 @@ export class BillItemComponent implements OnInit, OnDestroy {
             ['items.'+itemkey]: {
                 payer: payer,
                 benefited: benefited,
-                date: new Date(Number(date.substring(0,4)), Number(date.substring(5,7))-1, Number(date.substring(8,10))),
+                date: date,
                 description: description,
                 value: Number(value),
                 multiplier: Number(multiplier),
@@ -224,5 +224,9 @@ export class BillItemComponent implements OnInit, OnDestroy {
 
         }   
     }  
+
+    dateChanged(eventDate: string): Date | null {
+        return !!eventDate ? new Date(eventDate) : null;
+    }    
 
 }

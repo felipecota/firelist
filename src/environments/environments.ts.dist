@@ -1,6 +1,8 @@
 export const environment = {
     production: true,
-    limit: 1000,
+    limit_itens: 1000,
+    limit_list: 10,
+    limit_access: 50,
     cryptoPass: "some_pass",    
     firebase: {
         apiKey: "yourfirebaseapikey",

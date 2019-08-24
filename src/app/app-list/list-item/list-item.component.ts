@@ -35,7 +35,7 @@ export class ListItemComponent implements OnInit {
     }      
 
     ngOnInit() { 
-        this.lists = this.appService.afs.collection('lists', ref => ref.where('access.'+this.appService.user.email.replace('.','´'),'==',true))
+        this.lists = this.appService.afs.collection('lists', ref => ref.where('access.'+this.appService.user.email.replace(/\./g,'´'),'==',true))
         .snapshotChanges()
         .pipe(
             map(lists => {
@@ -77,7 +77,7 @@ export class ListItemComponent implements OnInit {
         let itemname = this.itemname;
         let amount = this.amount;
 
-        if (this.items && this.items.length >= environment.limit) {            
+        if (this.items && this.items.length >= environment.limit_itens) {            
 
             this.erro = this.appService.language.e18;        
             

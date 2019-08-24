@@ -9,11 +9,7 @@ if (environment.production) {
 }
 
 // to work with cordova uncomment
-/*
 let onDeviceReady = () => {
-*/
   platformBrowserDynamic().bootstrapModule(AppModule);
-/*
 };
 document.addEventListener('deviceready', onDeviceReady, false);
-*/
