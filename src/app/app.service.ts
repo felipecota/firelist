@@ -31,30 +31,17 @@ export class AppService {
         private http: HttpClient
     ) {
 
-        // Default language is english
-        this.language = languages.find(element => { return element.name == 'en'});
-
         if (localStorage.getItem('lang'))
             this.language = languages.find(element => { return element.name == localStorage.getItem('lang')});
         else
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(position => {
-                  this.http.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + position.coords.latitude + '%2C' + position.coords.longitude + '&language=en&key=' + environment.apiGeolocationKey)
-                  .subscribe(data => {
-                      data['results'].forEach(result => {
-                          result['address_components'].forEach(component => {
-                              component['types'].forEach(type => {
-                                if (!localStorage.getItem('lang') && component['long_name'] == "Brazil")
-                                {
-                                    localStorage.setItem('lang', 'ptbr');        
-                                    this.language = languages.find(element => { return element.name == 'ptbr'});
-                                }
-                              });
-                          });
-                      });
-                  });
-                });
-             }  
+        {
+            if (navigator.language == "pt-BR")
+                this.language = languages.find(element => { return element.name == 'ptbr'});
+            else if (navigator.language == "fr")
+                this.language = languages.find(element => { return element.name == 'fr'});
+            else
+                this.language = languages.find(element => { return element.name == 'en'});
+        }
 
         this.isConnected = merge(
             of(navigator.onLine),
