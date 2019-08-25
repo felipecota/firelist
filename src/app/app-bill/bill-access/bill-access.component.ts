@@ -115,13 +115,36 @@ export class BillAccessComponent implements OnInit, OnDestroy {
 
     if (!navigator.onLine)
       this.erro = this.appService.language.e12;
-    else if (this.members.length > 1) {
-      if (confirm(this.appService.language.m7))
-        this.appService.afs.collection('bills').doc(this.billkey).update({
-          ['access.'+member.email.replace(/\./g,'´')]: firestore.FieldValue.delete()
-        });
-    } else {      
+    else if (this.members.length <= 1)
       this.erro = this.appService.language.e10;      
+    else {
+
+      let sub = this.appService.afs.collection('bills').doc(this.billkey)
+      .snapshotChanges()
+      .subscribe(bill => {
+
+          let canDelete = true;
+
+          if (bill.payload.exists && bill.payload.data()["items"] && Object.keys(bill.payload.data()["items"]).length > 0) {                
+              for (let key in bill.payload.data()["items"]) { 
+                if (bill.payload.data()["items"][key].owner == member.email)
+                  canDelete = false;
+              }               
+          }
+
+          sub.unsubscribe();
+
+          if (canDelete) {
+            if (confirm(this.appService.language.m7)) {
+              this.appService.afs.collection('bills').doc(this.billkey).update({
+                ['access.'+member.email.replace(/\./g,'´')]: firestore.FieldValue.delete()
+              });          
+            }
+          } else {
+            this.erro = this.appService.language.e7;
+          }
+      });
+
     }
 
   }
