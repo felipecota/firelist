@@ -5,6 +5,14 @@ body {
 
 .nav li a {
     padding: 10px;
+    margin: 0px;
+}
+
+.nav li a:hover {
+    background-color: transparent;
+    color: #2fa4e7;
+    border: solid 1px transparent;
+    padding: 10px;
 }
 
 ul.dropdown-menu {

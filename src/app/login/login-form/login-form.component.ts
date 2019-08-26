@@ -72,7 +72,9 @@ export class LoginFormComponent implements OnInit {
   }     
 
   loginSocial(provider) {
-    this.appService.afAuth.auth.signInWithRedirect(provider);
+    this.appService.afAuth.auth.signInWithRedirect(provider).catch(error => {
+        this.erro = error.code;
+    });
   }
 
   login() {
@@ -102,8 +104,10 @@ export class LoginFormComponent implements OnInit {
             this.toggleDisplay();            
             this.erro = this.appService.language.e21;
           }
-          else {
+          else if (error.code == "auth/wrong-password")
             this.erro = this.appService.language.e4;
+          else {
+            this.erro = error.code;
           }
         });    
     else {      

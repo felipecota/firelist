@@ -19,7 +19,8 @@ export class AppComponent {
     public afAuth: AngularFireAuth,     
     public router: Router) { }  
   
-  ngOnInit() { }
+  ngOnInit() { 
+  }
 
   logout() {
     this.afAuth.auth.signOut();
@@ -43,7 +44,9 @@ export class AppComponent {
       else if (this.router.url == "/bill-item")
         this.router.navigate(['/bill-form']);        
       else if (this.router.url == "/bill-form")
-        this.router.navigate(['/bill-access']);                
+        this.router.navigate(['/bill-access']);
+      else
+        this.router.navigate(['/menu']);
     }
     else
     {
@@ -58,7 +61,9 @@ export class AppComponent {
       else if (this.router.url == "/bill-form")
         this.router.navigate(['/bill-item']);        
       else if (this.router.url == "/bill-item")
-        this.router.navigate(['/bill-detail']);                      
+        this.router.navigate(['/bill-detail']);
+      else
+        this.router.navigate(['/menu']);                            
     }
   }
 
