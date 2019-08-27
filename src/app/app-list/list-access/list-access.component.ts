@@ -77,7 +77,7 @@ export class ListAccessComponent implements OnInit, OnDestroy {
       try {
         for (let key in list.payload.data()["access"]) {
             temp.push({
-                email: key.replace(/\´/g,'.')
+                email: key.replace(/´/g,'.')
             });
         }
       } catch {}
