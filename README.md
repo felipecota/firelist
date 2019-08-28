@@ -1,4 +1,4 @@
-# Realtimeapp
+# firelist
 
 This project was generated with [Angular](https://angular.io/)
 
@@ -6,7 +6,7 @@ Live at: https://felipecota.github.io
 
 ## Development server
 
-Run `git clone https://github.com/felipecota/realtimeapp` to clone this repository
+Run `git clone https://github.com/felipecota/firelist` to clone this repository
 
 Run `npm install` to install node and angular
 

@@ -5,7 +5,6 @@ import { HttpModule }   from '@angular/http';
 import { DatePipe } from '@angular/common'
 
 import { AngularFireModule } from '@angular/fire';
-import { environment } from './../environments/environment';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
@@ -28,6 +27,8 @@ import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-br
 
 import { AppComponent } from './app.component';
 import { MenuComponent } from './menu.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 //import { APP_BASE_HREF, LocationStrategy, HashLocationStrategy } from '@angular/common';
 
@@ -62,7 +63,8 @@ export class MyHammerConfig extends HammerGestureConfig  {
     AngularFireModule,
     AngularFireAuthModule,
     AngularFirestoreModule.enablePersistence({synchronizeTabs:true}),
-    AngularFireModule.initializeApp(environment.firebase)
+    AngularFireModule.initializeApp(environment.firebase),
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
     AppService, BillService, DatePipe,

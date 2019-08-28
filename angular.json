@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "realtimeapp": {
+    "firelist": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -19,9 +19,10 @@
             "assets": [
               "src/assets",
               "src/favicon.ico",
-              "src/service-worker.js",
+              "src/ngsw-worker.js",
               "src/manifest.json",
-              "src/.well-known/assetlinks.json"
+              "src/.well-known/assetlinks.json",
+              "src/manifest.webmanifest"            
             ],
             "styles": [
               "src/styles.css"
@@ -38,25 +39,27 @@
               "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
-              "buildOptimizer": true
+              "buildOptimizer": true,
+              "serviceWorker": true,
+              "ngswConfigPath": "ngsw-config.json"
             }
           }
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "realtimeapp:build"
+            "browserTarget": "firelist:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "realtimeapp:build:production"
+              "browserTarget": "firelist:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "realtimeapp:build"
+            "browserTarget": "firelist:build"
           }
         },
         "test": {
@@ -75,7 +78,8 @@
               "src/favicon.ico",
               "src/service-worker.js",
               "src/manifest.json",
-              "src/.well-known/assetlinks.json"
+              "src/.well-known/assetlinks.json",
+              "src/manifest.webmanifest"
             ]
           }
         },
@@ -93,7 +97,7 @@
         }
       }
     },
-    "realtimeapp-e2e": {
+    "firelist-e2e": {
       "root": "",
       "sourceRoot": "",
       "projectType": "application",
@@ -102,7 +106,7 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "./protractor.conf.js",
-            "devServerTarget": "realtimeapp:serve"
+            "devServerTarget": "firelist:serve"
           }
         },
         "lint": {
@@ -119,7 +123,7 @@
       }
     }
   },
-  "defaultProject": "realtimeapp",
+  "defaultProject": "firelist",
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "app",

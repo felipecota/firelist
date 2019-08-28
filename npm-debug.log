@@ -324,7 +324,7 @@
 114 silly resolveWithNewModule fsevents@1.2.4 checking installable status
 115 silly loadAllDepsIntoIdealTree Finishing
 116 silly loadIdealTree Finishing
-117 silly currentTree realtimeapp@0.0.0
+117 silly currentTree firelist@0.0.0
 117 silly currentTree ├─┬ @angular-devkit/architect@0.6.1
 117 silly currentTree │ ├── @angular-devkit/core@0.6.1
 117 silly currentTree │ ├── ajv@6.4.0
@@ -1943,7 +1943,7 @@
 117 silly currentTree ├── yeast@0.1.2
 117 silly currentTree ├── yn@2.0.0
 117 silly currentTree └── zone.js@0.8.26
-118 silly idealTree realtimeapp@0.0.0
+118 silly idealTree firelist@0.0.0
 118 silly idealTree ├─┬ @angular-devkit/architect@0.6.1
 118 silly idealTree │ ├── @angular-devkit/core@0.6.1
 118 silly idealTree │ ├── ajv@6.4.0
@@ -3564,7 +3564,7 @@
 118 silly idealTree └── zone.js@0.8.26
 119 silly generateActionsToTake Starting
 120 silly install generateActionsToTake
-121 warn checkPermissions Missing write access to /home/felipe/realtimeapp/node_modules/typescript
+121 warn checkPermissions Missing write access to /home/felipe/firelist/node_modules/typescript
 122 silly rollbackFailedOptional Starting
 123 silly rollbackFailedOptional Finishing
 124 silly runTopLevelLifecycles Finishing
@@ -3617,21 +3617,21 @@
 150 warn ngx-popover@0.0.16 requires a peer of @angular/core@^2.0.0 but none was installed.
 151 verbose If you need help, you may report this error at:
 151 verbose     <https://github.com/npm/npm/issues>
-152 verbose stack Error: EACCES: permission denied, access '/home/felipe/realtimeapp/node_modules/typescript'
-153 verbose cwd /home/felipe/realtimeapp
+152 verbose stack Error: EACCES: permission denied, access '/home/felipe/firelist/node_modules/typescript'
+153 verbose cwd /home/felipe/firelist
 154 error Linux 4.4.0-124-generic
 155 error argv "/usr/local/bin/node" "/usr/bin/npm" "install" "typescript@>=2.7.2 <2.8.0"
 156 error node v10.0.0
 157 error npm  v3.10.10
-158 error path /home/felipe/realtimeapp/node_modules/typescript
+158 error path /home/felipe/firelist/node_modules/typescript
 159 error code EACCES
 160 error errno -13
 161 error syscall access
-162 error Error: EACCES: permission denied, access '/home/felipe/realtimeapp/node_modules/typescript'
-162 error  { Error: EACCES: permission denied, access '/home/felipe/realtimeapp/node_modules/typescript'
+162 error Error: EACCES: permission denied, access '/home/felipe/firelist/node_modules/typescript'
+162 error  { Error: EACCES: permission denied, access '/home/felipe/firelist/node_modules/typescript'
 162 error   errno: -13,
 162 error   code: 'EACCES',
 162 error   syscall: 'access',
-162 error   path: '/home/felipe/realtimeapp/node_modules/typescript' }
+162 error   path: '/home/felipe/firelist/node_modules/typescript' }
 163 error Please try running this command again as root/Administrator.
 164 verbose exit [ -13, true ]
