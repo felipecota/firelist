@@ -6,3 +6,4 @@ package-lock.json
 .firebaserc
 firebase.json
 .firebase/hosting.cHJvZHVjYW8.cache
+firebase-debug.log
