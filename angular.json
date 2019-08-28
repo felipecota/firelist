@@ -20,7 +20,8 @@
               "src/assets",
               "src/favicon.ico",
               "src/service-worker.js",
-              "src/manifest.json"
+              "src/manifest.json",
+              "src/.well-known/assetlinks.json"
             ],
             "styles": [
               "src/styles.css"
