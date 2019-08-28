@@ -1,0 +1,10 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.firelist.android",
+      "sha256_cert_fingerprints": ["81:CF:D3:E4:FD:78:1B:2E:6B:12:01:DF:76:0C:80:A6:B9:DF:D4:A7:04:45:4B:F0:B2:1D:E6:5F:0A:19:75:AE"]
+    }
+  }
+]

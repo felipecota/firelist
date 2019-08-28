@@ -21,6 +21,7 @@
               "src/favicon.ico",
               "src/service-worker.js",
               "src/manifest.json",
+              "src/assetlinks.json",
               "src/.well-known/assetlinks.json"
             ],
             "styles": [
@@ -75,6 +76,7 @@
               "src/favicon.ico",
               "src/service-worker.js",
               "src/manifest.json",
+              "src/assetlinks.json",
               "src/.well-known/assetlinks.json"
             ]
           }
