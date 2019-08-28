@@ -29,7 +29,7 @@ import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-br
 import { AppComponent } from './app.component';
 import { MenuComponent } from './menu.component';
 
-import { APP_BASE_HREF, LocationStrategy, HashLocationStrategy } from '@angular/common';
+//import { APP_BASE_HREF, LocationStrategy, HashLocationStrategy } from '@angular/common';
 
 declare var Hammer: any;
 
@@ -66,8 +66,8 @@ export class MyHammerConfig extends HammerGestureConfig  {
   ],
   providers: [
     AppService, BillService, DatePipe,
-    { provide: APP_BASE_HREF, useValue: '/' },
-    { provide: LocationStrategy, useClass: HashLocationStrategy },    
+  //  { provide: APP_BASE_HREF, useValue: '/' },
+  //  { provide: LocationStrategy, useClass: HashLocationStrategy },    
     {
       // hammer instantion with custom config
       provide: HAMMER_GESTURE_CONFIG,
