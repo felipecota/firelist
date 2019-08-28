@@ -3,8 +3,8 @@
     "relation": ["delegate_permission/common.handle_all_urls"],
     "target": {
       "namespace": "android_app",
-      "package_name": "xyz.appmaker.fblebu",
-      "sha256_cert_fingerprints": ["2B:70:09:08:4F:E9:6B:38:65:D9:C1:FC:A5:B8:5E:08:69:99:72:88:E5:96:6C:C0:D4:8D:E2:DB:87:E9:98:07"]
+      "package_name": "com.firelist.android",
+      "sha256_cert_fingerprints": ["SHA256: 81:CF:D3:E4:FD:78:1B:2E:6B:12:01:DF:76:0C:80:A6:B9:DF:D4:A7:04:45:4B:F0:B2:1D:E6:5F:0A:19:75:AE"]
     }
   }
 ]
