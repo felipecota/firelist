@@ -3,3 +3,6 @@ dist/
 producao/
 src/environments/environment.ts
 package-lock.json
+.firebaserc
+firebase.json
+.firebase/hosting.cHJvZHVjYW8.cache
