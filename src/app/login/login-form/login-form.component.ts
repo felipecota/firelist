@@ -78,13 +78,7 @@ export class LoginFormComponent implements OnInit {
   }
 
   login() {
-    
-    // login google play robot
-    if (this.email == "text" && this.password == "text") {
-      this.email = "fsrcota@gmail.com";
-      this.password = "teste123";
-    }
-
+   
     if (!this.email || !this.password)  {
       this.erro = this.appService.language.e3;
       navigator.vibrate([500]);    

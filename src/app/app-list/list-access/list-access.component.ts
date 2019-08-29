@@ -21,6 +21,7 @@ export class ListAccessComponent implements OnInit, OnDestroy {
   listname: string;
   listkey: string;
   email: string;
+  len: number = 0;
 
   sub: any;
 
@@ -35,6 +36,8 @@ export class ListAccessComponent implements OnInit, OnDestroy {
     this.lists = this.appService.afs.collection('lists', ref => ref.where('access.'+this.appService.user.email.replace(/\./g,'´'),'==',true))
     .snapshotChanges()
     .pipe(map(lists => {
+
+        this.len = lists.length;
 
         if (localStorage.getItem('lastList')) {
             let result = lists.find(list => list.payload.doc.id == localStorage.getItem('lastList'));
@@ -95,7 +98,7 @@ export class ListAccessComponent implements OnInit, OnDestroy {
     else if (!navigator.onLine)
       this.erro = this.appService.language.e12;    
     else if (!email || email == '') {
-      this.erro = this.appService.language.e8;
+      this.erro = this.appService.language.e14;
       navigator.vibrate([500]);
     } else {  
       this.appService.afs.collection('lists').doc(this.listkey).update({

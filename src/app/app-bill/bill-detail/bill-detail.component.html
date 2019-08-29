@@ -11,10 +11,7 @@
     <span class="glyphicon glyphicon-floppy-disk"></span> {{'t24' | translate}}
 </button>   
 <br><br>
-<div *ngIf="erro" class="alert alert-danger">
-    {{erro}}
-</div>
-<table *ngIf="billselected" class="table">
+<table *ngIf="billselected && lenI > 0 && lenM > 0" class="table">
     <thead>
         <tr>
         <th style="padding-left: 0px;">{{'t22' | translate}}</th>
@@ -28,7 +25,7 @@
         </tr>
     </tbody>
 </table>
-<div *ngIf="billselected" class="alert alert-danger">
+<div *ngIf="billselected && lenI > 0 && lenM > 0" class="alert alert-danger">
     {{'m6' | translate}}
 </div>
 <ul class="list-group">
@@ -54,4 +51,10 @@
             </button>                     
         </div>        
     </li>    
-</ul>    
+</ul>
+<div *ngIf="erro && len > 0" class="alert alert-danger">
+        {{erro}}
+    </div>
+<div *ngIf="len == 0" class="alert alert-danger">
+    {{'m10' | translate}}
+</div>  

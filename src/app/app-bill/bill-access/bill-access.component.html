@@ -8,21 +8,26 @@
     </ul>
 </span>    
 <br><br>
-<div class="form-group">
-    <label for="pwd">E-mail</label>  
-    <input type="text" [disabled]="!selected" class="form-control email" [(ngModel)]="email" name="email" maxlength="50">        
-</div>
-<button [disabled]="!selected" class="btn btn-primary" type="button" (click)="Include()">
-    <span class="glyphicon glyphicon-floppy-disk"></span> {{'t3' | translate}}
-</button>       
-<br><br>
-<div *ngIf="erro" class="alert alert-danger">
-    {{erro}}
-</div> 
-<ul class="list-group">
-    <li class="list-group-item" *ngFor="let m of members">
-        {{ m.emailf }}
-        <span class="glyphicon glyphicon-trash pull-right" (click)="onRemove(m)"></span>    
-    </li>
-</ul>        
+<div *ngIf="len > 0">
+    <div class="form-group">
+        <label for="pwd">E-mail</label>  
+        <input type="text" [disabled]="!selected" class="form-control email" [(ngModel)]="email" name="email" maxlength="50">        
+    </div>
+    <button [disabled]="!selected" class="btn btn-primary" type="button" (click)="Include()">
+        <span class="glyphicon glyphicon-floppy-disk"></span> {{'t3' | translate}}
+    </button>       
+    <br><br>
+    <ul class="list-group">
+        <li class="list-group-item" *ngFor="let m of members">
+            {{ m.emailf }}
+            <span class="glyphicon glyphicon-trash pull-right" (click)="onRemove(m)"></span>    
+        </li>
+    </ul>
+</div>    
+<div *ngIf="erro && len > 0" class="alert alert-danger">
+        {{erro}}
+    </div> 
+<div *ngIf="len == 0" class="alert alert-danger">
+    {{'m10' | translate}}
+</div>     
  

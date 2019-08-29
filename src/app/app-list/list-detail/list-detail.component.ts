@@ -19,7 +19,7 @@ export class ListDetailComponent implements OnInit {
 
     lists: Observable<any[]>;
     items: any[];
-    len: number;
+    len: number = 0;
 
     constructor(
         private appService: AppService,

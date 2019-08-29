@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router }   from '@angular/router';
-import { Observable } from 'rxjs'
+import { Observable, of } from 'rxjs'
 import { map } from 'rxjs/operators';
 
 import { AppService } from '../../app.service';
@@ -15,7 +15,7 @@ import { environment } from '../../../environments/environment';
 export class ListItemComponent implements OnInit {
 
     erro: string;   
-    length: number;
+    len: number = 0;
     lists: Observable<any[]>;
     items: any[];
 
@@ -35,10 +35,13 @@ export class ListItemComponent implements OnInit {
     }      
 
     ngOnInit() { 
+
         this.lists = this.appService.afs.collection('lists', ref => ref.where('access.'+this.appService.user.email.replace(/\./g,'´'),'==',true))
         .snapshotChanges()
         .pipe(
             map(lists => {
+
+                this.len = lists.length;
 
                 if (localStorage.getItem('lastList')) {
                     let result = lists.find(list => list.payload.doc.id == localStorage.getItem('lastList'));

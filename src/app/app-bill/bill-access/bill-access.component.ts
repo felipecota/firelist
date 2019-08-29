@@ -21,6 +21,7 @@ export class BillAccessComponent implements OnInit, OnDestroy {
   billname: string;
   billkey: string;
   email: string;
+  len: number = 0;
 
   sub: any;
 
@@ -35,6 +36,8 @@ export class BillAccessComponent implements OnInit, OnDestroy {
     this.bills = this.appService.afs.collection('bills', ref => ref.where('access.'+this.appService.user.email.replace(/\./g,'´'),'==',true))
     .snapshotChanges()
     .pipe(map(bills => {
+
+        this.len = bills.length;
 
         if (localStorage.getItem('lastBill')) {
           let result = bills.find(bill => bill.payload.doc.id == localStorage.getItem('lastBill'));
@@ -99,7 +102,7 @@ export class BillAccessComponent implements OnInit, OnDestroy {
     else if (!navigator.onLine)
       this.erro = this.appService.language.e12;    
     else if (!email || email == '') {
-      this.erro = this.appService.language.e8;
+      this.erro = this.appService.language.e14;
       navigator.vibrate([500]);
     } else {  
       this.appService.afs.collection('bills').doc(this.billkey).update({
@@ -134,7 +137,7 @@ export class BillAccessComponent implements OnInit, OnDestroy {
 
           sub.unsubscribe();
 
-          if (canDelete) {
+          if (canDelete || member.email == this.appService.user.email) {
             if (confirm(this.appService.language.m7)) {
               this.appService.afs.collection('bills').doc(this.billkey).update({
                 ['access.'+member.email.replace(/\./g,'´')]: firestore.FieldValue.delete()

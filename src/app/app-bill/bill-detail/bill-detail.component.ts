@@ -24,6 +24,9 @@ export class BillDetailComponent implements OnInit, OnDestroy {
     billname: string;
     billkey: string;
     billselected: boolean = false;
+    len: number = 0;
+    lenI: number = 0;
+    lenM: number = 0;
 
     sub: any;
 
@@ -48,6 +51,8 @@ export class BillDetailComponent implements OnInit, OnDestroy {
         this.bills = this.appService.afs.collection('bills', ref => ref.where('access.'+this.appService.user.email.replace(/\./g,'´'),'==',true))
         .snapshotChanges()
         .pipe(map(bills => {
+
+            this.len = bills.length;
 
             if (localStorage.getItem('lastBill')) {
                 let result = bills.find(bill => bill.payload.doc.id == localStorage.getItem('lastBill'));
@@ -151,7 +156,10 @@ export class BillDetailComponent implements OnInit, OnDestroy {
                 };
             };
             
-            this.members = of(members.sort((a,b) => { return a.value-b.value }));            
+            this.lenI = items.length;
+            this.lenM = members.length;
+
+            this.members = of(members.sort((a,b) => { return a.value-b.value }));                        
             
             this.items = of(items.sort((a,b) => { 
                 if (a.date < b.date) {

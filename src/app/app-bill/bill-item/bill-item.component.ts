@@ -18,16 +18,16 @@ export class BillItemComponent implements OnInit, OnDestroy {
 
   bills: Observable<any[]>;   
   members: any[]; 
+  len: number = 0;
 
   editmode: boolean;
-
+  
   selected_bill: boolean;
-  selected_member: boolean;
   erro: string;
   billname: string;
   billkey: string; 
   itemkey: string;
-  payer: string;
+  payer: string = "";
   place: string = "";
   type: string;
   dateForm: Date;
@@ -37,10 +37,9 @@ export class BillItemComponent implements OnInit, OnDestroy {
   calculated: number;
   benefited: any;
   title: string = this.appService.language['t14'];
-  tpayer: string = this.appService.language['t16'];
 
   sub: any;
- 
+
   constructor(
     private appService: AppService,
     private billService: BillService,
@@ -69,6 +68,8 @@ export class BillItemComponent implements OnInit, OnDestroy {
     .snapshotChanges()
     .pipe(map(bills => {
 
+        this.len = bills.length;
+
         if (localStorage.getItem('lastBill')) {
             let result = bills.find(bill => bill.payload.doc.id == localStorage.getItem('lastBill'));
             if (result != undefined) {
@@ -96,7 +97,6 @@ export class BillItemComponent implements OnInit, OnDestroy {
   }  
 
   onEdit(data): void{
-    this.selected_member = true;
     this.payer = data.payer;
     this.place = data.place;
     this.type = data.type;
@@ -114,10 +114,7 @@ export class BillItemComponent implements OnInit, OnDestroy {
     this.itemkey = data.itemkey;       
   }
 
-  onSelectMember(m): void {
-    this.selected_member = true;
-    this.payer = m.email;
-    this.tpayer = this.payer;
+  onSelectBill(b): void {
 
     if(navigator.geolocation && this.place == ""){
         navigator.geolocation.getCurrentPosition(position => {
@@ -135,10 +132,7 @@ export class BillItemComponent implements OnInit, OnDestroy {
               });
           });
         });
-     }     
-  }
-
-  onSelectBill(b): void {
+    }     
 
     this.selected_bill = true;
     this.erro = '';
@@ -173,15 +167,13 @@ export class BillItemComponent implements OnInit, OnDestroy {
   
   Include() { 
 
+    console.log(this.place);
+
     if (this.members && this.members.length >= environment.limit_itens){
-
-        this.erro = this.appService.language.e18;
-        
-    } else if (!this.dateForm || !this.description || this.description.trim() == '' || !this.value || Number(this.value) == NaN || Number(this.value) <= 0 || !this.benefited || this.benefited.length == 0 || !this.place || !this.type || this.type == "" || this.multiplier == "" || Number(this.multiplier) <= 0)  {
-
+        this.erro = this.appService.language.e18;     
+    } else if (!this.payer || this.payer == "" || !this.dateForm || !this.description || this.description.trim() == '' || !this.value || Number(this.value) == NaN || Number(this.value) <= 0 || !this.benefited || this.benefited.length == 0 || !this.place || this.place == "" || !this.type || this.type == "" || this.multiplier == "" || Number(this.multiplier) <= 0)  {
         this.erro = this.appService.language.e14;
         navigator.vibrate([500]);
-
     } else {  
 
         let date = this.dateForm;
@@ -227,6 +219,6 @@ export class BillItemComponent implements OnInit, OnDestroy {
 
     dateChanged(eventDate: string): Date | null {
         return !!eventDate ? new Date(eventDate) : null;
-    }    
+    }  
 
 }

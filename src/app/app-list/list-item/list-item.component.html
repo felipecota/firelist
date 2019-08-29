@@ -1,25 +1,30 @@
 <br>
 <span class="dropdown">
     <a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">{{title}} <span class="caret"></span></a>
-    <ul class="dropdown-menu" role="menu">
+    <ul class="dropdown-menu" role="menu">    
         <li *ngFor="let l of lists | async" (click)="onSelect(l)">
             <a>{{l.listname}}</a>
         </li>
     </ul>
 </span>  
-<br><br>  
-<div class="form-group">
-    <label for="pwd">{{'t11' | translate}}</label>  
-    <input type="text" [disabled]="!selected" class="form-control" [(ngModel)]="itemname" name="itemname" maxlength="50">
-</div>
-<div class="form-group">
-    <label for="pwd">{{'t2' | translate}}</label>    
-    <input type="text" [disabled]="!selected" class="form-control" [(ngModel)]="amount" name="amount" maxlength="50">
-</div>
-<button [disabled]="!selected" (click)="Include()" class="btn btn-primary" type="button">
-    <span class="glyphicon glyphicon-floppy-disk"></span> {{'t3' | translate}}
-</button>       
 <br><br>
-<div *ngIf="erro" class="alert alert-danger">
+<div *ngIf="len > 0">
+    <div class="form-group">
+        <label for="pwd">{{'t11' | translate}}</label>  
+        <input type="text" [disabled]="!selected" class="form-control" [(ngModel)]="itemname" name="itemname" maxlength="50">
+    </div>
+    <div class="form-group">
+        <label for="pwd">{{'t2' | translate}}</label>    
+        <input type="text" [disabled]="!selected" class="form-control" [(ngModel)]="amount" name="amount" maxlength="50">
+    </div>
+    <button [disabled]="!selected" (click)="Include()" class="btn btn-primary" type="button">
+        <span class="glyphicon glyphicon-floppy-disk"></span> {{'t3' | translate}}
+    </button>       
+    <br><br>
+</div>    
+<div *ngIf="erro && len > 0" class="alert alert-danger">
     {{erro}}
 </div>
+<div *ngIf="len == 0" class="alert alert-danger">
+    {{'m4' | translate}}
+</div>    
