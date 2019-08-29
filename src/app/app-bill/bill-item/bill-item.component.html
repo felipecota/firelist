@@ -11,7 +11,7 @@
 <div *ngIf="len > 0">
     <div class="form-group">
         <label for="type">{{'t16' | translate}}</label>  
-        <select [disabled]="!selected_bill" class="form-control" [(ngModel)]="payer" name="payer">
+        <select [disabled]="!selected_bill" (click)="onSelectMember()" class="form-control" [(ngModel)]="payer" name="payer">
             <option value="">{{'t33' | translate}}</option>
             <option *ngFor="let m of members" value={{m.emailf}}><a>{{m.emailf}}</a></option>            
         </select>          

@@ -96,7 +96,7 @@ export class BillItemComponent implements OnInit, OnDestroy {
         this.sub.unsubscribe();
   }  
 
-  onEdit(data): void{
+  onEdit(data): void {
     this.payer = data.payer;
     this.place = data.place;
     this.type = data.type;
@@ -114,8 +114,7 @@ export class BillItemComponent implements OnInit, OnDestroy {
     this.itemkey = data.itemkey;       
   }
 
-  onSelectBill(b): void {
-
+  onSelectMember() {
     if(navigator.geolocation && this.place == ""){
         navigator.geolocation.getCurrentPosition(position => {
           this.http.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + position.coords.latitude + '%2C' + position.coords.longitude + '&language=en&key=' + environment.apiGeolocationKey)
@@ -132,7 +131,10 @@ export class BillItemComponent implements OnInit, OnDestroy {
               });
           });
         });
-    }     
+    }    
+  }
+
+  onSelectBill(b): void {
 
     this.selected_bill = true;
     this.erro = '';
