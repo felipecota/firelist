@@ -10,27 +10,27 @@
 <br><br>
 <div *ngIf="len > 0">
     <div class="form-group">
-        <label for="type">{{'t16' | translate}}</label>  
-        <select [disabled]="!selected_bill" (click)="onSelectMember()" class="form-control" [(ngModel)]="payer" name="payer">
+        <label for="payer">{{'t16' | translate}}</label>  
+        <select id="payer" [disabled]="!selected_bill" (click)="onSelectMember()" class="form-control" [(ngModel)]="payer" name="payer">
             <option value="">{{'t33' | translate}}</option>
             <option *ngFor="let m of members" value={{m.emailf}}><a>{{m.emailf}}</a></option>            
         </select>          
     </div>    
     <div class="form-group">
         <label for="date">{{'t17' | translate}}</label>  
-        <input type="datetime-local" [disabled]="!selected_bill" class="form-control" [ngModel]="dateForm | date:'yyyy-MM-ddTHH:mm'" name="date" (ngModelChange)="dateForm = dateChanged($event)">
+        <input id="date" type="datetime-local" [disabled]="!selected_bill" class="form-control" [ngModel]="dateForm | date:'yyyy-MM-ddTHH:mm'" name="date" (ngModelChange)="dateForm = dateChanged($event)">
     </div>
     <div class="form-group">
-        <label for="description">{{'t25' | translate}}</label>  
-        <input type="text" [disabled]="!selected_bill" class="form-control" [(ngModel)]="place" name="place" maxlength="50">        
+        <label for="place">{{'t25' | translate}}</label>  
+        <input id="place" type="text" [disabled]="!selected_bill" class="form-control" [(ngModel)]="place" name="place" maxlength="50">        
     </div>
     <div class="form-group">
         <label for="description">{{'t11' | translate}}</label>  
-        <input type="text" [disabled]="!selected_bill" class="form-control" [(ngModel)]="description" name="description" maxlength="50">        
+        <input id="description" type="text" [disabled]="!selected_bill" class="form-control" [(ngModel)]="description" name="description" maxlength="50">        
     </div>
     <div class="form-group">
         <label for="type">{{'t26' | translate}}</label>  
-        <select [disabled]="!selected_bill" class="form-control" [(ngModel)]="type" name="type">
+        <select id="type" [disabled]="!selected_bill" class="form-control" [(ngModel)]="type" name="type">
             <option value="">{{'t33' | translate}}</option>
             <option value='t27'>{{'t27' | translate}}</option>
             <option value='t28'>{{'t28' | translate}}</option>
@@ -45,25 +45,25 @@
         <div class="col-xs-4">    
             <div class="form-group">
                 <label for="value">{{'t18' | translate}}</label>
-                <input type="text" [disabled]="!selected_bill" class="form-control" [(ngModel)]="value" (ngModelChange)="onChange()" name="value" placeholder="0,00">
+                <input id="value" type="text" [disabled]="!selected_bill" class="form-control" [(ngModel)]="value" (ngModelChange)="onChange()" name="value" placeholder="0,00">
             </div>
         </div>
         <div class="col-xs-4">        
             <div class="form-group">
-                <label for="value">{{'t35' | translate}}</label>
-                <input type="text" [disabled]="!selected_bill" class="form-control" [(ngModel)]="multiplier" (ngModelChange)="onChange()" name="multiplier" placeholder="0,00">
+                <label for="multiplier">{{'t35' | translate}}</label>
+                <input id="multiplier" type="text" [disabled]="!selected_bill" class="form-control" [(ngModel)]="multiplier" (ngModelChange)="onChange()" name="multiplier" placeholder="0,00">
             </div>
         </div>
         <div class="col-xs-4">        
             <div class="form-group">
-                <label for="value">{{'t36' | translate}}</label>
-                <input type="text" disabled="disabled" class="form-control" [(ngModel)]="calculated" name="calculated" placeholder="0,00">
+                <label for="calculated">{{'t36' | translate}}</label>
+                <input id="calculated" type="text" disabled="disabled" class="form-control" [(ngModel)]="calculated" name="calculated" placeholder="0,00">
             </div>
         </div>        
     </div>
     <div class="form-group">
         <label for="sel1">{{'t19' | translate}}</label>
-        <select [disabled]="!selected_bill" [(ngModel)]="benefited" multiple size="5" class="form-control members" id="sel1">
+        <select id="sel1" [disabled]="!selected_bill" [(ngModel)]="benefited" multiple size="5" class="form-control members" id="sel1">
             <option *ngFor="let m of members" [value]="m.email">
                 {{m.email}}
             </option>      

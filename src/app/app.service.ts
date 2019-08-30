@@ -44,7 +44,7 @@ export class AppService {
                 this.language = languages.find(element => { return element.name == 'fr'});
             else
                 this.language = languages.find(element => { return element.name == 'en'});
-        }
+        }  
 
         this.isConnected = merge(
             of(navigator.onLine),

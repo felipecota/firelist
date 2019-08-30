@@ -1,7 +1,7 @@
 <br>
 <div class="form-group">
-    <label for="pwd">{{'t15' | translate}}</label>  
-    <input type="text" class="form-control" [(ngModel)]="billname" name="billname" maxlength="50">
+    <label for="billname">{{'t15' | translate}}</label>  
+    <input id="billname" type="text" class="form-control" [(ngModel)]="billname" name="billname" maxlength="50">
 </div>
 <button class="btn btn-primary" type="button" (click)="Include()">
     <span class="glyphicon glyphicon-floppy-disk"></span> {{'t3' | translate}}

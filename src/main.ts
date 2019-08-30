@@ -8,12 +8,4 @@ if (environment.production) {
   enableProdMode();
 }
 
-// to work with cordova uncomment
-let onDeviceReady = () => {
-  platformBrowserDynamic().bootstrapModule(AppModule);
-};
-
-if (environment.cordova)
-  document.addEventListener('deviceready', onDeviceReady, false);
-else
-  onDeviceReady();
+platformBrowserDynamic().bootstrapModule(AppModule);

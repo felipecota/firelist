@@ -10,8 +10,8 @@
 <br><br>  
 <div *ngIf="len > 0">
     <div class="form-group">
-        <label for="pwd">E-mail</label>  
-        <input type="text" [disabled]="!selected" class="form-control email" [(ngModel)]="email" name="email" maxlength="50">        
+        <label for="email">E-mail</label>  
+        <input id="email" type="text" [disabled]="!selected" class="form-control email" [(ngModel)]="email" name="email" maxlength="50">        
     </div>
     <button [disabled]="!selected" class="btn btn-primary" type="button" (click)="Include()">
         <span class="glyphicon glyphicon-floppy-disk"></span> {{'t3' | translate}}
