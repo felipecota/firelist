@@ -1,7 +1,7 @@
 {
   "name": "firelist",
   "short_name": "Firelist",
-  "theme_color": "#000000",
+  "theme_color": "#555555",
   "background_color": "#fafafa",
   "display": "standalone",
   "scope": "/",
