@@ -77,13 +77,13 @@ export const languages =
         m1: 'Selecione uma lista.',
         m2: 'Esqueci/Trocar minha senha.',
         m3: 'E-mail para resetar senha enviado.',
-        m4: 'Nenhuma lista cadastrada. Inclua uma para continuar.',
+        m4: 'Para começar, inclua uma lista.',
         m5: 'Nenhum item cadastrado.',
         m6: 'Saldo negativo? Você deve.',
         m7: 'Confirma exclusão?',
         m8: 'Somente o responsável pode excluir!',
         m9: 'Somente o responsável pode alterar!',
-        m10: 'Nenhuma despensa cadastrada. Inclusa uma para continuar.'
+        m10: 'Para começar, inclua uma conta.'
     }, 
     {
         name: "en",
@@ -158,13 +158,13 @@ export const languages =
         m1: 'Select a list to continue.',
         m2: 'Forgot/Change my password.',
         m3: 'Reset password mail sent.',
-        m4: 'There is no list to display. Add one to continue.',
+        m4: 'Add a list to begin.',
         m5: 'No item added.',
         m6: 'Negative balance? You owe',
         m7: 'Are you sure to delete?',
         m8: 'Only the owner is alowed to remove.',
         m9: 'Only the owner is alowed to edit.',
-        m10: 'There is no expense to display. Add one to continue.'
+        m10: 'Add an expense to begin.'
     },
     {
         name: "fr",
@@ -239,13 +239,13 @@ export const languages =
         m1: 'Sélectionnez une liste.',
         m2: 'Mot de passe oublié/Modifier le mot de passe.',
         m3: 'Nous vous avons envoyé un e-mail pour modifier votre mot de passe.',
-        m4: 'Aucune liste disponible. Ajouter un pour continuer.',
+        m4: 'Pour commencer, ajoutez une liste.',
         m5: 'Aucun article ajouté.',
         m6: 'Solde négatif? Vous avez une dette.',
         m7: 'Vous confirmez la suppression?',
         m8: 'Seulement le responsable peut supprimer.',
         m9: 'Seulement le responsable peut modifier.',
-        m10: 'Aucune compte disponible. Ajouter un pour continuer.'        
+        m10: 'Pour commencer, ajoutez un acompte.'        
     }
 
 ]
