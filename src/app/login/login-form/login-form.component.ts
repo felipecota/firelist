@@ -55,6 +55,10 @@ export class LoginFormComponent implements OnInit {
     this.loginSocial(new auth.FacebookAuthProvider());
   }
 
+  loginWithGithub() {
+    this.loginSocial(new auth.GithubAuthProvider());
+  }   
+
   loginWithGoogle() {
     this.loginSocial(new auth.GoogleAuthProvider());
   }  

@@ -2,7 +2,7 @@
     <div class="jumbotron text-center">    
         <span *ngIf="(this.appService.isSignin)" class="icone glyphicon glyphicon-off pointer" [ngStyle]="{'color': (this.appService.isConnected | async) ? 'green' : 'red' }" (click)="logout()"></span>
         <span *ngIf="(router.url != '/menu' && this.appService.isSignin)" class="home glyphicon glyphicon-home pointer" (click)="menu()"></span>
-        <div class="title"><img class="logo" src="assets/images/logo.png"><br>{{title}}</div>        
+        <div class="title"><img class="logo" src="assets/images/logo.png" title="logo"><br>{{title}}</div>        
     </div>         
     <div *ngIf="(this.appService.lists.indexOf(this.router.url.split('/')[1]) >= 0)">
         <ul class="nav nav-tabs">
