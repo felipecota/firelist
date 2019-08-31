@@ -6,7 +6,7 @@
 <button class="btn btn-primary" type="button" (click)="Include()">
     <span class="glyphicon glyphicon-floppy-disk"></span> {{'t3' | translate}}
 </button>
-<label *ngIf="(!this.appService.isCordova)" class="input-group-btn">
+<label class="input-group-btn">
     <span class="btn btn-primary">
         <span class="glyphicon glyphicon-floppy-open"></span> 
         {{'t40' | translate}} <input type="file" #file (change)="fileChange($event); file.value = '';" style="display: none;" placeholder="" accept=".txt">

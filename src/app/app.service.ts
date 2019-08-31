@@ -17,7 +17,6 @@ export class AppService {
     isConnected: Observable<boolean>;
     isSignin: boolean = false;
     isEmailVerified: boolean;
-    isCordova: boolean;
     user: any;
     language: any;
 
@@ -31,9 +30,6 @@ export class AppService {
         private ngZone: NgZone,
         private http: HttpClient
     ) {
-
-        this.isCordova = environment.cordova;
-
         if (localStorage.getItem('lang'))
             this.language = languages.find(element => { return element.name == localStorage.getItem('lang')});
         else
