@@ -32,7 +32,6 @@ export class LoginFormComponent implements OnInit {
         this.pendingMail = error.email;          
         // Get registered providers for this email.
         this.appService.afAuth.auth.fetchSignInMethodsForEmail(this.pendingMail).then(providers => {
-          this.email = "teste@teste.com";
           if (providers[0] == "password") {
             this.email = error.email;
             this.erro = this.appService.language.e16;
