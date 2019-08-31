@@ -1,6 +1,5 @@
 export const environment = {
     production: true,
-    cordova: false,
     limit_itens: 1000,
     limit_list: 10,
     limit_access: 50,
