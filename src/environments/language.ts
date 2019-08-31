@@ -245,7 +245,7 @@ export const languages =
         m7: 'Vous confirmez la suppression?',
         m8: 'Seulement le responsable peut supprimer.',
         m9: 'Seulement le responsable peut modifier.',
-        m10: 'Pour commencer, ajoutez un acompte.'        
+        m10: 'Pour commencer, ajoutez un compte.'        
     }
 
 ]
