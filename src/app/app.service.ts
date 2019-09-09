@@ -49,9 +49,9 @@ export class AppService {
         );
 
         this.afAuth.auth.onAuthStateChanged(user => {
-            if (user) {
+            if (user) {               
                 this.isEmailVerified = user.emailVerified;
-                if (user.emailVerified) {
+                if (user.emailVerified || user.providerData[0].providerId != "password") {
                     this.login(user);
                 } else {
                     this.afAuth.auth.useDeviceLanguage(); 
