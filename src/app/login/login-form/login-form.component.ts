@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { AppService } from '../../app.service';
 import { auth } from 'firebase/app';
 
@@ -10,7 +10,7 @@ import { auth } from 'firebase/app';
 export class LoginFormComponent implements OnInit {
 
   isLoggingIn = true;
-  erro: string;  
+  erro: string;
   email: string; 
   password: string;
   pendingCred: any;
@@ -18,9 +18,10 @@ export class LoginFormComponent implements OnInit {
 
   constructor(
     private appService: AppService,
+    private ngZone: NgZone
   ) { }
 
-  ngOnInit() {  
+  ngOnInit() {
   }
 
   toggleDisplay() {
@@ -29,15 +30,15 @@ export class LoginFormComponent implements OnInit {
   }  
 
   loginWithFacebook() {
-    this.loginSocial(new auth.FacebookAuthProvider());
+    this.loginSocial(new auth.OAuthProvider('facebook.com'));
   }
 
   loginWithGithub() {
-    this.loginSocial(new auth.GithubAuthProvider());
+    this.loginSocial(new auth.OAuthProvider('github.com'));
   }   
 
   loginWithGoogle() {
-    this.loginSocial(new auth.GoogleAuthProvider());
+    this.loginSocial(new auth.OAuthProvider('google.com'));
   }  
 
   loginWithYahoo() {
@@ -49,7 +50,7 @@ export class LoginFormComponent implements OnInit {
   }   
 
   loginWithTwitter() {
-    this.loginSocial(new auth.TwitterAuthProvider());
+    this.loginSocial(new auth.OAuthProvider('twitter.com'));
   }     
 
   loginSocial(provider) {
@@ -63,13 +64,17 @@ export class LoginFormComponent implements OnInit {
         this.pendingMail = error.email;          
         // Get registered providers for this email.
         this.appService.afAuth.auth.fetchSignInMethodsForEmail(this.pendingMail).then(providers => {
-          if (providers[0] == "password") {
-            this.email = error.email;
-            this.erro = this.appService.language.e16;
+          if (providers[0] == "password" && providers.length == 1) {
+            this.ngZone.run(() => {
+              this.email = error.email;
+              this.erro = this.appService.language.e16;
+            });            
           } 
           else
-          {        
-            this.erro = this.appService.language.e17.replace('$input$',providers[0].replace('.com',''));
+          {      
+            this.ngZone.run(() => {
+              this.erro = this.appService.language.e17.replace('$input$',providers[0].replace('.com',''));
+            });
           }
         });
       } else {
@@ -80,16 +85,14 @@ export class LoginFormComponent implements OnInit {
 
   login() {
 
-    this.email = this.email.trim();
-   
     if (!this.email || !this.password)  {
       this.erro = this.appService.language.e3;
       navigator.vibrate([500]);    
     } else if (this.isLoggingIn)
       this.appService.afAuth.auth.signInWithEmailAndPassword(
-        this.email, this.password)
+        this.email.trim(), this.password)
         .then(user => { 
-          if (this.pendingMail == this.email) {
+          if (this.pendingMail == this.email.trim()) {
             this.appService.afAuth.auth.currentUser.linkWithCredential(this.pendingCred);
           }
           if (!this.appService.isEmailVerified && this.appService.afAuth.auth.currentUser.emailVerified) {
@@ -109,7 +112,7 @@ export class LoginFormComponent implements OnInit {
         });    
     else {      
       this.appService.afAuth.auth.createUserWithEmailAndPassword(
-        this.email, this.password)
+        this.email.trim(), this.password)
         .then(ok => {
           this.toggleDisplay(); // Send verification e-mail and enable loggin
           this.erro = this.appService.language.e20;
