@@ -30,7 +30,6 @@
     "crypto-js": "^3.1.9-1",
     "firebase": "^6.3.4",
     "hammerjs": "^2.0.8",
-    "ngx-popover": "0.0.16",
     "rxjs": "^6.5.3",
     "tslib": "^1.10.0",
     "webpack": "^4.8.3",
