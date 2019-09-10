@@ -8,7 +8,6 @@ import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 
 import { languages } from '../environments/language';
-import { environment } from '../environments/environment';
 
 // The @Injectable() decorator tells TypeScript to emit metadata about the service. The metadata specifies that Angular may need to inject other dependencies into this service.
 @Injectable() 
@@ -27,8 +26,7 @@ export class AppService {
         public afs: AngularFirestore,
         public afAuth: AngularFireAuth,
         private router: Router,
-        private ngZone: NgZone,
-        private http: HttpClient
+        private ngZone: NgZone
     ) {
         if (localStorage.getItem('lang'))
             this.language = languages.find(element => { return element.name == localStorage.getItem('lang')});
