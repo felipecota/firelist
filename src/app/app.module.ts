@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, Injectable } from '@angular/core';
 import { FormsModule }   from '@angular/forms';
 import { DatePipe } from '@angular/common'
 
@@ -33,6 +33,7 @@ import { environment } from '../environments/environment';
 
 declare var Hammer: any;
 
+@Injectable()
 export class MyHammerConfig extends HammerGestureConfig  {
   buildHammer(element: HTMLElement) {
     let mc = new Hammer(element, {
