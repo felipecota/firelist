@@ -173,7 +173,7 @@ export class BillItemComponent implements OnInit, OnDestroy {
 
     if (this.members && this.members.length >= environment.limit_itens){
         this.erro = this.appService.language.e18;     
-    } else if (!this.payer || this.payer == "" || !this.dateForm || !this.description || this.description.trim() == '' || !this.value || Number(this.value) == NaN || Number(this.value) <= 0 || !this.benefited || this.benefited.length == 0 || !this.place || this.place == "" || !this.type || this.type == "" || this.multiplier == "" || Number(this.multiplier) <= 0)  {
+    } else if (!this.payer || this.payer == "" || !this.dateForm || !this.description || this.description.trim() == '' || !this.value || Number(this.value) == NaN || !this.benefited || this.benefited.length == 0 || !this.place || this.place == "" || !this.type || this.type == "" || this.multiplier == "" || Number(this.multiplier) <= 0)  {
         this.erro = this.appService.language.e14;
         navigator.vibrate([500]);
     } else {  
