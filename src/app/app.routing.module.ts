@@ -51,6 +51,7 @@ const APP_ROUTES: Routes = [
     { path: 'list-form', component: ListFormComponent, canActivate:[AuthGuard] },
     { path: 'list-access', component: ListAccessComponent, canActivate:[AuthGuard] },
     { path: 'list-item', component: ListItemComponent, canActivate:[AuthGuard] },
+    { path: 'list-item/:data', component: ListItemComponent, canActivate:[AuthGuard] },    
     { path: 'bill-form', component: BillFormComponent, canActivate:[AuthGuard] },    
     { path: 'bill-access', component: BillAccessComponent, canActivate:[AuthGuard] },
     { path: 'bill-item', component: BillItemComponent, canActivate:[AuthGuard] },

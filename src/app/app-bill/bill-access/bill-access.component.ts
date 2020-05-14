@@ -44,7 +44,7 @@ export class BillAccessComponent implements OnInit, OnDestroy {
           if (result != undefined) {
               const data = result.payload.doc.data();
               const id = result.payload.doc.id;                
-              this.onSelectBill({ id, ...data });
+              this.onSelectBill({ id, ...(data as {}) });
           }
         }
 
@@ -54,7 +54,7 @@ export class BillAccessComponent implements OnInit, OnDestroy {
         .map(bill => {
             const data = bill.payload.doc.data();
             const id = bill.payload.doc.id;
-            return { id, ...data };          
+            return { id, ...(data as {}) };          
         })
     })); 
 

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router }   from '@angular/router';
-import { Observable } from 'rxjs'
+import { Observable, ArgumentOutOfRangeError } from 'rxjs'
 import { map } from 'rxjs/operators';
 import { firestore } from 'firebase/app';
 import * as CryptoJS from 'crypto-js'; 
@@ -8,6 +8,7 @@ import * as CryptoJS from 'crypto-js';
 import { AppService } from '../../app.service'
 import { environment } from '../../../environments/environment';
 import { BillService } from '../../app-bill/bill.service';
+import { ListService } from '../list.service';
 
 @Component({
   selector: 'app-list-detail',
@@ -25,6 +26,7 @@ export class ListDetailComponent implements OnInit {
         private appService: AppService,
         private router: Router,
         private billService: BillService,
+        private listService: ListService,
     ) { }
   
     ngOnInit() { 
@@ -48,13 +50,13 @@ export class ListDetailComponent implements OnInit {
                 }
                 data["items"] = temp.sort((a,b) => a.itemname.localeCompare(b.itemname));
                 const id = list.payload.doc.id;                
-                return { id, ...data };                
+                return { id, ...(data as {}) };                
             })
         }));    
             
     }
 
-    onSelect(list, itemkey): void {        
+    onSelect(list, itemkey): void {       
         this.appService.afs.collection('lists').doc(list.id).update({
             ['items.'+itemkey]: firestore.FieldValue.delete()
         })
@@ -72,6 +74,7 @@ export class ListDetailComponent implements OnInit {
             date: new Date,
             place: '',
             description: itemname,
+            amount: '',
             type: '',
             value: 0,
             multiplier: 1,
@@ -79,6 +82,28 @@ export class ListDetailComponent implements OnInit {
             benefited: []
         }
         this.router.navigate(['/bill-item/new']);         
+    }
+
+    onEdit(itemname,amount,itemkey,listid): void {
+        this.appService.afs.collection('lists').doc(listid).update({
+            ['items.'+itemkey]: firestore.FieldValue.delete()
+        })        
+        this.listService.item = {
+            billkey: '',
+            billname: '',
+            itemkey: '',
+            payer: '',
+            date: new Date,
+            place: '',
+            description: itemname,
+            amount: amount,
+            type: '',
+            value: 0,
+            multiplier: 1,
+            calculated: 0,
+            benefited: []
+        }
+        this.router.navigate(['/list-item/new']);         
     }
 
     backup(listid, listname) {

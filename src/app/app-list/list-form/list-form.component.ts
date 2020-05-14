@@ -35,7 +35,7 @@ export class ListFormComponent implements OnInit {
                     .map(list => {
                         const data = list.payload.doc.data();
                         const id = list.payload.doc.id;                
-                        return { id, ...data };                
+                        return { id, ...(data as {}) };                
                     })
                 })
         ); 

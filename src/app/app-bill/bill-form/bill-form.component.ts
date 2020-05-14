@@ -36,7 +36,7 @@ export class BillFormComponent implements OnInit {
                 .map(bill => {
                     const data = bill.payload.doc.data();
                     const id = bill.payload.doc.id;                
-                    return { id, ...data };                
+                    return { id, ...(data as {}) };                
                 })
             })
         ); 

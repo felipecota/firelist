@@ -6,6 +6,7 @@ export class Item {
     date: Date;
     place: string;
     description: string;
+    amount: string;
     type: string;
     value: number;
     multiplier: number;

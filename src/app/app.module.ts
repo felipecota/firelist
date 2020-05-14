@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppService } from './app.service';
 import { BillService } from './app-bill/bill.service';
+import { ListService } from './app-list/list.service';
 
 import { ListModule } from './app-list/list.module';
 import { BillModule } from './app-bill/bill.module';
@@ -66,7 +67,7 @@ export class MyHammerConfig extends HammerGestureConfig  {
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
-    AppService, BillService, DatePipe,
+    AppService, BillService, ListService, DatePipe,
   //  { provide: APP_BASE_HREF, useValue: '/' },
   //  { provide: LocationStrategy, useClass: HashLocationStrategy },    
     {

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router }   from '@angular/router';
+import { Router, ActivatedRoute }   from '@angular/router';
 import { Observable, of } from 'rxjs'
 import { map } from 'rxjs/operators';
+import { ListService } from '../list.service';
 
 import { AppService } from '../../app.service';
 import { environment } from '../../../environments/environment';
@@ -30,11 +31,19 @@ export class ListItemComponent implements OnInit {
 
     constructor(
         private appService: AppService, 
-        private router: Router
+        private listService: ListService,
+        private router: Router,
+        private route: ActivatedRoute,
     ) { 
     }      
 
     ngOnInit() { 
+
+        let data = this.route.snapshot.paramMap.get('data');
+        if (data && data == "new" && this.listService.item != undefined) {           
+            this.itemname = this.listService.item.description;
+            this.amount = this.listService.item.amount;
+        }        
 
         this.lists = this.appService.afs.collection('lists', ref => ref.where('access.'+this.appService.user.email.replace(/\./g,'´'),'==',true))
         .snapshotChanges()
@@ -48,7 +57,7 @@ export class ListItemComponent implements OnInit {
                     if (result != undefined) {
                         const data = result.payload.doc.data();
                         const id = result.payload.doc.id;                
-                        this.onSelect({ id, ...data });
+                        this.onSelect({ id, ...(data as {}) });
                     }
                 }                
 
@@ -58,7 +67,7 @@ export class ListItemComponent implements OnInit {
                 .map(list => {
                     const data = list.payload.doc.data();
                     const id = list.payload.doc.id;                
-                    return { id, ...data };                
+                    return { id, ...(data as {}) };                
                 })
             })
         ); 

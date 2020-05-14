@@ -44,7 +44,7 @@ export class ListAccessComponent implements OnInit, OnDestroy {
             if (result != undefined) {
                 const data = result.payload.doc.data();
                 const id = result.payload.doc.id;                
-                this.onSelectList({ id, ...data });
+                this.onSelectList({ id, ...(data as {}) });
             }
         }                
 
@@ -54,7 +54,7 @@ export class ListAccessComponent implements OnInit, OnDestroy {
         .map(list => {
             const data = list.payload.doc.data();
             const id = list.payload.doc.id;                
-            return { id, ...data };                
+            return { id, ...(data as {}) };                
         })
     })); 
 
