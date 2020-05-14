@@ -62,31 +62,9 @@ export class ListDetailComponent implements OnInit {
         })
     }
 
-    onExport(itemname,itemkey,listid): void {
-        this.appService.afs.collection('lists').doc(listid).update({
-            ['items.'+itemkey]: firestore.FieldValue.delete()
-        })        
-        this.billService.item = {
-            billkey: '',
-            billname: '',
-            itemkey: '',
-            payer: '',
-            date: new Date,
-            place: '',
-            description: itemname,
-            amount: '',
-            type: '',
-            value: 0,
-            multiplier: 1,
-            calculated: 0,
-            benefited: []
-        }
-        this.router.navigate(['/bill-item/new']);         
-    }
-
-    onEdit(itemname,amount,itemkey,listid): void {
-        this.appService.afs.collection('lists').doc(listid).update({
-            ['items.'+itemkey]: firestore.FieldValue.delete()
+    onEdit(item,list): void {
+        this.appService.afs.collection('lists').doc(list.id).update({
+            ['items.'+item.itemkey]: firestore.FieldValue.delete()
         })        
         this.listService.item = {
             billkey: '',
@@ -95,14 +73,15 @@ export class ListDetailComponent implements OnInit {
             payer: '',
             date: new Date,
             place: '',
-            description: itemname,
-            amount: amount,
+            description: item.itemname,
+            amount: item.amount,
             type: '',
             value: 0,
             multiplier: 1,
             calculated: 0,
             benefited: []
         }
+        this.listService.list = list;
         this.router.navigate(['/list-item/new']);         
     }
 

@@ -43,6 +43,7 @@ export class ListItemComponent implements OnInit {
         if (data && data == "new" && this.listService.item != undefined) {           
             this.itemname = this.listService.item.description;
             this.amount = this.listService.item.amount;
+            this.onSelect(this.listService.list);
         }        
 
         this.lists = this.appService.afs.collection('lists', ref => ref.where('access.'+this.appService.user.email.replace(/\./g,'´'),'==',true))

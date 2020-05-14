@@ -5,4 +5,5 @@ import { Item } from '../item';
 @Injectable() 
 export class ListService {
     item: Item;
+    list: any;
 }
