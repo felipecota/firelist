@@ -3,7 +3,7 @@
   "compilerOptions": {
     "downlevelIteration": true,
     "importHelpers": true,
-    "module": "es2020",
+    "module": "amd",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
