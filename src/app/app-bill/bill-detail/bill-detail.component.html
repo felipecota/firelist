@@ -52,22 +52,24 @@
         </div>        
     </li>    
 </ul>
-<table *ngIf="billselected && lenI > 0 && lenM > 0" class="table">
-    <thead>
-        <tr>
-        <th style="padding-left: 0px;">{{'t46' | translate}}</th>
-        <th class="text-right">{{'t18' | translate}}</th>
-        </tr>
-    </thead>
-    <tbody>     
-        <tr *ngFor="let m of resumo | async" class="resumo">
-            <td>{{m.type | translate}}</td>
-            <td class="text-right">{{m.value | number:'1.2-2'}}</td>
-        </tr>
-    </tbody>
-</table>
-<div *ngIf="erro && len > 0" class="alert alert-danger">
-        {{erro}}
+<div *ngIf="billselected && lenI > 0 && lenM > 0" class="resumo">
+    <table class="table">
+        <thead>
+            <tr>
+            <th style="padding-left: 0px;">{{'t46' | translate}}</th>
+            <th class="text-right">{{'t18' | translate}}</th>
+            </tr>
+        </thead>
+        <tbody>     
+            <tr *ngFor="let m of resumo | async" class="resumo">
+                <td>{{m.type | translate}}</td>
+                <td class="text-right">{{m.value | number:'1.2-2'}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div *ngIf="this.appService.erro && len > 0" class="alert alert-danger">
+        {{this.appService.erro}}
     </div>
 <div *ngIf="len == 0" class="alert alert-danger">
     {{'m10' | translate}}

@@ -14,7 +14,6 @@ import { environment } from '../../../environments/environment';
 
 export class BillFormComponent implements OnInit {
 
-    erro: string;
     billname: string = "";
     bills: Observable<any[]>;
     length: any = 0;
@@ -23,16 +22,18 @@ export class BillFormComponent implements OnInit {
         public appService: AppService
     ) { }
 
-    ngOnInit() {     
-
+    ngOnInit() { 
+        
+        this.appService.display_error('');
+        
         this.bills = this.appService.afs.collection('bills', ref => ref.where('access.'+this.appService.user.email.replace(/\./g,'´'),'==',true))
         .snapshotChanges()
         .pipe(
             map(bills => {
                 this.length = bills.length;
                 return bills
-                .sort(
-                    (a,b) => a.payload.doc.data()["billname"].localeCompare(b.payload.doc.data()["billname"]))
+                //.sort(
+                    //(a,b) => a.payload.doc.data()["billname"].localeCompare(b.payload.doc.data()["billname"]))
                 .map(bill => {
                     const data = bill.payload.doc.data();
                     const id = bill.payload.doc.id;                
@@ -51,17 +52,12 @@ export class BillFormComponent implements OnInit {
         this.billname = '';        
 
         if (this.length >= environment.limit_list) {
-
-            this.erro = this.appService.language.e18;        
-        
+            this.appService.display_error(this.appService.language.e18);        
         } else if (!billname || billname == '')  {
-
-            this.erro = this.appService.language.e6;
-            navigator.vibrate([500]);
-
+            this.appService.display_error(this.appService.language.e6);
         } else {
 
-            this.erro = '';
+            this.appService.display_error('');
             this.appService.afs.collection('bills').doc(billkey).set({
                 billname: billname,
                 access: {
@@ -74,21 +70,21 @@ export class BillFormComponent implements OnInit {
     onSelect(id: string, access): void {
 
         if (Object.keys(access).length == 1) {
-            this.erro = '';
+            this.appService.display_error('');
             if (confirm(this.appService.language.m7))
                 this.appService.afs.collection('bills').doc(id).delete();
-        } else
-            this.erro = this.appService.language.e15;
+        } else {
+            this.appService.erro = this.appService.language.e15;
+        }
 
     }   
 
     fileChange(event) {
        
         if (!this.billname || this.billname == '') {
-            this.erro = this.appService.language.e6;
-            navigator.vibrate([500]);
+            this.appService.display_error(this.appService.language.e6);
         } else {        
-            this.erro = '';
+            this.appService.display_error('');
             let fileList: FileList = event.target.files;
             if ( fileList.length > 0 ) {
                 let reader = new FileReader();
@@ -120,7 +116,7 @@ export class BillFormComponent implements OnInit {
                         this.billname = "";
 
                     } else {
-                        this.erro = this.appService.language.e19;
+                        this.appService.display_error(this.appService.language.e19);
                     }
                 }
                 reader.readAsText(fileList[0]);      

@@ -23,7 +23,6 @@ export class BillItemComponent implements OnInit, OnDestroy {
   editmode: boolean;
   
   selected_bill: boolean;
-  erro: string;
   billname: string;
   billkey: string; 
   itemkey: string;
@@ -41,7 +40,7 @@ export class BillItemComponent implements OnInit, OnDestroy {
   sub: any;
 
   constructor(
-    private appService: AppService,
+    public appService: AppService,
     private billService: BillService,
     private router: Router,
     private route: ActivatedRoute,
@@ -50,6 +49,8 @@ export class BillItemComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() { 
+
+    this.appService.display_error('');
 
     let data = this.route.snapshot.paramMap.get('data');
     if (data && data == "edit" && this.billService.item != undefined) {
@@ -80,8 +81,8 @@ export class BillItemComponent implements OnInit, OnDestroy {
         }
 
         return bills
-        .sort(
-            (a,b) => a.payload.doc.data()["billname"].localeCompare(b.payload.doc.data()["billname"]))
+        //.sort(
+            //(a,b) => a.payload.doc.data()["billname"].localeCompare(b.payload.doc.data()["billname"]))
         .map(bill => {
             const data = bill.payload.doc.data();
             const id = bill.payload.doc.id;                
@@ -136,12 +137,12 @@ export class BillItemComponent implements OnInit, OnDestroy {
 
   onSelectBill(b): void {
 
-    this.selected_bill = true;
-    this.erro = '';
+    this.selected_bill = true;    
     this.billname = b.billname;
     this.billkey = b.id;
     this.title = b.billname;
     localStorage.setItem('lastBill', b.id);
+    this.appService.display_error('');    
    
     this.sub = this.appService.afs.collection('bills').doc(this.billkey)
     .snapshotChanges()
@@ -172,9 +173,9 @@ export class BillItemComponent implements OnInit, OnDestroy {
     console.log(this.place);
 
     if (this.members && this.members.length >= environment.limit_itens){
-        this.erro = this.appService.language.e18;     
+        this.appService.display_error(this.appService.language.e18);
     } else if (!this.payer || this.payer == "" || !this.dateForm || !this.description || this.description.trim() == '' || !this.value || Number(this.value) == NaN || !this.benefited || this.benefited.length == 0 || !this.place || this.place == "" || !this.type || this.type == "" || this.multiplier == "" || Number(this.multiplier) <= 0)  {
-        this.erro = this.appService.language.e14;
+        this.appService.display_error(this.appService.language.e14);
         navigator.vibrate([500]);
     } else {  
 
@@ -213,7 +214,7 @@ export class BillItemComponent implements OnInit, OnDestroy {
             }
         })
 
-        this.erro = '';
+        this.appService.display_error('');
         this.router.navigate(['/bill-detail/'+this.billkey+'/'+this.billname]);
 
         }   

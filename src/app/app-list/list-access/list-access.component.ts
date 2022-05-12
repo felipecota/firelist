@@ -17,7 +17,6 @@ export class ListAccessComponent implements OnInit, OnDestroy {
   members: any[];
   
   selected: boolean;
-  erro: string;
   listname: string;
   listkey: string;
   email: string;
@@ -28,10 +27,12 @@ export class ListAccessComponent implements OnInit, OnDestroy {
   title: string = this.appService.language["t5"];
   
   constructor(
-    private appService: AppService
+    public appService: AppService
   ) { }
 
   ngOnInit() {
+
+    this.appService.display_error('');
 
     this.lists = this.appService.afs.collection('lists', ref => ref.where('access.'+this.appService.user.email.replace(/\./g,'´'),'==',true))
     .snapshotChanges()
@@ -67,11 +68,11 @@ export class ListAccessComponent implements OnInit, OnDestroy {
 
   onSelectList(l): void {
     this.selected = true;
-    this.erro = '';
     this.listname = l.listname;
     this.listkey = l.id;
     this.title = l.listname;
     localStorage.setItem('lastList', l.id);
+    this.appService.display_error('');
     
     this.sub = this.appService.afs.collection('lists').doc(this.listkey)
     .snapshotChanges()
@@ -94,18 +95,17 @@ export class ListAccessComponent implements OnInit, OnDestroy {
     let email = this.email;
 
     if (this.members && this.members.length >= environment.limit_access)
-      this.erro = this.appService.language.e18;
+      this.appService.display_error(this.appService.language.e18);
     else if (!navigator.onLine)
-      this.erro = this.appService.language.e12;    
+      this.appService.display_error(this.appService.language.e12);
     else if (!email || email == '') {
-      this.erro = this.appService.language.e14;
-      navigator.vibrate([500]);
+      this.appService.display_error(this.appService.language.e14);
     } else {  
       this.appService.afs.collection('lists').doc(this.listkey).update({
           ['access.'+email.toLowerCase().replace(/\./g,'´')]: true
       });            
-          
-      this.erro = '';
+            
+      this.appService.display_error('');
       this.email = '';
     }
   }
@@ -113,14 +113,14 @@ export class ListAccessComponent implements OnInit, OnDestroy {
   onRemove(member): void {
 
     if (!navigator.onLine)
-      this.erro = this.appService.language.e12;
+      this.appService.display_error(this.appService.language.e12);
     else if (this.members.length > 1) {
       if (confirm(this.appService.language.m7))
         this.appService.afs.collection('lists').doc(this.listkey).update({
           ['access.'+member.email.replace(/\./g,'´')]: firestore.FieldValue.delete()
         });
     } else {
-      this.erro = this.appService.language.e10;      
+      this.appService.display_error(this.appService.language.e10);
     }
 
   }

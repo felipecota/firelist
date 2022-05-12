@@ -13,7 +13,6 @@ import { environment } from '../../../environments/environment';
 })
 export class ListFormComponent implements OnInit {
 
-    erro: string;
     listname: string;
     lists: Observable<any[]>;
     length: any = 0;
@@ -48,17 +47,12 @@ export class ListFormComponent implements OnInit {
         let listkey = d.getFullYear()+''+d.getMonth()+''+d.getDay()+''+d.getHours()+''+d.getMinutes()+''+d.getSeconds()+''+(Math.floor(Math.random() * (99999 - 10000 + 1)) + 10000);
         let listname = this.listname;
         this.listname = '';
-        this.erro = '';
+        this.appService.display_error('');
 
         if (this.length >= environment.limit_list) {
-
-            this.erro = this.appService.language.e18;        
-        
+            this.appService.display_error(this.appService.language.e18);        
         } else if (!listname || listname == '')  {
-
-            this.erro = this.appService.language.e6;
-            navigator.vibrate([500]);
-
+            this.appService.display_error(this.appService.language.e6);
         } else {
 
             this.appService.afs.collection('lists').doc(listkey).set({
@@ -75,17 +69,16 @@ export class ListFormComponent implements OnInit {
         if (!items || Object.keys(items).length == 0)
             this.appService.afs.collection('lists').doc(id).delete();
         else
-            this.erro = this.appService.language.e7;
+            this.appService.display_error(this.appService.language.e7);
 
     }   
 
     fileChange(event) {
       
         if (!this.listname || this.listname == '') {
-            this.erro = this.appService.language.e6;
-            navigator.vibrate([500]);
+            this.appService.display_error(this.appService.language.e6);
         } else {        
-            this.erro = '';
+            this.appService.display_error('');
             let fileList: FileList = event.target.files;
             if ( fileList.length > 0 ) {
                 let reader = new FileReader();
@@ -117,7 +110,7 @@ export class ListFormComponent implements OnInit {
                         this.listname = "";
 
                      } else {
-                        this.erro = this.appService.language.e19;
+                        this.appService.display_error(this.appService.language.e19);
                     }
                 }
                 reader.readAsText(fileList[0]);      

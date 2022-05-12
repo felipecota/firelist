@@ -69,8 +69,8 @@
             </option>      
         </select>
     </div>
-    <div *ngIf="erro" class="alert alert-danger">
-            {{erro}}
+    <div *ngIf="this.appService.erro" class="alert alert-danger">
+            {{this.appService.erro}}
         </div>    
     <button [disabled]="!selected_bill" (click)="Include()" class="btn btn-primary" type="button">
         <span class="glyphicon glyphicon-floppy-disk"></span> {{ (editmode ? 't39' : 't3') | translate}}

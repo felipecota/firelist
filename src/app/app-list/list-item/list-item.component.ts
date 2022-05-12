@@ -15,7 +15,6 @@ import { environment } from '../../../environments/environment';
 
 export class ListItemComponent implements OnInit {
 
-    erro: string;   
     len: number = 0;
     lists: Observable<any[]>;
     items: any[];
@@ -30,7 +29,7 @@ export class ListItemComponent implements OnInit {
     title: string = this.appService.language["t5"];
 
     constructor(
-        private appService: AppService, 
+        public appService: AppService, 
         private listService: ListService,
         private router: Router,
         private route: ActivatedRoute,
@@ -73,12 +72,12 @@ export class ListItemComponent implements OnInit {
             })
         ); 
 
-        this.erro = this.appService.language.m1;
+        this.appService.display_error(this.appService.language.m1);
     }
 
     onSelect(l): void {
         this.selected = true;
-        this.erro = '';
+        this.appService.display_error('');
         this.listname = l.listname;
         this.listkey = l.id;
         this.title = l.listname;
@@ -91,14 +90,9 @@ export class ListItemComponent implements OnInit {
         let amount = this.amount;
 
         if (this.items && this.items.length >= environment.limit_itens) {            
-
-            this.erro = this.appService.language.e18;        
-            
-        } else if (!itemname || itemname.trim() == '' || !amount || amount.trim() == '')  {
-            
-            this.erro = this.appService.language.e1;
-            navigator.vibrate([500]);
-
+            this.appService.display_error(this.appService.language.e18);            
+        } else if (!itemname || itemname.trim() == '' || !amount || amount.trim() == '')  {            
+            this.appService.display_error(this.appService.language.e1);
         } else {  
             
             this.itemname = '';
@@ -114,9 +108,8 @@ export class ListItemComponent implements OnInit {
                 }
             })
 
-            this.erro = '';
+            this.appService.display_error('');
             this.router.navigate(['/list-detail']);                            
-
         }   
     }
 

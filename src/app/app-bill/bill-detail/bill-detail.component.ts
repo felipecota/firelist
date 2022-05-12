@@ -21,7 +21,6 @@ export class BillDetailComponent implements OnInit, OnDestroy {
     items: Observable<any[]>;
     members: Observable<any[]>;
     resumo: Observable<any[]>;
-    erro: string;
     billname: string;
     billkey: string;
     billselected: boolean = false;
@@ -66,8 +65,8 @@ export class BillDetailComponent implements OnInit, OnDestroy {
             }
 
             return bills
-            .sort(
-                (a,b) => a.payload.doc.data()["billname"].localeCompare(b.payload.doc.data()["billname"]))
+            //.sort(
+                //(a,b) => a.payload.doc.data()["billname"].localeCompare(b.payload.doc.data()["billname"]))
             .map(bill => {                
                 const data = bill.payload.doc.data();
                 const id = bill.payload.doc.id;                
@@ -97,9 +96,10 @@ export class BillDetailComponent implements OnInit, OnDestroy {
             let items = [];
             let members = [];
             let resumo = [];
+            let total = 0;
 
             if (!bill.payload.exists || !bill.payload.data()["items"] || Object.keys(bill.payload.data()["items"]).length == 0) {                
-                this.erro = this.appService.language.m5;            
+                this.appService.display_error(this.appService.language.m5);
             } else {  
 
                 for (let key in bill.payload.data()["access"]) {
@@ -148,11 +148,13 @@ export class BillDetailComponent implements OnInit, OnDestroy {
                             };
                             if (sp || my) {                               
                                 let valuepp = (data["items"][key].value*(data["items"][key].multiplier != undefined?data["items"][key].multiplier:1))/data["items"][key].benefited.length;                                
+                                total += valuepp;
                                 let existe = false;
                                 for (let v in resumo) {
                                     if (resumo[v].type == data["items"][key].type)
                                     {
                                         resumo[v].value = resumo[v].value + valuepp;
+                                        resumo[v].order = 1 - resumo[v].value;
                                         existe = true;
                                     }
                                 }
@@ -160,7 +162,8 @@ export class BillDetailComponent implements OnInit, OnDestroy {
                                     resumo.push(
                                         {
                                             type: data["items"][key].type,
-                                            value: valuepp
+                                            value: valuepp,
+                                            order: 1 - valuepp
                                         }
                                     );
                                 }
@@ -184,13 +187,21 @@ export class BillDetailComponent implements OnInit, OnDestroy {
                         });
                 };
             };
+
+            resumo.push(
+                {
+                    type: "t47",
+                    value: total,
+                    order: total
+                }
+            );            
             
             this.lenI = items.length;
             this.lenM = members.length;
             this.lenR = resumo.length;            
 
             this.members = of(members.sort((a,b) => { return a.value-b.value }));
-            this.resumo = of(resumo.sort((a,b) => { return b.value-a.value }));            
+            this.resumo = of(resumo.sort((a,b) => { return a.order-b.order }));          
            
             this.items = of(items.sort((a,b) => { 
                 if (a.date < b.date) {

@@ -20,6 +20,6 @@
     </li>
 </ul>  
 <br>   
-<div *ngIf="erro" class="alert alert-danger">
-        {{erro}}
+<div *ngIf="this.appService.erro" class="alert alert-danger">
+        {{this.appService.erro}}
 </div>

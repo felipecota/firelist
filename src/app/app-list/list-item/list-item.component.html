@@ -22,8 +22,8 @@
     </button>       
     <br><br>
 </div>    
-<div *ngIf="erro && len > 0" class="alert alert-danger">
-    {{erro}}
+<div *ngIf="this.appService.erro && len > 0" class="alert alert-danger">
+    {{this.appService.erro}}
 </div>
 <div *ngIf="len == 0" class="alert alert-danger">
     {{'m4' | translate}}

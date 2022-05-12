@@ -17,7 +17,6 @@ export class BillAccessComponent implements OnInit, OnDestroy {
   members: any[];
   
   selected: boolean;
-  erro: string;
   billname: string;
   billkey: string;
   email: string;
@@ -28,10 +27,12 @@ export class BillAccessComponent implements OnInit, OnDestroy {
   title: string = this.appService.language["t14"];
   
   constructor(
-    private appService: AppService
+    public appService: AppService
   ) { }
 
   ngOnInit() {
+
+    this.appService.display_error('');
 
     this.bills = this.appService.afs.collection('bills', ref => ref.where('access.'+this.appService.user.email.replace(/\./g,'´'),'==',true))
     .snapshotChanges()
@@ -49,8 +50,8 @@ export class BillAccessComponent implements OnInit, OnDestroy {
         }
 
         return bills
-        .sort(
-            (a,b) => a.payload.doc.data()["billname"].localeCompare(b.payload.doc.data()["billname"]))
+        //.sort(
+            //(a,b) => a.payload.doc.data()["billname"].localeCompare(b.payload.doc.data()["billname"]))
         .map(bill => {
             const data = bill.payload.doc.data();
             const id = bill.payload.doc.id;
@@ -67,11 +68,11 @@ export class BillAccessComponent implements OnInit, OnDestroy {
 
   onSelectBill(b): void {
     this.selected = true;
-    this.erro = '';
     this.billname = b.billname;
     this.billkey = b.id;
     this.title = b.billname;
     localStorage.setItem('lastBill', b.id);
+    this.appService.display_error('');
    
     this.sub = this.appService.afs.collection('bills').doc(this.billkey)
     .snapshotChanges()
@@ -98,29 +99,29 @@ export class BillAccessComponent implements OnInit, OnDestroy {
     let email = this.email;
 
     if (this.members && this.members.length >= environment.limit_access)
-      this.erro = this.appService.language.e18;
+      this.appService.display_error(this.appService.language.e18);
     else if (!navigator.onLine)
-      this.erro = this.appService.language.e12;    
+      this.appService.display_error(this.appService.language.e12);
     else if (!email || email == '') {
-      this.erro = this.appService.language.e14;
+      this.appService.display_error(this.appService.language.e14);
       navigator.vibrate([500]);
     } else {  
       this.appService.afs.collection('bills').doc(this.billkey).update({
           ['access.'+email.toLowerCase().replace(/\./g,'´')]: true
       });            
           
-      this.erro = '';
+      this.appService.display_error('');
       this.email = '';
     }
   }
 
   onRemove(member): void {
 
-    if (!navigator.onLine)
-      this.erro = this.appService.language.e12;
-    else if (this.members.length <= 1)
-      this.erro = this.appService.language.e10;      
-    else {
+    if (!navigator.onLine) {
+      this.appService.display_error(this.appService.language.e12);
+    } else if (this.members.length <= 1) {    
+      this.appService.display_error(this.appService.language.e10);      
+    } else {
 
       let sub = this.appService.afs.collection('bills').doc(this.billkey)
       .snapshotChanges()
@@ -144,7 +145,7 @@ export class BillAccessComponent implements OnInit, OnDestroy {
               });          
             }
           } else {
-            this.erro = this.appService.language.e7;
+            this.appService.display_error(this.appService.language.e7);           
           }
       });
 

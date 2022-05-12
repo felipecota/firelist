@@ -6,32 +6,51 @@
   margin-right: 4px;
 }
 
-.table thead th {
+.members thead th {
   border: 0px;
 }
 
-.members tbody tr {
+.members tbody tr:not(:last-child) {
   border-bottom: solid 1px #ddd;
 }
 
-.table tbody tr:first-child td:first-child {
+.members tbody tr:first-child td:first-child {
   border: 0px;
   border-radius: 4px 0px 0px 0px;
 }
 
-.table tbody tr:first-child td:last-child {
+.members tbody tr:first-child td:last-child {
   border: 0px;
   border-radius: 0px 4px 0px 0px;
 }
 
-.table tbody tr:last-child td:last-child {
+.members tbody tr:last-child td:last-child {
   border: 0px;
   border-radius: 0px 0px 4px 0px;
 }
 
-.table tbody tr:last-child td:first-child {
+.members tbody tr:last-child td:first-child {
   border: 0px;
   border-radius: 0px 0px 0px 4px;
+}
+
+.resumo {
+  background-color: #ffffff;
+  border-radius: 4px;
+  border: 1px solid #dddddd;
+  padding: 15px;
+}
+
+.resumo tr {
+  border: 0px;
+}
+
+.resumo tbody tr:first-child {
+  border: 0px;
+}
+
+.resumo tbody tr:last-child {
+  border-top: solid 1px #ddd;
 }
 
 .danger td {
@@ -43,7 +62,6 @@
 }
 
 .resumo td {
-  /*background-color: #f1f1f1;*/
   border: 0px;
 }
 

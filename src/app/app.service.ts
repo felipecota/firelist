@@ -17,6 +17,7 @@ export class AppService {
     isEmailVerified: boolean;
     user: any;
     language: any;
+    erro: string;
 
     lists: any[] = ['list-detail','list-form','list-access','list-item'];
     bills: any[] = ['bill-detail','bill-form','bill-access','bill-item'];
@@ -76,5 +77,12 @@ export class AppService {
         localStorage.setItem('lang', lang);        
         this.language = languages.find(element => { return element.name == lang});
     }
-    
+  
+    display_error(msg) {
+        this.erro = msg;
+        navigator.vibrate([500]);
+        setTimeout(() => {
+            window.scrollTo(0, document.body.scrollHeight);                 
+        }, 100);         
+    }
 }
