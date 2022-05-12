@@ -71,8 +71,6 @@ export class ListItemComponent implements OnInit {
                 })
             })
         ); 
-
-        this.appService.display_error(this.appService.language.m1);
     }
 
     onSelect(l): void {
