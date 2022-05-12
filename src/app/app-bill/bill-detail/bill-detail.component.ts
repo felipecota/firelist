@@ -146,7 +146,7 @@ export class BillDetailComponent implements OnInit, OnDestroy {
                                     };
                                 });
                             };
-                            if (sp || my) {                               
+                            if ((sp || my) && data["items"][key].type != "t45") {                               
                                 let valuepp = (data["items"][key].value*(data["items"][key].multiplier != undefined?data["items"][key].multiplier:1))/data["items"][key].benefited.length;                                
                                 total += valuepp;
                                 let existe = false;
