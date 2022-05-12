@@ -10,7 +10,7 @@
   border: 0px;
 }
 
-.table tbody tr {
+.members tbody tr {
   border-bottom: solid 1px #ddd;
 }
 
@@ -40,6 +40,11 @@
 
 .success td {
   background-color: #acf39b;  
+}
+
+.resumo td {
+  /*background-color: #f1f1f1;*/
+  border: 0px;
 }
 
 .info td {

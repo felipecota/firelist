@@ -20,6 +20,7 @@ export class BillDetailComponent implements OnInit, OnDestroy {
     bills: Observable<any[]>; 
     items: Observable<any[]>;
     members: Observable<any[]>;
+    resumo: Observable<any[]>;
     erro: string;
     billname: string;
     billkey: string;
@@ -27,6 +28,7 @@ export class BillDetailComponent implements OnInit, OnDestroy {
     len: number = 0;
     lenI: number = 0;
     lenM: number = 0;
+    lenR: number = 0;    
 
     sub: any;
 
@@ -94,6 +96,7 @@ export class BillDetailComponent implements OnInit, OnDestroy {
 
             let items = [];
             let members = [];
+            let resumo = [];
 
             if (!bill.payload.exists || !bill.payload.data()["items"] || Object.keys(bill.payload.data()["items"]).length == 0) {                
                 this.erro = this.appService.language.m5;            
@@ -103,20 +106,27 @@ export class BillDetailComponent implements OnInit, OnDestroy {
                     if (key.replace(/´/g,'.') != this.appService.user.email) {
                         let format = key.replace(/´/g,'.').split("@");
                         if (format[0].length > 20)
-                            format[0] = format[0].substr(0,7)+"..."+format[0].substr(format[0].length-7,7);
+                            format[0] = format[0].substring(0,7)+"..."+format[0].substring(format[0].length-7,7);
                         members.push({
                             email: key.replace(/´/g,'.'),
                             emailf: format[0]+"@"+format[1],
                             value: 0
                         });
                     }
-                }  
+                }               
                                     
                 let data = bill.payload.data();
                 for (let key in data["items"]) {                  
                     
                     // Only show bills that's from my interest
                     let show = false;
+
+                    /*
+                    sn = I payed to someone else
+                    sp = Someone payed to me
+                    ow = I'm the owner
+                    my = I payed for myself
+                    */
 
                     data["items"][key].benefited.forEach(b => {
                         let sn = data["items"][key].payer == this.appService.user.email && b != this.appService.user.email;
@@ -135,10 +145,29 @@ export class BillDetailComponent implements OnInit, OnDestroy {
                                             member.value-=valuepp;
                                     };
                                 });
-                            }
+                            };
+                            if (sp || my) {                               
+                                let valuepp = (data["items"][key].value*(data["items"][key].multiplier != undefined?data["items"][key].multiplier:1))/data["items"][key].benefited.length;                                
+                                let existe = false;
+                                for (let v in resumo) {
+                                    if (resumo[v].type == data["items"][key].type)
+                                    {
+                                        resumo[v].value = resumo[v].value + valuepp;
+                                        existe = true;
+                                    }
+                                }
+                                if (!existe) {
+                                    resumo.push(
+                                        {
+                                            type: data["items"][key].type,
+                                            value: valuepp
+                                        }
+                                    );
+                                }
+                            };
                         };
                     });
-                    
+                  
                     if (show) 
                         items.push({
                             benefited: data["items"][key].benefited,
@@ -158,9 +187,11 @@ export class BillDetailComponent implements OnInit, OnDestroy {
             
             this.lenI = items.length;
             this.lenM = members.length;
+            this.lenR = resumo.length;            
 
-            this.members = of(members.sort((a,b) => { return a.value-b.value }));                        
-            
+            this.members = of(members.sort((a,b) => { return a.value-b.value }));
+            this.resumo = of(resumo.sort((a,b) => { return b.value-a.value }));            
+           
             this.items = of(items.sort((a,b) => { 
                 if (a.date < b.date) {
                     return 1;
