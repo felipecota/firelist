@@ -53,6 +53,10 @@
   border-top: solid 1px #ddd;
 }
 
+.resumo table {
+  margin: 0px;
+}
+
 .danger td {
   background-color: #ff8181;  
 }
