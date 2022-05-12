@@ -80,9 +80,11 @@ export class AppService {
   
     display_error(msg) {
         this.erro = msg;
-        navigator.vibrate([500]);
-        setTimeout(() => {
-            window.scrollTo(0, document.body.scrollHeight);                 
-        }, 100);         
+        if (msg != ""){
+            navigator.vibrate([500]);
+            setTimeout(() => {
+                window.scrollTo(0, document.body.scrollHeight);                 
+            }, 100);       
+        }  
     }
 }
