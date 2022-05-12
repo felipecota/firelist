@@ -65,6 +65,7 @@ export class BillDetailComponent implements OnInit, OnDestroy {
             }
 
             return bills
+            .reverse()
             //.sort(
                 //(a,b) => a.payload.doc.data()["billname"].localeCompare(b.payload.doc.data()["billname"]))
             .map(bill => {                

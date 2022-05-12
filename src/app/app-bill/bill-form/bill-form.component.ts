@@ -32,6 +32,7 @@ export class BillFormComponent implements OnInit {
             map(bills => {
                 this.length = bills.length;
                 return bills
+                .reverse()
                 //.sort(
                     //(a,b) => a.payload.doc.data()["billname"].localeCompare(b.payload.doc.data()["billname"]))
                 .map(bill => {
