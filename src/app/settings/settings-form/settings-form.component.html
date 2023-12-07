@@ -5,5 +5,12 @@
         {{l.description}}<img class="flag" src="assets/images/{{l.flag}}"> 
     </li>
 </ul>
-<br>
+<div style="margin-bottom: 15px;">
+    <a href="javascript:void(0)" (click)="RemoveAccount()">
+        {{'e22' | translate}}
+    </a>
+</div>
+<div *ngIf="this.appService.erro" class="alert alert-danger" style="margin-bottom: 15px;">
+    {{this.appService.erro}}
+</div> 
 {{'t44' | translate}}: {{version}}

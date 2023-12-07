@@ -29,6 +29,7 @@ export const languages =
         e19: 'Arquivo com formato incorreto',
         e20: 'E-mail de verificação enviado! Confirme seu e-mail.',
         e21: 'Usuário não cadastrado! Cadastre-se!',
+        e22: 'Remover minha conta',
         t1: 'Nome',
         t2: 'Quantidade',
         t3: 'Incluir',
@@ -85,7 +86,8 @@ export const languages =
         m7: 'Confirma exclusão?',
         m8: 'Somente o responsável pode excluir!',
         m9: 'Somente o responsável pode alterar!',
-        m10: 'Para começar, inclua uma conta.'
+        m10: 'Para começar, inclua uma conta.',
+        m11: 'Para remover sua conta é necessário efetuar novo login.'
     }, 
     {
         name: "en",
@@ -112,6 +114,7 @@ export const languages =
         e19: 'File not in correct format',
         e20: 'Confirmation e-mail sent! Check your e-mail.',
         e21: 'User not registered! Sign up!',
+        e22: 'Delete my account',
         t1: 'Name',
         t2: 'Amount',
         t3: 'Include',
@@ -168,7 +171,8 @@ export const languages =
         m7: 'Are you sure to delete?',
         m8: 'Only the owner is alowed to remove.',
         m9: 'Only the owner is alowed to edit.',
-        m10: 'Add an expense to begin.'
+        m10: 'Add an expense to begin.',
+        m11: 'To remove your account, you must log in again.'
     },
     {
         name: "fr",
@@ -195,6 +199,7 @@ export const languages =
         e19: 'Le fichier n\'est pas au format correct',
         e20: 'Mail de confirmation envoyé! Vérifiez votre courrier électronique.',
         e21: 'Utilisateur non enregistré! Inscrivez-vous!',
+        e22: 'Supprimer mon compte',
         t1: 'Nom',
         t2: 'Quantité',
         t3: 'Ajouter',
@@ -251,7 +256,8 @@ export const languages =
         m7: 'Vous confirmez la suppression?',
         m8: 'Seulement le responsable peut supprimer.',
         m9: 'Seulement le responsable peut modifier.',
-        m10: 'Pour commencer, ajoutez un compte.'        
+        m10: 'Pour commencer, ajoutez un compte.'        ,
+        m11: 'Pour supprimer votre compte, vous devez vous reconnecter.'
     }
 
 ]
