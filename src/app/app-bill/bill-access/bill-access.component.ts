@@ -101,8 +101,6 @@ export class BillAccessComponent implements OnInit, OnDestroy {
 
     if (this.members && this.members.length >= environment.limit_access)
       this.appService.display_error(this.appService.language.e18);
-    else if (!navigator.onLine)
-      this.appService.display_error(this.appService.language.e12);
     else if (!email || email == '') {
       this.appService.display_error(this.appService.language.e14);
       navigator.vibrate([500]);
@@ -118,9 +116,7 @@ export class BillAccessComponent implements OnInit, OnDestroy {
 
   onRemove(member): void {
 
-    if (!navigator.onLine) {
-      this.appService.display_error(this.appService.language.e12);
-    } else if (this.members.length <= 1) {    
+    if (this.members.length <= 1) {    
       this.appService.display_error(this.appService.language.e10);      
     } else {
 

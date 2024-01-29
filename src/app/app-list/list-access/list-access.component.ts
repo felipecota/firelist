@@ -112,9 +112,7 @@ export class ListAccessComponent implements OnInit, OnDestroy {
 
   onRemove(member): void {
 
-    if (!navigator.onLine)
-      this.appService.display_error(this.appService.language.e12);
-    else if (this.members.length > 1) {
+    if (this.members.length > 1) {
       if (confirm(this.appService.language.m7))
         this.appService.afs.collection('lists').doc(this.listkey).update({
           ['access.'+member.email.replace(/\./g,'´')]: firestore.FieldValue.delete()
