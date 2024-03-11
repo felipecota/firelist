@@ -23,6 +23,7 @@ export class AppComponent {
 
   logout() {
     this.afAuth.auth.signOut();
+    this.router.navigate(['/login']);
   }
 
   menu() {

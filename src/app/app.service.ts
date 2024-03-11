@@ -58,7 +58,6 @@ export class AppService {
             } else {                 
                 this.user = undefined;
                 this.isSignin = false; 
-                this.ngZone.run(() => this.router.navigate(["/login"]));
             } 
         });
             

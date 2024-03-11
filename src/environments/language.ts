@@ -87,7 +87,8 @@ export const languages =
         m8: 'Somente o responsável pode excluir!',
         m9: 'Somente o responsável pode alterar!',
         m10: 'Para começar, inclua uma conta.',
-        m11: 'Para remover sua conta é necessário efetuar novo login.'
+        m11: 'Para remover sua conta é necessário efetuar novo login.',
+        m12: 'Requisitar senha para remover minha conta'
     }, 
     {
         name: "en",
@@ -172,7 +173,8 @@ export const languages =
         m8: 'Only the owner is alowed to remove.',
         m9: 'Only the owner is alowed to edit.',
         m10: 'Add an expense to begin.',
-        m11: 'To remove your account, you must log in again.'
+        m11: 'To remove your account, you must log in again.',
+        m12: 'Request password to delete my account'
     },
     {
         name: "fr",
@@ -181,18 +183,18 @@ export const languages =
         e1: 'Entrez l\'article et la quantité',
         e2: 'Maximum de ' + config.max + ' articles',
         e3: 'Entrez le e-mail e le mot de passe',
-        e4: 'L’e-mail ou le mot de passe est incorrect',
+        e4: 'L\'e-mail ou le mot de passe est incorrect',
         e5: 'Le mot de passe est trop court',
         e6: 'Entrez un nom pour la liste',
-        e7: 'Supprimez l\'articles d’abord',
+        e7: 'Supprimez l\'articles d\'abord',
         e8: '',
-        e9: 'L’accès existe déjà',
+        e9: 'L\'accès existe déjà',
         e10: 'Au moins 1 propriétaire est obligatoire',
         e11: 'La liste doit être vide',
         e12: ' Veuillez vérifier votre connexion réseau et réessayer',
-        e13: 'L’e-mail est incorrect',
+        e13: 'L\'e-mail est incorrect',
         e14: 'Tous les champs sont obligatoires',
-        e15: 'Supprimez l’accès d’abord',
+        e15: 'Supprimez l\'accès d\'abord',
         e16: 'Compte enregistré. Entrez le mot de passe et cliquez sur Me connecter.',
         e17: 'La compte $input$ est déjà enregistré! Connectez-vous pour associer les comptes.',
         e18: 'Impossible d\'ajouter. La limite a été atteinte.',
@@ -257,7 +259,8 @@ export const languages =
         m8: 'Seulement le responsable peut supprimer.',
         m9: 'Seulement le responsable peut modifier.',
         m10: 'Pour commencer, ajoutez un compte.'        ,
-        m11: 'Pour supprimer votre compte, vous devez vous reconnecter.'
+        m11: 'Pour supprimer votre compte, vous devez vous reconnecter.',
+        m12: 'Demander un mot de passe pour supprimer mon compte'
     }
 
 ]

@@ -9,6 +9,7 @@ import { Injectable } from '@angular/core';
 import { MenuComponent } from './menu.component';
 
 import { SettingsFormComponent } from './settings/settings-form/settings-form.component';
+import { DeleteFormComponent } from './settings/delete-form/delete-form.component';
 
 import { LoginFormComponent } from './login/login-form/login-form.component';
 import { ListDetailComponent } from './app-list/list-detail/list-detail.component';
@@ -45,6 +46,7 @@ export class AuthGuard implements CanActivate {
 const APP_ROUTES: Routes = [
     { path: '', redirectTo: '/menu', pathMatch: 'full' },
     { path: 'login', component: LoginFormComponent },
+    { path: 'delete', component: DeleteFormComponent },
     { path: 'menu', component: MenuComponent, canActivate:[AuthGuard] },
     { path: 'settings', component: SettingsFormComponent, canActivate:[AuthGuard] },
     { path: 'list-detail', component: ListDetailComponent, canActivate:[AuthGuard] },

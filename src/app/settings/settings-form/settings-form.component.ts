@@ -1,4 +1,4 @@
-import { Component, OnInit, Version } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AppService } from '../../app.service'
 import { languages } from '../../../environments/language';
 import { version } from '../../../../package.json';

@@ -1,0 +1,9 @@
+<div class="form-group">
+  <label for="email">Email:</label>
+  <input id="email" type="text" class="form-control email" required [(ngModel)]="email" name="email" placeholder="Email" (keypress)="this.erro='';">
+</div>
+<button class="btn btn-primary" (click)="forgot()" type="button">{{'m12' | translate}}</button>
+<br><br>
+<div *ngIf="erro" class="alert alert-danger">
+    {{erro}}
+</div>
