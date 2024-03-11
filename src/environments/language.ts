@@ -88,7 +88,7 @@ export const languages =
         m9: 'Somente o responsável pode alterar!',
         m10: 'Para começar, inclua uma conta.',
         m11: 'Para remover sua conta é necessário efetuar novo login.',
-        m12: 'Requisitar senha para remover minha conta'
+        m12: 'Requisitar remoção da minha conta'
     }, 
     {
         name: "en",
@@ -174,7 +174,7 @@ export const languages =
         m9: 'Only the owner is alowed to edit.',
         m10: 'Add an expense to begin.',
         m11: 'To remove your account, you must log in again.',
-        m12: 'Request password to delete my account'
+        m12: 'Request to delete my account'
     },
     {
         name: "fr",
@@ -260,7 +260,7 @@ export const languages =
         m9: 'Seulement le responsable peut modifier.',
         m10: 'Pour commencer, ajoutez un compte.'        ,
         m11: 'Pour supprimer votre compte, vous devez vous reconnecter.',
-        m12: 'Demander un mot de passe pour supprimer mon compte'
+        m12: 'demande de suppression de mon compte'
     }
 
 ]
