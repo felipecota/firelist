@@ -66,10 +66,12 @@ export class AppService {
     login(user){
         this.user = user;
         this.isSignin = true;  
-        let lastroute = localStorage.getItem('lastroute');
-        if (lastroute == "/login" || lastroute == undefined)                
-            lastroute = "/menu";
-        this.ngZone.run(() => this.router.navigate([lastroute]))        
+        if (this.router.url != "/delete") {
+            let lastroute = localStorage.getItem('lastroute');        
+            if (lastroute == "/login" || lastroute == undefined)
+                lastroute = "/menu";
+            this.ngZone.run(() => this.router.navigate([lastroute]));
+        }
     }
 
     language_set(lang) {

@@ -1,9 +1,8 @@
-<div class="form-group">
-  <label for="email">Email:</label>
-  <input id="email" type="text" class="form-control email" required [(ngModel)]="email" name="email" placeholder="Email" (keypress)="this.erro='';">
-</div>
-<button class="btn btn-primary" (click)="forgot()" type="button">{{'m12' | translate}}</button>
-<br><br>
-<div *ngIf="erro" class="alert alert-danger">
-    {{erro}}
-</div>
+<strong>Steps to delete your account on Firelist App</strong>
+<ol>
+  <li>Sign-in using your e-mail and password.</li>
+  <li>Access the settings item located in the root menu.</li>
+  <li>Click at "delete my account" to delete all your data.</li>
+</ol>
+<br>
+<button type="button" [routerLink]="['/login']" class="btn btn-primary" >{{'t7' | translate}}</button>

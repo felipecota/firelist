@@ -6,11 +6,14 @@ import { SettingsFormComponent } from './settings-form/settings-form.component';
 import { TranslatePipeModule } from '../translate.module';
 import { DeleteFormComponent } from './delete-form/delete-form.component'
 
+import { AppRoutingModule } from '../app.routing.module';
+
 @NgModule({
   imports: [
     FormsModule,
     CommonModule,    
-    TranslatePipeModule
+    TranslatePipeModule,
+    AppRoutingModule
   ],
   declarations: [SettingsFormComponent, DeleteFormComponent]
 })
