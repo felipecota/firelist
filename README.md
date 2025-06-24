@@ -32,3 +32,8 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 ## Build
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+
+## Github
+
+git remote set-url origin https://yourusername:your_github_token@github.com/yourusername/yourrepository.git
+git push
