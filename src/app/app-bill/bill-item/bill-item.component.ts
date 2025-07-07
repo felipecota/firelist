@@ -216,7 +216,7 @@ export class BillItemComponent implements OnInit, OnDestroy {
         })
 
         this.appService.display_error('');
-        this.router.navigate(['/bill-detail/'+this.billkey+'/'+this.billname]);
+        this.router.navigate(['/bill-detail/'+this.billkey+'/'+encodeURIComponent(this.billname)]);
 
         }   
     }  
