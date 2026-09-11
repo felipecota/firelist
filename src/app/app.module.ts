@@ -62,7 +62,7 @@ export class MyHammerConfig extends HammerGestureConfig  {
     AngularFireModule.initializeApp(environment.firebase),    
     AngularFireDatabaseModule,
     AngularFireAuthModule,
-    AngularFirestoreModule,
+    AngularFirestoreModule.enablePersistence({synchronizeTabs:true}),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
