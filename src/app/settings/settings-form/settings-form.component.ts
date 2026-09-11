@@ -26,12 +26,15 @@ export class SettingsFormComponent implements OnInit {
     this.appService.language_set(lang);
   } 
 
-  RemoveAccount() {    
-    if (confirm(this.appService.language.m7)){
-      const user = this.appService.afAuth.auth.currentUser; 
-      user.delete().then(() => {                
-      }).catch((error) => {
-        this.appService.display_error(this.appService.language.m11);
+  RemoveAccount() {
+    if (confirm(this.appService.language.m7)) {
+      this.appService.afAuth.currentUser.then(user => {
+        if (user) {
+          user.delete().then(() => {
+          }).catch((error) => {
+            this.appService.display_error(this.appService.language.m11);
+          });
+        }
       });
     }
   }

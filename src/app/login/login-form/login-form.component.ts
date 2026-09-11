@@ -11,7 +11,7 @@ export class LoginFormComponent implements OnInit {
 
   isLoggingIn = true;
   erro: string;
-  email: string; 
+  email: string;
   password: string;
   pendingCred: any;
   pendingMail: string;
@@ -27,7 +27,7 @@ export class LoginFormComponent implements OnInit {
   toggleDisplay() {
     this.isLoggingIn = !this.isLoggingIn;
     this.erro = '';
-  }  
+  }
 
   loginWithFacebook() {
     this.loginSocial(new auth.OAuthProvider('facebook.com'));
@@ -35,45 +35,48 @@ export class LoginFormComponent implements OnInit {
 
   loginWithGithub() {
     this.loginSocial(new auth.OAuthProvider('github.com'));
-  }   
+  }
 
   loginWithGoogle() {
     this.loginSocial(new auth.OAuthProvider('google.com'));
-  }  
+  }
 
   loginWithYahoo() {
     this.loginSocial(new auth.OAuthProvider('yahoo.com'));
-  }     
+  }
 
   loginWithMicrosoft() {
     this.loginSocial(new auth.OAuthProvider('microsoft.com'));
-  }   
+  }
 
   loginWithTwitter() {
     this.loginSocial(new auth.OAuthProvider('twitter.com'));
-  }     
+  }
 
   loginSocial(provider) {
-    this.appService.afAuth.auth.signInWithPopup(provider).then(result => {
-      if (this.pendingMail == this.appService.afAuth.auth.currentUser.email)
-        this.appService.afAuth.auth.currentUser.linkWithCredential(this.pendingCred);
+    this.appService.afAuth.signInWithPopup(provider).then(result => {
+      const user = result.user;
+
+      if (user && this.pendingMail == user.email) {
+        return user.linkWithCredential(this.pendingCred);
+      }
     })
-    .catch(error => {      
+    .catch(error => {
       if (error.code === 'auth/account-exists-with-different-credential') {
         this.pendingCred = error.credential;
-        this.pendingMail = error.email;          
+        this.pendingMail = error.email;
+
         // Get registered providers for this email.
-        this.appService.afAuth.auth.fetchSignInMethodsForEmail(this.pendingMail).then(providers => {
+        this.appService.afAuth.fetchSignInMethodsForEmail(this.pendingMail).then(providers => {
           if (providers[0] == "password" && providers.length == 1) {
             this.ngZone.run(() => {
               this.email = error.email;
               this.erro = this.appService.language.e16;
-            });            
-          } 
-          else
-          {      
+            });
+          }
+          else {
             this.ngZone.run(() => {
-              this.erro = this.appService.language.e17.replace('$input$',providers[0].replace('.com',''));
+              this.erro = this.appService.language.e17.replace('$input$', providers[0].replace('.com', ''));
             });
           }
         });
@@ -85,23 +88,29 @@ export class LoginFormComponent implements OnInit {
 
   login() {
 
-    if (!this.email || !this.password)  {
+    if (!this.email || !this.password) {
       this.erro = this.appService.language.e3;
-      navigator.vibrate([500]);    
-    } else if (this.isLoggingIn)
-      this.appService.afAuth.auth.signInWithEmailAndPassword(
+      navigator.vibrate([500]);
+    } else if (this.isLoggingIn) {
+      this.appService.afAuth.signInWithEmailAndPassword(
         this.email.trim(), this.password)
-        .then(user => { 
-          if (this.pendingMail == this.email.trim()) {
-            this.appService.afAuth.auth.currentUser.linkWithCredential(this.pendingCred);
+        .then(result => {
+          const user = result.user;
+
+          if (user && this.pendingMail == this.email.trim()) {
+            return user.linkWithCredential(this.pendingCred).then(() => user);
           }
-          if (!this.appService.isEmailVerified && this.appService.afAuth.auth.currentUser.emailVerified) {
-            this.appService.login(this.appService.afAuth.auth.currentUser);
+
+          return user;
+        })
+        .then(user => {
+          if (user && !this.appService.isEmailVerified && user.emailVerified) {
+            this.appService.login(user);
           }
         })
         .catch(error => {
-          if (error.code == "auth/user-not-found") {            
-            this.toggleDisplay();            
+          if (error.code == "auth/user-not-found") {
+            this.toggleDisplay();
             this.erro = this.appService.language.e21;
           }
           else if (error.code == "auth/wrong-password")
@@ -109,9 +118,9 @@ export class LoginFormComponent implements OnInit {
           else {
             this.erro = error.code;
           }
-        });    
-    else {      
-      this.appService.afAuth.auth.createUserWithEmailAndPassword(
+        });
+    } else {
+      this.appService.afAuth.createUserWithEmailAndPassword(
         this.email.trim(), this.password)
         .then(ok => {
           this.toggleDisplay(); // Send verification e-mail and enable loggin
@@ -119,25 +128,25 @@ export class LoginFormComponent implements OnInit {
         })
         .catch(error => {
           if (error.code === "auth/email-already-in-use") {
-            this.appService.afAuth.auth.fetchSignInMethodsForEmail(this.email).then(providers => {
-              this.erro = this.appService.language.e17.replace('$input$',providers[0].replace('.com',''));       
+            this.appService.afAuth.fetchSignInMethodsForEmail(this.email).then(providers => {
+              this.erro = this.appService.language.e17.replace('$input$', providers[0].replace('.com', ''));
               this.pendingCred = auth.EmailAuthProvider.credential(this.email, this.password);
               this.pendingMail = this.email;
             });
-          }    
+          }
           else
-            this.erro = this.appService.language.e4; 
+            this.erro = this.appService.language.e4;
         });
-      }
-  } 
+    }
+  }
 
   forgot() {
-    if (!this.email)  {
+    if (!this.email) {
       this.erro = this.appService.language.e3;
       navigator.vibrate([500]);
     } else {
-      auth().useDeviceLanguage(); 
-      this.appService.afAuth.auth.sendPasswordResetEmail(this.email).then(() => {
+      this.appService.afAuth.useDeviceLanguage();
+      this.appService.afAuth.sendPasswordResetEmail(this.email).then(() => {
         this.erro = this.appService.language.m3;
       }).catch((err) => {
         this.erro = this.appService.language.e13;

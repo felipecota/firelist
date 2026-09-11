@@ -1,5 +1,5 @@
 import { Injectable, NgZone } from '@angular/core';
-import { Observable, of, merge} from 'rxjs'
+import { Observable, of, merge } from 'rxjs'
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
@@ -9,7 +9,7 @@ import { map } from 'rxjs/operators';
 import { languages } from '../environments/language';
 
 // The @Injectable() decorator tells TypeScript to emit metadata about the service. The metadata specifies that Angular may need to inject other dependencies into this service.
-@Injectable() 
+@Injectable()
 export class AppService {
 
     isConnected: Observable<boolean>;
@@ -38,7 +38,7 @@ export class AppService {
                 this.language = languages.find(element => { return element.name == 'fr'});
             else
                 this.language = languages.find(element => { return element.name == 'en'});
-        }  
+        }
 
         this.isConnected = merge(
             of(navigator.onLine),
@@ -46,46 +46,48 @@ export class AppService {
             fromEvent(window, 'offline').pipe(map(() => false))
         );
 
-        this.afAuth.auth.onAuthStateChanged(user => {
-            if (user) {               
+        this.afAuth.authState.subscribe(user => {
+            if (user) {
                 this.isEmailVerified = user.emailVerified;
+
                 if (user.emailVerified || user.providerData[0].providerId != "password") {
                     this.login(user);
                 } else {
-                    this.afAuth.auth.useDeviceLanguage(); 
+                    this.afAuth.useDeviceLanguage();
                     user.sendEmailVerification();
-                }                
-            } else {                 
+                }
+            } else {
                 this.user = undefined;
-                this.isSignin = false; 
-            } 
+                this.isSignin = false;
+            }
         });
-            
     }
 
     login(user){
         this.user = user;
-        this.isSignin = true;  
+        this.isSignin = true;
+
         if (this.router.url != "/delete") {
-            let lastroute = localStorage.getItem('lastroute');        
+            let lastroute = localStorage.getItem('lastroute');
             if (lastroute == "/login" || lastroute == undefined)
                 lastroute = "/menu";
+
             this.ngZone.run(() => this.router.navigate([lastroute]));
         }
     }
 
     language_set(lang) {
-        localStorage.setItem('lang', lang);        
+        localStorage.setItem('lang', lang);
         this.language = languages.find(element => { return element.name == lang});
     }
-  
+
     display_error(msg) {
         this.erro = msg;
         if (msg != ""){
             navigator.vibrate([500]);
             setTimeout(() => {
-                window.scrollTo(0, document.body.scrollHeight);                 
-            }, 100);       
-        }  
+                window.scrollTo(0, document.body.scrollHeight);
+            }, 100);
+        }
     }
 }
