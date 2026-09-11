@@ -4,6 +4,8 @@ This project was generated with [Angular](https://angular.io/)
 
 Live at: https://felipecota.github.io
 
+Para produção rodar o producao.sh
+
 ## Development server
 
 Run `git clone https://github.com/felipecota/firelist` to clone this repository

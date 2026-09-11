@@ -1,6 +1,6 @@
 #!/bin/bash  
 echo "Build"  
-ng build --prod
+ng build --configuration production
 echo "Limpando produção"
 rm -R producao/*
 echo "Copiando produção"
