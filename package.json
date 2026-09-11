@@ -27,7 +27,7 @@
     "@ng-bootstrap/ng-bootstrap": "7.0.0",
     "core-js": "^3.6.5",
     "crypto-js": "^3.3.0",
-    "firebase": "7.24.0",
+    "firebase": "10.9.0",
     "hammerjs": "^2.0.8",
     "rxjs": "^6.5.3",
     "tslib": "^1.10.0",
